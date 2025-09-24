@@ -1,0 +1,66 @@
+`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Error</title>
+  <link rel="shortcut icon" href="/img/20220128_114911.png" type="image/x-icon">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Foldit:wght@900&display=swap');
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+    }
+
+    #my-video {
+      position: fixed;
+      min-width: 100%;
+      min-height: 100%;
+      filter: blur(1.5px) grayscale(100%);
+    }
+
+    div {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 150px;
+      font-family: 'Foldit', cursive;
+      color: white;
+      opacity: 0.6;
+    }
+
+    h6 {
+      position: absolute;
+      font-size: 40px;
+      font-family: 'Courier New', Courier, monospace;
+      color: white;
+      text-align: center;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <video loop autoplay muted id="my-video">
+    <source src="/img/glitch.mp4" type="video/mp4">
+  </video>
+  <div>
+    <h1>404</h1>
+    <h6>Error</h6>
+  </div>
+</body>
+</html>`
