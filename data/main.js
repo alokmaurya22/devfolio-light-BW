@@ -154,7 +154,7 @@ function renderProjects() {
   if (projectsContainer) {
     projectsContainer.innerHTML = projectsData.map((project, idx) => `
       <div class="text-center" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-        <div class="card border-0 project-card" data-index="${idx}" style="width: 20rem;">
+        <div class="card border-0 project-card mx-auto" data-index="${idx}" style="width: 20rem;">
           <img src="${project.image}" class="card-img-top" alt="${project.title}" data-aos="flip-up" data-aos-delay="300" data-aos-duration="1200">
           <div class="card-body mx-auto">
             <h5 class="card-title fw-bolder" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">${project.title}</h5>

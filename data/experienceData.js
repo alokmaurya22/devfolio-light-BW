@@ -2,7 +2,7 @@ const experienceData = [{
         position: "Software Developer - Full Stack",
         company: "WeKnow Technologies Pvt Ltd",
         companyLink: "https://weknowtech.in/",
-        companyLogo: "images/img-weknow.png",
+        companyLogo: "images/exp-weknow.png",
         duration: "Jan 2023 - Feb 2024",
         responsibilities: [
             "Engineered a streamlined digital solution for KNI Online admissions, cutting down processing time by 66% and creating a better experience for applicants.",
@@ -14,7 +14,7 @@ const experienceData = [{
         position: "Web Developer Trainee",
         company: "Webpro Technologies",
         companyLink: "https://www.webprotechnologies.com/",
-        companyLogo: "images/img-webpro.png",
+        companyLogo: "images/exp-webpro.png",
         duration: "Oct 2022 - Jan 2023",
         responsibilities: [
             "Improved system reliability by managing SaaS upgrades and resolving high-priority bugs for 40+ enterprise clients, boosting uptime and customer satisfaction.",

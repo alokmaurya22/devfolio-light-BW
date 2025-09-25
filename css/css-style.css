@@ -10946,8 +10946,11 @@ h6,
   #projectModal #projectModalSubtitle {
     font-size: 1rem;
   }
-  #projectModal #projectModalDesc,
+  #projectModal #projectModalDesc,  
   #projectModal #projectModalTech {
     font-size: 0.95rem;
   }
+  .projects-carousel .owl-item .card-img-top {
+    filter: grayscale(0%);
+}
 }
