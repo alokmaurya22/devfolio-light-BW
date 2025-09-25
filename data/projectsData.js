@@ -8,6 +8,15 @@ const projectsData = [{
         githubLink: "https://github.com/alokmaurya22/sir_musiz"
     },
     {
+        title: "Extrabite",
+        subtitle: "A Food Donation and Redistribution Platform",
+        description: "Created a web platform connecting surplus food providers with NGOs and individuals, featuring live donation listings, OTP-based pickups, personalized dashboards, and secure role-based access control.",
+        image: "images/pro-extrabite.png",
+        techStack: "React.js, Tailwind CSS, Spring Boot, PostgreSQL, JWT Auth, Docker, Cloudinary, Google Maps API, OpenAI API, many more..",
+        liveLink: "https://extrabite.vercel.app/",
+        githubLink: "https://github.com/alokmaurya22/extrabite-frontend"
+    },
+    {
         title: "Social Sphere",
         subtitle: "A Web-based Social Media Platform",
         description: "Designed and developed a full-stack social media web app with posts, chat, AI assistant, and real-time features, improving user engagement across devices.",
@@ -15,15 +24,6 @@ const projectsData = [{
         techStack: "React.js, Tailwind CSS, Firebase, Firestore, React Router and many more..",
         liveLink: "https://social-sphere-self.vercel.app/",
         githubLink: "https://github.com/alokmaurya22/SocialSphere"
-    },
-    {
-        title: "Extrabite",
-        subtitle: "A Food Donation and Redistribution Platform",
-        description: "Created a web platform connecting surplus food providers with NGOs and individuals, featuring live donation listings, OTP-based pickups, personalized dashboards, and secure role-based access control.",
-        image: "images/extrabite.png",
-        techStack: "React.js, Tailwind CSS, Spring Boot, PostgreSQL, JWT Auth, Docker, Cloudinary, Google Maps API, OpenAI API, many more..",
-        liveLink: "https://extrabite.vercel.app/",
-        githubLink: "https://github.com/alokmaurya22/extrabite-frontend"
     },
     {
         title: "Restro Sathi",
