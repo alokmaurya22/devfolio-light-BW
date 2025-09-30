@@ -16,7 +16,7 @@ const socialData = {
             class: "btn btn-outline-primary mr-4 tilt"
         },
         {
-            href: "https://drive.google.com/file/d/1HKJ4naNJpvnfsy77vTWiuZ-YwFQW6-g4/view?usp=drive_link",
+            href: "https://drive.google.com/open?id=1YWVLEAfu01DdftCqMT7YQXabtCQpkcE3&usp=drive_copy",
             icon: "ph:read-cv-logo-fill",
             text: "Resume",
             class: "btn btn-outline-primary tilt",
@@ -35,4 +35,5 @@ const socialData = {
         email: "er.alokmaurya22@gmail.com",
         phone: "+919519376314"
     }
+
 };
