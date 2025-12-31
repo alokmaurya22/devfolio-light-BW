@@ -1,4 +1,15 @@
 const experienceData = [{
+        position: "Software Developer",
+        company: "Manya Fintech",
+        companyLink: "https://manyafinance.com/",
+        companyLogo: "images/exp-manya.png",
+        duration: "Dec 2025 - Ongoing",
+        responsibilities: [
+            "Working on a AI bassed Application for makeing out the whole athletes journy.",
+                "Working in React Native and Android + ios domain.".   
+            
+        ]
+    },{
         position: "Software Developer - Full Stack",
         company: "WeKnow Technologies Pvt Ltd",
         companyLink: "https://weknowtech.in/",
@@ -21,4 +32,5 @@ const experienceData = [{
             "Assisted in development and quality testing of survey software for 13,000+ societies, ensuring scalability and seamless deployment."
         ]
     }
+
 ];
