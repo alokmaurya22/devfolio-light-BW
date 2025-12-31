@@ -9,7 +9,8 @@ const experienceData = [{
                 "Working in React Native and Android + ios domain.".   
             
         ]
-    },{
+    },
+                        {
         position: "Software Developer - Full Stack",
         company: "WeKnow Technologies Pvt Ltd",
         companyLink: "https://weknowtech.in/",
@@ -34,3 +35,4 @@ const experienceData = [{
     }
 
 ];
+
