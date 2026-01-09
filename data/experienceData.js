@@ -12,7 +12,7 @@ const experienceData = [{
         position: "Software Developer - Full Stack",
         company: "WeKnow Technologies Pvt Ltd",
         companyLink: "https://weknowtech.in/",
-        companyLogo: "images/exp-weknow.png",
+        companyLogo: "images/exp-weknow.webp",
         duration: "Jan 2023 - Feb 2024",
         responsibilities: [
             "Engineered a streamlined digital solution for KNI Online admissions, cutting down processing time by 66% and creating a better experience for applicants.",

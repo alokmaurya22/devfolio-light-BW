@@ -4,7 +4,7 @@ const educationData = [{
         specialization: "Computer Science and Engineering",
         institution: "Dr. RML Avadh University, Ayodhya",
         institutionLink: "http://www.rmlau.ac.in/new/IET.aspx",
-        institutionLogo: "images/edu-rmlau.png",
+        institutionLogo: "images/edu-rmlau.webp",
         duration: "2021 - 2025",
         description: ""
     },
