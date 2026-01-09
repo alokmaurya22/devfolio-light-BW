@@ -64,6 +64,7 @@ function renderAboutSection() {
 function renderEducation() {
   const educationContainer = document.querySelector('#qualification .col-lg-5 .border-left');
   if (educationContainer) {
+    // PERF: add lazy loading + async decoding + explicit dimensions to reduce CLS/TBT.
     educationContainer.innerHTML = educationData.map(edu => `
       <div class="position-relative mb-4">
         <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
@@ -72,7 +73,7 @@ function renderEducation() {
           ${edu.specialization ? `</br><span class="font-weight-medium mb-1 form-control-sm">(${edu.specialization})</span>` : ''}
         </h5>
         <p class="mb-2" data-aos="fade-down" data-aos-delay="550">
-          <img src="${edu.institutionLogo}" width="${edu.degree.includes('Intermediate') ? '35' : edu.degree.includes('High') ? '23' : '20'}" height="${edu.degree.includes('Intermediate') ? '35' : edu.degree.includes('High') ? '23' : '20'}">
+          <img src="${edu.institutionLogo}" width="${edu.degree.includes('Intermediate') ? '35' : edu.degree.includes('High') ? '23' : '20'}" height="${edu.degree.includes('Intermediate') ? '35' : edu.degree.includes('High') ? '23' : '20'}" loading="lazy" decoding="async">
           <a style="color: gray;" href="${edu.institutionLink}" ${edu.institutionLink.startsWith('http') ? 'target="_blank"' : ''}>
             <strong> ${edu.institution}</strong>
           </a> | <small>${edu.duration}</small>
@@ -87,12 +88,13 @@ function renderEducation() {
 function renderExperience() {
   const experienceContainer = document.querySelector('#qualification .col-lg-7 .border-left');
   if (experienceContainer) {
+    // PERF: add lazy loading + async decoding + explicit dimensions to reduce CLS/TBT.
     experienceContainer.innerHTML = experienceData.map(exp => `
       <div class="position-relative mb-4">
         <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
         <h5 class="font-weight-bold mb-1" data-aos="fade-right" data-aos-delay="400">${exp.position}</h5>
         <p class="mb-2" data-aos="fade-right" data-aos-delay="550">
-          <img src="${exp.companyLogo}" width="${exp.company.includes('WeKnow') ? '125' : '145'}" height="25">
+          <img src="${exp.companyLogo}" width="${exp.company.includes('WeKnow') ? '125' : '145'}" height="25" loading="lazy" decoding="async">
           <strong><a style="color: gray;" href="${exp.companyLink}" target="_blank">${exp.company.includes('Webpro') ? '&nbsp; ' : ''}${exp.company}</a></strong> | 
           <small>${exp.duration}</small>
         </p>
@@ -152,10 +154,11 @@ function renderSkills() {
 function renderProjects() {
   const projectsContainer = document.querySelector('.projects-carousel');
   if (projectsContainer) {
+    // PERF: add intrinsic dimensions + lazy loading for project images to prevent CLS.
     projectsContainer.innerHTML = projectsData.map((project, idx) => `
       <div class="text-center" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
         <div class="card border-0 project-card mx-auto" data-index="${idx}" style="width: 20rem;">
-          <img src="${project.image}" class="card-img-top" alt="${project.title}" data-aos="flip-up" data-aos-delay="300" data-aos-duration="1200">
+          <img src="${project.image}" class="card-img-top" alt="${project.title}" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" data-aos="flip-up" data-aos-delay="300" data-aos-duration="1200">
           <div class="card-body mx-auto">
             <h5 class="card-title fw-bolder" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">${project.title}</h5>
             <h6 class="card-Discription fw-semibold" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">${project.subtitle}</h6>
@@ -184,7 +187,12 @@ function openProjectModal(index) {
   if (!p) return;
   // Fill modal fields
   $('#projectModalLabel').text(p.title);
-  $('#projectModalImg').attr('src', p.image).attr('alt', p.title);
+  // PERF: apply intrinsic dimensions to avoid layout shift in modal.
+  var $modalImg = $('#projectModalImg');
+  $modalImg.attr('src', p.image).attr('alt', p.title);
+  if (p.width && p.height) {
+    $modalImg.attr('width', p.width).attr('height', p.height);
+  }
   $('#projectModalSubtitle').text(p.subtitle || '');
   $('#projectModalDesc').text(p.description || '');
   $('#projectModalTech').html(p.techStack ? `<iconify-icon icon="streamline-color:file-code-1-flat"></iconify-icon> ${p.techStack}` : '');
@@ -198,10 +206,11 @@ function openProjectModal(index) {
 function renderCertifications() {
   const certContainer = document.querySelector('.testimonial-carousel');
   if (certContainer) {
+    // PERF: add intrinsic dimensions + lazy loading for certificate images to prevent CLS.
     certContainer.innerHTML = certificationData.map(cert => `
       <div class="text-center certificate-view">
         <a href="${cert.link}" target="_blank" rel="noopener" title="View Certificate">
-          <img class="img-fluid rounded mx-auto d-block" src="${cert.image}" alt="${cert.title}" style="max-width: 450px; height: auto;" />
+          <img class="img-fluid rounded mx-auto d-block" src="${cert.image}" alt="${cert.title}" width="${cert.width}" height="${cert.height}" loading="lazy" decoding="async" style="max-width: 450px; height: auto;" />
         </a>
       </div>
     `).join('');

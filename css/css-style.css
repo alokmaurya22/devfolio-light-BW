@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&display=swap');
+/* PERF: removed duplicate/unused font imports to reduce render-blocking requests. */
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@1&display=swap');
 

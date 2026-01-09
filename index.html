@@ -7,37 +7,164 @@
     <meta name="description" content="Alok Maurya portfolio website | Software Engineer | Web Developer | Full Stack Developer">
     <meta name="author" content="Alok Maurya">
     <meta name="keywords" content="HTML, CSS, JavaScript, Who is Alok Maurya, Alok Maurya, Who is Alok22, Who is alok22, alok22portfolio">
+    <!-- perf: preconnect to critical origins to reduce connection latency -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdn.lineicons.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <!-- perf: preload LCP hero image for earlier discovery -->
+    <link rel="preload" as="image" href="images/img-about.webp" imagesrcset="images/img-about.webp 837w, images/img-about5.webp 595w" imagesizes="(min-width: 992px) 50vw, 90vw">
+    <!-- perf: inline critical above-the-fold CSS to improve FCP -->
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html { font-family: sans-serif; line-height: 1.15; -webkit-text-size-adjust: 100%; }
+        body {
+            margin: 0;
+            font-family: "Roboto", sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #6c757d;
+            background-color: #ffffff;
+            background-image: url("https://www.transparenttextures.com/patterns/diamond-eyes.png");
+            overflow-x: hidden;
+        }
+        img { border-style: none; }
+        #particles-js { min-height: 100vh; }
+        .container { width: 100%; padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; }
+        @media (min-width: 576px) { .container { max-width: 540px; } }
+        @media (min-width: 768px) { .container { max-width: 720px; } }
+        @media (min-width: 992px) { .container { max-width: 960px; } }
+        @media (min-width: 1200px) { .container { max-width: 1140px; } }
+        .row { display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px; }
+        .col-lg-5, .col-lg-7 { position: relative; width: 100%; padding-right: 15px; padding-left: 15px; }
+        @media (min-width: 992px) {
+            .col-lg-5 { flex: 0 0 41.66667%; max-width: 41.66667%; }
+            .col-lg-7 { flex: 0 0 58.33333%; max-width: 58.33333%; }
+        }
+        .img-fluid { max-width: 100%; height: auto; }
+        .rounded { border-radius: 0.25rem; }
+        .navbar {
+            padding: 0.5rem 1rem;
+            margin-top: 0.5rem;
+            margin-left: 2rem;
+            margin-right: 2rem;
+            border: 0.1px solid #000000;
+            border-radius: 30px;
+            background-color: rgba(255, 255, 255, 0.742);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .fixed-top { position: fixed; top: 0; right: 0; left: 0; z-index: 1030; }
+        .shadow-sm { box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075); }
+        .navbar-brand { display: inline-block; margin-right: 1rem; font-size: 1.25rem; line-height: inherit; white-space: nowrap; }
+        .navbar-nav { display: flex; flex-direction: column; padding-left: 0; margin-bottom: 0; list-style: none; }
+        .navbar-collapse { flex-basis: 100%; flex-grow: 1; align-items: center; }
+        .navbar-toggler { padding: 0.25rem 0.75rem; font-size: 1.25rem; line-height: 1; border: 1px solid transparent; border-radius: 0.25rem; background-color: transparent; }
+        @media (min-width: 992px) {
+            .navbar-expand-lg { flex-flow: row nowrap; }
+            .navbar-expand-lg .navbar-nav { flex-direction: row; }
+            .navbar-expand-lg .navbar-collapse { display: flex !important; flex-basis: auto; }
+        }
+        .btn { display: inline-block; font-weight: 400; text-align: center; border: 1px solid transparent; padding: 10px 25px; border-radius: 100px; }
+        .btn-outline-primary { color: #000000; border-color: #000000; background-color: transparent; }
+        .d-none { display: none !important; }
+        .d-lg-block { display: none !important; }
+        @media (min-width: 992px) { .d-lg-block { display: block !important; } }
+        .align-items-center { align-items: center !important; }
+        .mt-0 { margin-top: 0 !important; }
+        .pt-0 { padding-top: 0 !important; }
+        .pb-0 { padding-bottom: 0 !important; }
+        .mb-2 { margin-bottom: 0.5rem !important; }
+        .mb-3 { margin-bottom: 1rem !important; }
+        .mb-4 { margin-bottom: 1.5rem !important; }
+        @media (min-width: 992px) {
+            .pb-lg-0 { padding-bottom: 0 !important; }
+            .px-lg-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+            .justify-content-lg-start { justify-content: flex-start !important; }
+            .py-lg-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+        }
+        .py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+        .text-muted { color: #6c757d !important; }
+        .profile-img {
+            transform: scale(1.6);
+            margin-left: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            height: auto;
+            width: 100%;
+            aspect-ratio: 837 / 1024;
+        }
+        @media (min-width: 576px) { .profile-img { transform: scale(1.4); margin-left: 0; } }
+        @media (min-width: 768px) { .profile-img { transform: scale(1.3); margin-left: 0; } }
+        @media (min-width: 992px) {
+            .profile-img {
+                transform: scale(1.7) !important;
+                margin-left: -80px;
+                margin-top: 1.75rem;
+                margin-bottom: 1.5rem;
+                height: 100%;
+                aspect-ratio: 595 / 1057;
+            }
+        }
+        @media (min-width: 1200px) {
+            .profile-img {
+                transform: scale(1.7) !important;
+                margin-left: -90px;
+                margin-top: 1.75rem;
+                margin-bottom: 1.5rem;
+                height: 100%;
+                aspect-ratio: 595 / 1057;
+            }
+        }
+    </style>
     <!-- shery -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sheryjs/dist/Shery.css">
+    <!-- perf: async-load non-critical stylesheets (with noscript fallback) -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/sheryjs/dist/Shery.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sheryjs/dist/Shery.css"></noscript>
     <!-- particles -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     
     <!-- <link href="img/favicon.ico" rel="icon"> -->
     <link rel="icon" type="image/png" sizes="1500x200" href="favicons/Logo.webp">
-    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
-    <script src="js/1.0.1-iconify-icon.min.js"></script>
+    <link rel="preload" href="https://cdn.lineicons.com/3.0/lineicons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css"></noscript>
+    <!-- perf: defer iconify loader to avoid parser blocking -->
+    <script defer src="js/1.0.1-iconify-icon.min.js"></script>
 
     <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
-    <link href="https://api.fontshare.com/v2/css?f%5B%5D=panchang@500,700,400,600&amp;display=swap" rel="stylesheet">
-    <link href="https://api.fontshare.com/v2/css?f%5B%5D=quicksand@400&amp;display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" href="https://api.fontshare.com/v2/css?f%5B%5D=panchang@500,700,400,600&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://api.fontshare.com/v2/css?f%5B%5D=panchang@500,700,400,600&amp;display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" href="https://api.fontshare.com/v2/css?f%5B%5D=quicksand@400&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://api.fontshare.com/v2/css?f%5B%5D=quicksand@400&amp;display=swap" rel="stylesheet"></noscript>
 
     <!-- Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&amp;display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Finger+Paint&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Finger+Paint&amp;display=swap" rel="stylesheet"></noscript>
 
     <!-- Libraries Stylesheet -->
-    <link href="css/assets-owl.carousel.min.css" rel="stylesheet">
-    <link href="css/css-lightbox.min.css" rel="stylesheet">
+    <link rel="preload" href="css/assets-owl.carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="css/assets-owl.carousel.min.css" rel="stylesheet"></noscript>
+    <link rel="preload" href="css/css-lightbox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="css/css-lightbox.min.css" rel="stylesheet"></noscript>
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/css-style.css" rel="stylesheet">
+    <link rel="preload" href="css/css-style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="css/css-style.css" rel="stylesheet"></noscript>
 
     <!-- scoll -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
     
     <!-- kursor-->
-    <link rel="stylesheet" href="css/css-kursur.css">
+    <link rel="preload" href="css/css-kursur.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/css-kursur.css"></noscript>
 </head>
 
 <body data-offset="51" data-target=".navbar" data-spy="scroll" style="overflow-x: hidden; visibility: visible;" title="What are you waiting for? Keep Scrolling! ;)" data-aos-easing="ease" data-aos-duration="1000" data-aos-delay="200" class="notCursor">
@@ -76,7 +203,8 @@
                             <!-- Large screen ke liye -->
                             <source srcset="images/img-about5.webp" media="(min-width: 992px)">
                             <!-- Default (mobile + tablet) -->
-                            <img title="Hey, Nice to meet you :)" class="profile-img mask-target img-fluid rounded" data-aos="fade-right" data-aos-delay="600" src="images/img-about.webp" alt="Web Browser not supported profile image">
+                            <!-- perf: LCP image dimensions + priority for faster LCP and no CLS -->
+                            <img title="Hey, Nice to meet you :)" class="profile-img mask-target img-fluid rounded" data-aos="fade-right" data-aos-delay="600" src="images/img-about.webp" width="837" height="1024" loading="eager" decoding="async" fetchpriority="high" alt="Web Browser not supported profile image">
                         </picture>
                     </div>
                     </br>
@@ -275,7 +403,8 @@
         <!-- Bottom Signature -->
         <footer class="page-footer">
             <a href="#About" class="nav-item nav-link">
-                <img width="60" height="40" src="images/img-sig.webp" alt="Alok Signature Logo">
+                <!-- perf: lazy-load footer image to reduce initial network -->
+                <img width="60" height="40" src="images/img-sig.webp" loading="lazy" decoding="async" alt="Alok Signature Logo">
             </a>
         </footer>
         <!-- Bottom Signature -->
@@ -302,7 +431,8 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <img id="projectModalImg" class="img-fluid rounded mb-3" alt="Project image" />
+                    <!-- perf: reserve modal image space to prevent CLS -->
+                    <img id="projectModalImg" class="img-fluid rounded mb-3" width="2849" height="1564" loading="lazy" decoding="async" alt="Project image" />
                     <h5 class="modal-title text-center" id="projectModalLabel">Project</h5>
                     <h6 id="projectModalSubtitle" class="text-muted mb-2"></h6>
                     <p id="projectModalDesc" class="mb-2" style="font-family: 'Caveat', cursive;"></p>
@@ -329,178 +459,230 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-outline-dark px-0 back-to-top"><i class="lni lni-angle-double-up"></i></a>
     
-        <script src="js/dist-locomotive-scroll.js"></script>
-        <script src="js/3.12.2-gsap.min.js"></script>
+        <!-- perf: defer external scripts to reduce main-thread blocking -->
+        <script defer src="js/dist-locomotive-scroll.js"></script>
+        <script defer src="js/3.12.2-gsap.min.js"></script>
         <!-- Scroll Trigger is needed for Scroll Effects -->
-        <script src="js/3.12.2-ScrollTrigger.min.js"></script>
+        <script defer src="js/3.12.2-ScrollTrigger.min.js"></script>
         <!-- Three.js is needed for 3d Effects -->
-        <script src="js/0.158.0-three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script defer src="js/0.158.0-three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- ControlKit is needed for Debug Panel -->
-        <script src="js/bin-controlKit.min.js"></script>
-        <script type="text/javascript" src="js/dist-Shery.js"></script>
+        <script defer src="js/bin-controlKit.min.js"></script>
+        <script defer type="text/javascript" src="js/dist-Shery.js"></script>
     
         <!-- JavaScript Libraries -->
-        <script src="js/jquery-3.4.1.min.js"></script>
-        <script src="js/js-bootstrap.bundle.min.js"></script>
-        <script src="js/typed-typed.min.js"></script>
-        <script src="js/easing-easing.min.js"></script>
-        <script src="js/waypoints-waypoints.min.js"></script>
-        <script src="js/owlcarousel-owl.carousel.min.js"></script>
-        <script src="js/isotope-isotope.pkgd.min.js"></script>
-        <script src="js/js-lightbox.min.js"></script>
+        <script defer src="js/jquery-3.4.1.min.js"></script>
+        <script defer src="js/js-bootstrap.bundle.min.js"></script>
+        <script defer src="js/typed-typed.min.js"></script>
+        <script defer src="js/easing-easing.min.js"></script>
+        <script defer src="js/waypoints-waypoints.min.js"></script>
+        <script defer src="js/owlcarousel-owl.carousel.min.js"></script>
+        <script defer src="js/isotope-isotope.pkgd.min.js"></script>
+        <script defer src="js/js-lightbox.min.js"></script>
     
         <!-- Contact Javascript File -->
-        <script src="js/862-mail-jqBootstrapValidation.min.js"></script>
-        <script src="js/2653-mail-contact.js"></script>
+        <script defer src="js/862-mail-jqBootstrapValidation.min.js"></script>
+        <script defer src="js/2653-mail-contact.js"></script>
     
         <!-- scroll -->
-        <script src="js/dist-aos.js"></script>
+        <script defer src="js/dist-aos.js"></script>
 
         <script>
-            AOS.init({
-                duration: 1000,
-                offset: 120,
-                delay: 200,
-                mirror: true,
-                smooth: true
+            // PERF: defer AOS init until after first paint to cut TBT.
+            window.addEventListener('load', function() {
+                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
+                perfIdle(function() {
+                    if (window.AOS) {
+                        AOS.init({
+                            duration: 1000,
+                            offset: 120,
+                            delay: 200,
+                            mirror: true,
+                            smooth: true
+                        });
+                    }
+                });
             });
         </script>
     
     
         <!-- Template Javascript -->
-        <script src="js/2967-js-main.js"></script>
-        <script src="js/3.11.3-gsap.min.js"></script>
-        <script src="js/3.11.3-ScrollTrigger.min.js"></script>
-        <script src="js/4694-js-a.js"></script>
+        <script defer src="js/2967-js-main.js"></script>
+        <script defer src="js/3.11.3-gsap.min.js"></script>
+        <script defer src="js/3.11.3-ScrollTrigger.min.js"></script>
+        <script defer src="js/4694-js-a.js"></script>
     
     
-        <script src="js/489-js-locomotive-scroll.min.js"></script>
+        <script defer src="js/489-js-locomotive-scroll.min.js"></script>
         <script>
-            (function() {
-                var scroll = new LocomotiveScroll();
-            })();
+            // PERF: defer LocomotiveScroll init until idle to reduce blocking.
+            window.addEventListener('load', function() {
+                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
+                perfIdle(function() {
+                    if (window.LocomotiveScroll) {
+                        var scroll = new LocomotiveScroll();
+                    }
+                });
+            });
         </script>
     
         <!-- Particles-->
-        <script src="js/9547-js-particles.min.js"></script>
+        <script defer src="js/9547-js-particles.min.js"></script>
     
         <!-- tilt -->
-        <script src="js/8202-js-vanilla-tilt.js"></script>
+        <script defer src="js/8202-js-vanilla-tilt.js"></script>
     
     
-        <script src="js/particles-app.js"></script>
+        <script defer src="js/particles-app.js"></script>
     
         <script>
-            VanillaTilt.init(document.querySelectorAll(".tilt"), {
-                reverse: true,
-                max: 15,
-                perspective: 1000,
-                easing: "cubic-bezier(.03,.98,.52,.99)",
-                scale: 1,
-                speed: 500,
-                transition: true,
-                axis: null,
-                glare: true,
-                "max-glare": 20,
-                "glare-prerender": false,
-                "mouse-event-element": null,
-                reset: true
+            // PERF: delay tilt initialization until idle.
+            window.addEventListener('load', function() {
+                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
+                perfIdle(function() {
+                    if (window.VanillaTilt) {
+                        VanillaTilt.init(document.querySelectorAll(".tilt"), {
+                            reverse: true,
+                            max: 15,
+                            perspective: 1000,
+                            easing: "cubic-bezier(.03,.98,.52,.99)",
+                            scale: 1,
+                            speed: 500,
+                            transition: true,
+                            axis: null,
+                            glare: true,
+                            "max-glare": 20,
+                            "glare-prerender": false,
+                            "mouse-event-element": null,
+                            reset: true
+                        });
+                    }
+                });
             });
         </script>
     
         <!-- kursur -->
-        <script src="js/7907-js-kur2.js"></script>
-        <script src="js/2568-js-kur3.js"></script>
-        <script src="js/9495-js-kursor.js"></script>
+        <script defer src="js/7907-js-kur2.js"></script>
+        <script defer src="js/2568-js-kur3.js"></script>
+        <script defer src="js/9495-js-kursor.js"></script>
         <script>
-            new kursor({
-                type: 4,
-                removeDefaultCursor: true
-            })
+            // PERF: delay cursor effects until idle.
+            window.addEventListener('load', function() {
+                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
+                perfIdle(function() {
+                    if (window.kursor) {
+                        new kursor({
+                            type: 4,
+                            removeDefaultCursor: true
+                        });
+                    }
+                });
+            });
         </script>
 
         <!-- Impress-->
-        <script src="js/6659-js-impress.js"></script>
-        <script src="js/3.0.1-iconify.min.js"></script>
+        <script defer src="js/6659-js-impress.js"></script>
+        <script defer src="js/3.0.1-iconify.min.js"></script>
         <script>
-            document.addEventListener('contextmenu', event => event.preventDefault());
-            document.onkeydown = function(e) {
-                if (event.keyCode == 123) {
-                    return false;
+            // PERF: bind non-critical listeners after DOM is ready.
+            document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('contextmenu', event => event.preventDefault());
+                document.onkeydown = function(e) {
+                    if (event.keyCode == 123) {
+                        return false;
+                    }
+                    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                        return false;
+                    }
+                    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                        return false;
+                    }
+                    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                        return false;
+                    }
                 }
-                if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-                    return false;
-                }
-                if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-                    return false;
-                }
-                if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-                    return false;
-                }
-            }
+            });
         </script>
     
         <script>
-            $(function() {
-                if ($('.projects-carousel').length) {
-                    $('.projects-carousel').owlCarousel({
-                        autoplay: true,
-                        smartSpeed: 700,
-                        dots: true,
-                        loop: true,
-                        center: true,
-                        margin: 20,
-                        responsive: {
-                            0: {
-                                items: 1,
-                                center: false
-                            },
-                            768: {
-                                items: 2,
-                                center: false
-                            },
-                            992: {
-                                items: 3,
-                                center: true
-                            }
+            // PERF: delay carousel init until idle after load.
+            window.addEventListener('load', function() {
+                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
+                perfIdle(function() {
+                    if (window.jQuery && $.fn.owlCarousel) {
+                        if ($('.projects-carousel').length) {
+                            $('.projects-carousel').owlCarousel({
+                                autoplay: true,
+                                smartSpeed: 700,
+                                dots: true,
+                                loop: true,
+                                center: true,
+                                margin: 20,
+                                responsive: {
+                                    0: {
+                                        items: 1,
+                                        center: false
+                                    },
+                                    768: {
+                                        items: 2,
+                                        center: false
+                                    },
+                                    992: {
+                                        items: 3,
+                                        center: true
+                                    }
+                                }
+                            });
                         }
-                    });
-                }
+                    }
+                });
             });
         </script>
 
     <!-- Data scripts for dynamic content -->
-    <script src="data/navigationData.js"></script>
-    <script src="data/socialData.js"></script>
-    <script src="data/educationData.js"></script>
-    <script src="data/experienceData.js"></script>
-    <script src="data/skillData.js"></script>
-    <script src="data/projectsData.js"></script>
-    <script src="data/certificationData.js"></script>
-    <script src="data/interestData.js"></script>
-    <script src="data/extraCurricularData.js"></script>
-    <script src="data/main.js"></script>
+    <script defer src="data/navigationData.js"></script>
+    <script defer src="data/socialData.js"></script>
+    <script defer src="data/educationData.js"></script>
+    <script defer src="data/experienceData.js"></script>
+    <script defer src="data/skillData.js"></script>
+    <script defer src="data/projectsData.js"></script>
+    <script defer src="data/certificationData.js"></script>
+    <script defer src="data/interestData.js"></script>
+    <script defer src="data/extraCurricularData.js"></script>
+    <script defer src="data/main.js"></script>
 
     <script>
-      // Initialize after data loads
-      $(document).ready(function () {
-        function checkDataAndInitialize() {
-          if (typeof navigationData !== 'undefined' &&
-              typeof socialData !== 'undefined' &&
-              typeof educationData !== 'undefined' &&
-              typeof experienceData !== 'undefined' &&
-              typeof skillData !== 'undefined' &&
-              typeof projectsData !== 'undefined' &&
-              typeof certificationData !== 'undefined' &&
-              typeof interestData !== 'undefined' &&
-              typeof extraCurricularData !== 'undefined' &&
-              typeof initializeAllData === 'function') {
-            initializeAllData();
-          } else {
-            setTimeout(checkDataAndInitialize, 100);
+      // PERF: wait for deferred JS + data before initializing dynamic content.
+      window.addEventListener('DOMContentLoaded', function() {
+        var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
+        perfIdle(function() {
+          function initWhenReady() {
+            if (window.jQuery) {
+              $(document).ready(function () {
+                function checkDataAndInitialize() {
+                  if (typeof navigationData !== 'undefined' &&
+                      typeof socialData !== 'undefined' &&
+                      typeof educationData !== 'undefined' &&
+                      typeof experienceData !== 'undefined' &&
+                      typeof skillData !== 'undefined' &&
+                      typeof projectsData !== 'undefined' &&
+                      typeof certificationData !== 'undefined' &&
+                      typeof interestData !== 'undefined' &&
+                      typeof extraCurricularData !== 'undefined' &&
+                      typeof initializeAllData === 'function') {
+                    initializeAllData();
+                  } else {
+                    setTimeout(checkDataAndInitialize, 100);
+                  }
+                }
+                checkDataAndInitialize();
+              });
+            } else {
+              setTimeout(initWhenReady, 50);
+            }
           }
-        }
-        checkDataAndInitialize();
+          initWhenReady();
+        });
       });
     </script>
 </body>

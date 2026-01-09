@@ -1,11 +1,17 @@
-window.onload = function() {
-    Particles.init({
-        selector: '.background',
-        speed: '2',
-        sizeVariations: '2',
-        color: '#ffffff',
+// PERF: delay particles initialization until after load/idle to reduce TBT.
+window.addEventListener('load', function() {
+    var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
+    perfIdle(function() {
+        if (window.Particles && document.querySelector('.background')) {
+            Particles.init({
+                selector: '.background',
+                speed: '2',
+                sizeVariations: '2',
+                color: '#ffffff',
+            });
+        }
     });
-};
+});
 // block inspect - DISABLED
 
 document.addEventListener('contextmenu', function(e) {
@@ -157,9 +163,17 @@ document.onreadystatechange = function() {
 
 })(jQuery);
 
-const scroll = new LocomotiveScroll({
-    el: document.querySelector("[data-scroll-container]"),
-    smooth: true,
-    tablet: { smooth: true },
-    smartphone: { smooth: true }
+// PERF: initialize smooth scroll after load/idle to reduce main-thread work.
+window.addEventListener('load', function() {
+    var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
+    perfIdle(function() {
+        if (window.LocomotiveScroll) {
+            const scroll = new LocomotiveScroll({
+                el: document.querySelector("[data-scroll-container]"),
+                smooth: true,
+                tablet: { smooth: true },
+                smartphone: { smooth: true }
+            });
+        }
+    });
 });
