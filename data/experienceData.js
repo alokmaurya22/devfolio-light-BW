@@ -1,5 +1,5 @@
 const experienceData = [{
-        position: "Software Developer",
+        position: "Software Developement Engineer",
         company: "Manya Fintech",
         companyLink: "https://manyafintech.in/",
         companyLogo: "images/exp-manya.png",
