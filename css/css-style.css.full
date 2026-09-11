@@ -10911,7 +10911,8 @@ h6,
 /* Mobile-only: tighten vertical spacing between sections */
 @media (max-width: 576px) {
   /* Reduce section paddings (override Bootstrap py-5) */
-  #about,
+  /* #about is excluded on purpose: it needs room for the fixed navbar,
+     see the hero framing block at the end of this file. */
   #qualification,
   #skill,
   #portfolio,
@@ -11013,5 +11014,59 @@ h6,
 
     .progress .progress-bar {
         transition: none !important;
+    }
+}
+
+/* =====================
+   Hero framing (desktop)
+   The portrait used to be blown up with transform: scale(1.7), which pushed its
+   visual box 250px above and below its layout box - so the top of the head sat
+   behind the fixed navbar. The hero section was also only as tall as its
+   content (843px), letting the next section peek above the fold.
+
+   Now: the section fills the viewport, content clears the navbar, and the
+   portrait is sized to the space that is actually available.
+   ===================== */
+@media (max-width: 991.98px) {
+    #about {
+        /* the fixed navbar (53px tall here + 8px margin) would overlap the portrait */
+        padding-top: 84px !important;
+        padding-bottom: 24px !important;
+    }
+
+    .profile-img {
+        transform: none !important;
+        margin: 0 auto !important;
+        display: block;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100%;
+        max-height: 58vh;
+    }
+}
+
+@media (min-width: 992px) {
+    #about {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        /* clear the fixed navbar: 60px tall + 8px top margin + breathing room */
+        padding-top: 96px;
+        padding-bottom: 24px;
+        overflow: hidden;
+    }
+
+    #about > .container {
+        width: 100%;
+    }
+
+    .profile-img {
+        transform: none !important;
+        margin: 0 auto !important;
+        display: block;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100%;
+        max-height: calc(100vh - 140px);
     }
 }

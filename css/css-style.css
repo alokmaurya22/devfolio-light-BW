@@ -2469,8 +2469,7 @@ h5 .font-weight-medium{
   }}
 
 
-@media (max-width: 576px) {#about,
-  #qualification,
+@media (max-width: 576px) {#qualification,
   #skill,
   #portfolio,
   #certification,
@@ -2539,4 +2538,39 @@ h5 .font-weight-medium{
         animation: none !important;
     }.progress .progress-bar{
         transition: none !important;
+    }}
+
+
+@media (max-width: 991.98px) {#about{
+        
+        padding-top: 84px !important;
+        padding-bottom: 24px !important;
+    }.profile-img{
+        transform: none !important;
+        margin: 0 auto !important;
+        display: block;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100%;
+        max-height: 58vh;
+    }}
+
+@media (min-width: 992px) {#about{
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        
+        padding-top: 96px;
+        padding-bottom: 24px;
+        overflow: hidden;
+    }#about > .container{
+        width: 100%;
+    }.profile-img{
+        transform: none !important;
+        margin: 0 auto !important;
+        display: block;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100%;
+        max-height: calc(100vh - 140px);
     }}

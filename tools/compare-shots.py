@@ -21,7 +21,9 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(ROOT, '.shots')
 CHROME = os.environ.get('CHROME', r'C:\Program Files\Google\Chrome\Application\chrome.exe')
-WIDTHS = (1440, 1024, 760)
+# width x height: real viewport sizes - a tall probe iframe would make any
+# 100vh rule meaningless (the hero is sized in vh)
+VIEWPORTS = ((1440, 900), (1024, 768), (760, 1000))
 TOLERANCE = 1.0  # px
 
 LANDMARKS = [
@@ -34,7 +36,7 @@ LANDMARKS = [
 
 PROBE = """
 <!DOCTYPE html><html><body style="margin:0">
-<iframe id="f" src="/index.html" style="width:%dpx;height:5200px;border:0"></iframe>
+<iframe id="f" src="/index.html" style="width:%dpx;height:%dpx;border:0"></iframe>
 <pre id="out">pending</pre>
 <script>
 document.getElementById('f').addEventListener('load', function () {
@@ -56,10 +58,10 @@ document.getElementById('f').addEventListener('load', function () {
 """
 
 
-def measure(width):
+def measure(width, height):
     probe_path = os.path.join(ROOT, '_layout_probe.html')
     with open(probe_path, 'w', encoding='utf-8') as handle:
-        handle.write(PROBE % (width, json.dumps(LANDMARKS)))
+        handle.write(PROBE % (width, height, json.dumps(LANDMARKS)))
     try:
         proc = subprocess.run([
             CHROME, '--headless=new', '--disable-gpu', '--no-sandbox',
@@ -84,9 +86,9 @@ def main():
         os.makedirs(OUT_DIR)
 
     data = {}
-    for width in WIDTHS:
-        print('  measuring at %dpx...' % width)
-        data[str(width)] = measure(width)
+    for width, height in VIEWPORTS:
+        print('  measuring at %dx%d...' % (width, height))
+        data[str(width)] = measure(width, height)
     path = os.path.join(OUT_DIR, 'layout-%s.json' % label)
     json.dump(data, open(path, 'w'), indent=1)
     print('wrote %s' % os.path.relpath(path, ROOT))
@@ -102,7 +104,7 @@ def main():
     before = json.load(open(before_path))
 
     problems = 0
-    for width in WIDTHS:
+    for width, height in VIEWPORTS:
         key = str(width)
         for sel in LANDMARKS + ['__docHeight', '__docWidth']:
             was, now = before[key].get(sel), data[key].get(sel)
@@ -125,7 +127,7 @@ def main():
 
     print()
     if problems == 0:
-        print('VERDICT: layout identical at %s' % ', '.join('%dpx' % w for w in WIDTHS))
+        print('VERDICT: layout identical at %s' % ', '.join('%dx%d' % v for v in VIEWPORTS))
         return 0
     print('VERDICT: %d landmark(s) moved - inspect before accepting' % problems)
     return 1
