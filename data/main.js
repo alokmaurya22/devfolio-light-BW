@@ -1,6 +1,6 @@
 /**
  * Renders every dynamic section from the data/*.js globals, then initializes the
- * plugins that depend on that markup (AOS, Owl, Typed, skill bars).
+ * plugins that depend on that markup (AOS, Owl carousels, skill bars).
  *
  * Containers are addressed by explicit id — never by Bootstrap class chains, which
  * break silently when the layout is edited.
@@ -48,12 +48,10 @@ function renderAboutSection() {
   const nameElement = document.getElementById('about-name');
   const titleElement = document.getElementById('about-title');
   const descriptionElement = document.getElementById('about-description');
-  const typedTextElement = document.querySelector('.typed-text');
 
   if (nameElement) nameElement.textContent = `Hey, I'm ${socialData.profileInfo.name}`;
   if (titleElement) titleElement.textContent = socialData.profileInfo.title;
   if (descriptionElement) descriptionElement.textContent = socialData.profileInfo.description;
-  if (typedTextElement) typedTextElement.textContent = socialData.profileInfo.typedText;
 
   // Render social buttons
   const buttonsDiv = document.getElementById('about-social');
@@ -439,23 +437,6 @@ function initTextAnimate() {
   }, { threshold: 0.25 }).observe(el);
 }
 
-function initTyped() {
-  const source = document.querySelector('.typed-text');
-  const output = document.querySelector('.typed-text-output');
-  if (!source || !output || typeof Typed === 'undefined') return;
-
-  const strings = source.textContent.split(',').map(s => s.trim()).filter(Boolean);
-  if (!strings.length) return;
-
-  new Typed('.typed-text-output', {
-    strings: strings,
-    typeSpeed: 100,
-    backSpeed: 20,
-    smartBackspace: false,
-    loop: true
-  });
-}
-
 // AOS must be initialized *after* the dynamic markup exists, otherwise the injected
 // elements are never registered and stay at opacity 0 forever.
 function initAOS() {
@@ -531,7 +512,6 @@ function initializeAllData(attempt) {
 
     initCarousels();
     initTextAnimate();
-    initTyped();
     animateSkillBars();
     initAOS();
 

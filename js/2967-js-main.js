@@ -1,7 +1,7 @@
 /**
  * Site behaviour: loader, smooth scrolling, scroll affordances.
  *
- * Carousels, Typed, skill bars and every data-driven section are initialized in
+ * Carousels, skill bars and every data-driven section are initialized in
  * data/main.js — do not duplicate them here (they run before the data is rendered).
  */
 (function () {

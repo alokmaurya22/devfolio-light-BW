@@ -2130,8 +2130,6 @@ a.text-danger:focus{
     color: #a71d2a !important;
 }.text-muted{
     color: #6c757d !important;
-}.text-black-50{
-    color: rgba(0, 0, 0, 0.5) !important;
 }
 
 @media print {*,
@@ -2229,13 +2227,7 @@ h5 .font-weight-medium{
 
 @media (max-width: 991.98px) {.navbar-light .navbar-nav .nav-link{
         padding: 10px 0;
-    }}.typed-cursor{
-    font-size: 1.25rem;
-    color: #6c757d;
-}.typed-line{
-    min-height: 1.6em;
-    font-size: 1.1rem;
-}
+    }}
 
 @keyframes pulse-border {
     0% {
