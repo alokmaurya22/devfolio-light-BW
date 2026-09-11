@@ -19,6 +19,7 @@ local in `js/`.
 ```
 index.html        the site (dynamic sections rendered by data/main.js)
 404.html          error page, self-contained
+robots.txt        allows everything, points crawlers at the sitemap
 sitemap.xml       single URL
 css/              css-style.css is the real stylesheet; owl, aos + kursor CSS alongside
 data/             content data (plain globals) + main.js renderers
