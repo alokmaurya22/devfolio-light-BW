@@ -58,6 +58,10 @@ bugs.md           bug tracker: 51/51 fixed
   new size, update those numbers too.
 - Adding a new data file → add a `<script defer src="data/…">` tag before `data/main.js` **and** add
   the global to `DATA_SOURCES` in `data/main.js`.
+- **After editing any `data/*.js`, re-run `python tools/prerender.py`.** The rendered markup of every
+  section is baked into `index.html` so crawlers and link-preview bots see real content; that copy
+  goes stale otherwise. The data files stay the source of truth - the baked HTML is a cache, and
+  `data/main.js` overwrites it at runtime either way.
 
 ## Render path (do not reorder casually)
 
@@ -73,6 +77,21 @@ bugs.md           bug tracker: 51/51 fixed
 5. On `load`, Owl and AOS refresh once so late fonts/images can't leave stale measurements.
 6. Tilt and kursor initialize on `load` + idle, and only when
    `(hover: hover) and (pointer: fine)` and motion is not reduced.
+
+## Tooling (tools/)
+
+No build step runs automatically. These are one-shot scripts, each safe to re-run:
+
+| Script | When to run |
+| --- | --- |
+| `prerender.py` | after editing `data/*.js` - bakes the rendered sections into index.html |
+| `build-icon-bundle.py` | after adding or renaming an Iconify icon |
+| `build-fonts.py` | after changing which fonts or weights the CSS uses |
+| `purge-css.py` | after using a Bootstrap class the page did not use before |
+| `compare-shots.py` | before/after any risky CSS change - compares layout geometry |
+
+All of them need `python -m http.server 5500` running, except build-fonts and
+build-icon-bundle which just need network access.
 
 ## Site scripts
 
