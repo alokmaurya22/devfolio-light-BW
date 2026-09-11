@@ -20,10 +20,6 @@
     <meta name="twitter:title" content="Alok Maurya — Software Engineer &amp; Full Stack Developer">
     <meta name="twitter:description" content="Portfolio of Alok Maurya — Software Engineer and Full Stack Developer.">
     <meta name="twitter:image" content="https://founder.sonint.in/images/img-about.webp">
-    <!-- perf: preconnect to critical origins to reduce connection latency -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
     <!-- perf: preload LCP hero image for earlier discovery -->
     <link rel="preload" as="image" href="images/img-about.webp" imagesrcset="images/img-about.webp 837w, images/img-about5.webp 595w" imagesizes="(min-width: 992px) 50vw, 90vw" fetchpriority="high">
     <!-- perf: inline critical above-the-fold CSS to improve FCP -->
@@ -142,17 +138,12 @@
     <!-- perf: registers the icons this page uses so no request goes to api.iconify.design -->
     <script defer src="js/iconify-bundle.js"></script>
 
-    <!-- Google Web Fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"></noscript>
-    <link rel="preload" href="https://api.fontshare.com/v2/css?f%5B%5D=panchang@500,700,400,600&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://api.fontshare.com/v2/css?f%5B%5D=panchang@500,700,400,600&amp;display=swap" rel="stylesheet"></noscript>
-    <link rel="preload" href="https://api.fontshare.com/v2/css?f%5B%5D=quicksand@400&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://api.fontshare.com/v2/css?f%5B%5D=quicksand@400&amp;display=swap" rel="stylesheet"></noscript>
 
-    <!-- perf: fonts moved out of css-style.css @import so they download in parallel -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Finger+Paint&amp;family=Caveat&amp;family=Josefin+Sans:wght@300;400;500;600&amp;family=Tiro+Devanagari+Hindi:ital@1&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Finger+Paint&amp;family=Caveat&amp;family=Josefin+Sans:wght@300;400;500;600&amp;family=Tiro+Devanagari+Hindi:ital@1&amp;display=swap" rel="stylesheet"></noscript>
+
+    <!-- Self-hosted fonts (see tools/build-fonts.py). No third-party font origin. -->
+    <link href="css/fonts.css" rel="stylesheet">
+    <link rel="preload" href="fonts/roboto-300.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/panchang-400.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Libraries Stylesheet -->
     <link href="css/assets-owl.carousel.min.css" rel="stylesheet">
