@@ -66,6 +66,7 @@ body {
             #161d36 72%,
             #10162a 100%);
     background-size: 200% 100%;
+    background-position: 49% 50%;
     background-repeat: repeat;
     animation: text-bg-aurora 5s ease-in-out infinite;
     -webkit-background-clip: text;
@@ -75,13 +76,19 @@ body {
     width: auto;
 }
 
+/* The bright stop sits at the middle of the gradient, so background-position maps
+   to where the streak sits in the text, though a 100deg gradient shifts the
+   mapping - measured, not derived: background-position 25% puts the streak at 95%
+   across the word, 75% puts it at 32%. Travelling 49% -> 73% keeps it between
+   roughly 35% and 65% across, so it turns around before covering the first or the
+   last word. */
 @keyframes text-bg-aurora {
     0%, 100% {
-        background-position: 0% 50%;
+        background-position: 49% 50%;
     }
 
     50% {
-        background-position: 100% 50%;
+        background-position: 73% 50%;
     }
 }
 
