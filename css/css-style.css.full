@@ -11139,3 +11139,28 @@ h6,
     font-size: 18px;
     line-height: 26px;
 }
+
+/* =====================
+   Hero text sizing
+   The column used to carry an inline scale: 0.9, which shrank everything inside
+   it - including a 1px border down to 0.9px. Sub-pixel borders land differently
+   on horizontal and vertical edges, which is why the buttons looked thicker on
+   the left and right than on the top and bottom.
+
+   The scale is gone; the sizes it used to produce are set directly instead, so
+   the block looks the same but every border renders as a true 1px.
+   ===================== */
+@media (min-width: 992px) {
+    #about-name {
+        font-size: 50px;
+    }
+
+    #about-title {
+        font-size: 25px;
+    }
+
+    #about-social .btn {
+        font-size: 14.5px;
+        padding: 9px 22px;
+    }
+}
