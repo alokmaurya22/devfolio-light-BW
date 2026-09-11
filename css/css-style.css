@@ -34,13 +34,13 @@
 }.text-bg{
     
     background-image: linear-gradient(100deg,
-            #2a2340 0%,
-            #243467 16%,
-            #16379a 32%,
-            #143ebe 48%,
-            #0e2e7e 64%,
-            #17264a 82%,
-            #0a1730 100%);
+            #141a30 0%,
+            #17203c 30%,
+            #1d2c5e 43%,
+            #2f57d0 50%,
+            #1b2a5c 57%,
+            #161d36 72%,
+            #10162a 100%);
     background-size: 200% 100%;
     background-repeat: repeat;
     animation: text-bg-aurora 9s ease-in-out infinite;
