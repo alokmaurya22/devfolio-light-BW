@@ -2595,6 +2595,6 @@ h5 .font-weight-medium{
         transform: none !important;
         transition: none !important;
     }}#about-description{
-    font-size: 1.2rem;
-    line-height: 1.7;
+    font-size: 18px;
+    line-height: 26px;
 }

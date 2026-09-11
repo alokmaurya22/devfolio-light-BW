@@ -11136,6 +11136,6 @@ h6,
    measured. A modest bump with a little more leading, which suits a handwriting
    face better than tightening it up. */
 #about-description {
-    font-size: 1.2rem;
-    line-height: 1.7;
+    font-size: 18px;
+    line-height: 26px;
 }
