@@ -11045,6 +11045,12 @@ h6,
         max-width: 100%;
         max-height: 58vh;
     }
+
+    /* Stacked on a phone, the heading started exactly where the portrait ended -
+       a 0px gap. */
+    #about .col-lg-7 {
+        margin-top: 28px;
+    }
 }
 
 @media (min-width: 992px) {
