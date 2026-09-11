@@ -11159,6 +11159,13 @@ h6,
         font-size: 25px;
     }
 
+    #about-social {
+        /* Adjacent margins collapse, so this competes with the description's own
+           16px bottom margin rather than adding to it - the value here is the
+           gap, not an increment. */
+        margin-top: 36px;
+    }
+
     #about-social .btn {
         font-size: 14.5px;
         padding: 9px 22px;

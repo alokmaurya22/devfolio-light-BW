@@ -2604,6 +2604,9 @@ h5 .font-weight-medium{
         font-size: 50px;
     }#about-title{
         font-size: 25px;
+    }#about-social{
+        
+        margin-top: 36px;
     }#about-social .btn{
         font-size: 14.5px;
         padding: 9px 22px;
