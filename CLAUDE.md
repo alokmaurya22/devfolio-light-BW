@@ -34,9 +34,9 @@ content — see AGENT.md → *Running and verifying locally*, including the cave
 
 ## State of the codebase
 
-[bugs.md](bugs.md) tracks the full review: **51 of 51 bugs fixed** (44 original + 7 found while
-fixing). The asset pass is done too. Measured after the work: FCP/LCP ~200 ms, CLS 0.03, 52 requests,
-of which only 5 are third-party.
+A full review fixed 51 bugs (44 found by reading, 7 more while fixing), followed by an asset pass.
+Measured afterwards: FCP/LCP ~200 ms, CLS 0.03, 52 requests, none of them third-party. The tracker
+that recorded each bug has since been deleted - the commit messages carry the detail.
 
 If you re-export any image: photos → lossy WebP q85, logos/line art → lossless WebP, at 2–3× display
 size; then update that image's `width`/`height` in the data files to the new pixel size.

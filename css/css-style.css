@@ -2548,6 +2548,11 @@ h5 .font-weight-medium{
         max-height: 58vh;
     }#about .col-lg-7{
         margin-top: 28px;
+    }#about-name,
+    #about-title{
+        text-align: center;
+    }#about-social{
+        justify-content: center;
     }}
 
 @media (min-width: 992px) {#about{

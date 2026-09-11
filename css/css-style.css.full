@@ -11051,6 +11051,18 @@ h6,
     #about .col-lg-7 {
         margin-top: 28px;
     }
+
+    /* Centre the title block under the portrait. The paragraph stays left
+       aligned: centring eight lines of handwriting script gives every line a
+       different starting point, which is noticeably harder to read. */
+    #about-name,
+    #about-title {
+        text-align: center;
+    }
+
+    #about-social {
+        justify-content: center;
+    }
 }
 
 @media (min-width: 992px) {

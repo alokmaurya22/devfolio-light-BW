@@ -19,14 +19,12 @@ local in `js/`.
 ```
 index.html        the site (dynamic sections rendered by data/main.js)
 404.html          error page, self-contained
-robots.txt        allows all, points at the sitemap
 sitemap.xml       single URL
 css/              css-style.css is the real stylesheet; owl, aos + kursor CSS alongside
 data/             content data (plain globals) + main.js renderers
 images/           content images (patterns/ holds the self-hosted CSS textures)
 favicons/         favicon-16/32.png + apple-touch-icon.png, generated from favicon.jpg
 js/               vendored libraries + 3 site scripts + iconify-bundle.js
-bugs.md           bug tracker: 51/51 fixed
 ```
 
 ## The data layer (most content edits go here)
@@ -68,7 +66,7 @@ bugs.md           bug tracker: 51/51 fixed
 1. `<head>`: inlined critical CSS, then **render-blocking** `css/assets-owl.carousel.min.css`,
    `css/css-style.css` and `aos.css`. Fonts and `css-kursur.css` load async.
    **Keep the layout-critical CSS render-blocking.** When it was async, Owl and AOS measured an
-   unstyled page: slides came out 93 px wide and most cards never became visible (bugs.md B45).
+   unstyled page: slides came out 93 px wide and most cards never became visible.
 2. Every `<script>` is `defer`-ed, so they all run before `DOMContentLoaded`.
 3. On `DOMContentLoaded`, the inline script calls `initializeAllData()`.
 4. `initializeAllData()` renders all ten sections, then `initCarousels()` → `initTyped()` →
