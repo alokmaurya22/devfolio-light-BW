@@ -2566,11 +2566,5 @@ h5 .font-weight-medium{
     }#about > .container{
         width: 100%;
     }.profile-img{
-        transform: none !important;
-        margin: 0 auto !important;
-        display: block;
-        width: auto !important;
-        height: auto !important;
-        max-width: 100%;
-        max-height: calc(100vh - 140px);
+        transform-origin: center top;
     }}

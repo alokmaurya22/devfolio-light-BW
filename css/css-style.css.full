@@ -11060,13 +11060,12 @@ h6,
         width: 100%;
     }
 
+    /* Keep the original scale. The problem was never the size - it was that a
+       transform scales around the centre, so 1.7x pushed the top of the head
+       250px above the layout box and behind the navbar. Growing downward from
+       the top edge instead keeps the same size with the head in view; the extra
+       height below simply bleeds past the fold (#about clips it). */
     .profile-img {
-        transform: none !important;
-        margin: 0 auto !important;
-        display: block;
-        width: auto !important;
-        height: auto !important;
-        max-width: 100%;
-        max-height: calc(100vh - 140px);
+        transform-origin: center top;
     }
 }
