@@ -177,7 +177,7 @@ function renderProjects() {
     // PERF: intrinsic dimensions + lazy loading to prevent CLS.
     projectsContainer.innerHTML = projectsData.map((project, idx) => `
       <div class="text-center" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-        <div class="card border-0 project-card mx-auto" data-index="${idx}" style="width: 20rem;"
+        <div class="card border-0 project-card mx-auto" data-index="${idx}"
              role="button" tabindex="0" aria-label="View details for ${escapeHTML(project.title)}">
           <img src="${escapeHTML(project.image)}" class="card-img-top" alt="${escapeHTML(project.title)} screenshot" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" data-aos="flip-up" data-aos-delay="300" data-aos-duration="1200">
           <div class="card-body mx-auto">
@@ -241,13 +241,17 @@ function renderCertifications() {
 }
 
 // Function to render interests
+// The icon size is applied as font-size, not width/height attributes: those size
+// the SVG inside the component's shadow DOM, where a CSS media query cannot reach
+// it - the host would shrink while the drawing stayed 150px and spilled over the
+// label. <iconify-icon> defaults to 1em, so font-size drives everything.
 function renderInterests() {
   const interestContainer = document.getElementById('interest-list');
   if (interestContainer) {
     interestContainer.innerHTML = interestData.map(interest => `
       <div class="col-lg-4 col-md-6 text-center mb-5">
         <div class="d-flex align-items-center justify-content-center mb-4" data-aos="fade-down" data-aos-delay="600">
-          <iconify-icon icon="${escapeHTML(interest.icon)}" class="fadesample interest-icon" width="${escapeHTML(interest.width)}" height="${escapeHTML(interest.height)}" aria-hidden="true"></iconify-icon>
+          <iconify-icon icon="${escapeHTML(interest.icon)}" class="fadesample interest-icon" style="font-size: ${parseInt(interest.width, 10) || 150}px;" aria-hidden="true"></iconify-icon>
         </div>
         <h4 class="font-weight-bold m-0" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">${escapeHTML(interest.title)}</h4>
       </div>

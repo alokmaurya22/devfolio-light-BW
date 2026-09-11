@@ -12,7 +12,7 @@ const socialData = {
             href: "https://github.com/alokmaurya22",
             icon: "mdi:github",
             text: "Github",
-            class: "btn btn-outline-primary mr-4 tilt",
+            class: "btn btn-outline-primary tilt",
             isIconify: true
         },
         {

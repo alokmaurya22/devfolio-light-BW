@@ -11171,3 +11171,53 @@ h6,
         padding: 9px 22px;
     }
 }
+
+/* =====================
+   Mobile fixes
+   ===================== */
+
+/* The two hero buttons used to rely on the text plus a 24px margin fitting in
+   whatever was left: 281px of 285px on a 360px phone. Four pixels of slack, so a
+   slightly wider font or a narrower phone pushed Resume onto its own line.
+   A flex row with a gap keeps them together and lets them shrink instead. */
+#about-social {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 16px;
+}
+
+@media (max-width: 575.98px) {
+    #about-social .btn {
+        padding-left: 18px;
+        padding-right: 18px;
+        white-space: nowrap;
+    }
+}
+
+/* The project card carried an inline width: 20rem, wider than its carousel slot
+   on a phone (320px in a 285px slot), so it hung off the left edge. */
+#portfolio .card {
+    width: 20rem;
+    max-width: 100%;
+}
+
+/* The interest tiles are chunky on a phone: a 150px icon plus a 3rem gap under
+   each one. Smaller icon, tighter spacing - the grid itself is unchanged. */
+@media (max-width: 767.98px) {
+    #interest-list iconify-icon {
+        font-size: 96px !important;
+    }
+
+    #interest-list > div {
+        margin-bottom: 1.75rem !important;
+    }
+
+    #interest-list .d-flex {
+        margin-bottom: 0.75rem !important;
+    }
+
+    #interest-list h4 {
+        font-size: 1.15rem;
+    }
+}
