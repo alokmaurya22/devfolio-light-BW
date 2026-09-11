@@ -40,21 +40,12 @@ TEMPLATE = '''/**
  * Contains exactly the icons this site uses, so <iconify-icon> resolves them
  * locally instead of requesting each collection from api.iconify.design (and its
  * simplesvg.com fallback) on every page load.
+ *
+ * Uses window.IconifyPreload, which the component reads while it initialises.
+ * This must load BEFORE js/1.0.1-iconify-icon.min.js - registering afterwards
+ * leaves a race where the first icons on the page still hit the network.
  */
-(function () {
-    var collections = %s;
-
-    function register() {
-        var El = window.customElements && customElements.get('iconify-icon');
-        if (!El || typeof El.addCollection !== 'function') return false;
-        for (var i = 0; i < collections.length; i++) El.addCollection(collections[i]);
-        return true;
-    }
-
-    if (!register() && window.customElements) {
-        customElements.whenDefined('iconify-icon').then(register);
-    }
-})();
+window.IconifyPreload = (window.IconifyPreload || []).concat(%s);
 '''
 
 

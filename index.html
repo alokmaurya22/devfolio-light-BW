@@ -134,9 +134,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
     <!-- perf: defer iconify loader to avoid parser blocking -->
-    <script defer src="js/1.0.1-iconify-icon.min.js"></script>
-    <!-- perf: registers the icons this page uses so no request goes to api.iconify.design -->
+    <!-- perf: icon data first (window.IconifyPreload), then the component that reads it -->
     <script defer src="js/iconify-bundle.js"></script>
+    <script defer src="js/1.0.1-iconify-icon.min.js"></script>
 
 
 
