@@ -24,23 +24,6 @@
     // Safety net: never let the overlay outlive the page.
     window.addEventListener('load', hideLoader);
 
-    /* Prevent right click / devtools shortcuts.
-       Bound once, here. Uses the handler's own event object (the old code read the
-       global `event`, which is not reliable outside Chrome). */
-    document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
-    document.addEventListener('keydown', function (e) {
-        var key = e.key || '';
-        var blocked =
-            e.keyCode === 123 || key === 'F12' ||
-            (e.ctrlKey && e.shiftKey && (key === 'I' || key === 'J' || key === 'C' ||
-                e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) ||
-            (e.ctrlKey && (key === 'u' || key === 'U' || e.keyCode === 85));
-        if (blocked) {
-            e.preventDefault();
-            return false;
-        }
-    });
-
     /**
      * Pointer follower: a small circle that trails the cursor and inverts what is
      * behind it (mix-blend-mode: exclusion), sitting behind kursor's ring and dot.

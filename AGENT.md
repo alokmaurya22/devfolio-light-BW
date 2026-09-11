@@ -95,8 +95,9 @@ build-icon-bundle which just need network access.
 
 ## Site scripts
 
-- `js/2967-js-main.js` — loader dismissal, smooth scrolling, back-to-top / scroll-hint, and the
-  right-click + devtools blocking (deliberate; bound **once**, keep it that way).
+- `js/2967-js-main.js` — loader dismissal, smooth scrolling, back-to-top / scroll-hint and the
+  pointer follower. It also used to block right-click and the devtools shortcuts; that was
+  removed on request — don't add it back.
 - `js/2653-mail-contact.js` — contact form. Formspree first (with `Accept: application/json`, which
   is required or every message is sent twice), Web3Forms as fallback, `_gotcha` honeypot.
 - `js/iconify-bundle.js` — **generated**, not hand-written. Registers the 38 icons this site uses so

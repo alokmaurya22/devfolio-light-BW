@@ -121,8 +121,8 @@ the status box is re-shown before each message, and a honeypot field (`_gotcha`)
 Project cards are `role="button" tabindex="0"` with Enter/Space handling; logos have `alt`; social
 icon links have `aria-label`; decorative Hindi headings are `aria-hidden`; a
 `prefers-reduced-motion` block disables the spinner, bounce, icon pulse, skill transitions and AOS.
-Right-click/devtools blocking was kept at your request — now bound once, using the handler's own
-event object instead of the global `event`.
+Right-click/devtools blocking was first kept (bound once, using the handler's own event
+object instead of the global `event`) and later removed entirely on request.
 
 ### SEO (B37, B38, B39)
 Canonical URL, Open Graph and Twitter Card tags (`https://founder.sonint.in/`), a real `<title>`,
