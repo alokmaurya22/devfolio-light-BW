@@ -386,6 +386,59 @@ function initCarousels() {
   });
 }
 
+/**
+ * Letter-by-letter reveal on the hero subtitle.
+ *
+ * The deployed site gets this from the textAnimate helper in Shery, which needs three.js,
+ * ControlKit and Shery behind it. Same effect here from a span per character and
+ * a staggered CSS transition - and unlike the original it runs *after* the text
+ * is rendered, so it actually animates the real words rather than an empty node.
+ *
+ * Characters are grouped into words so the line can still wrap between words.
+ */
+function initTextAnimate() {
+  const el = document.getElementById('about-title');
+  if (!el) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const text = el.textContent.trim();
+  if (!text || el.querySelector('.char')) return;
+
+  el.textContent = '';
+  let index = 0;
+  text.split(' ').forEach((word, wordIndex) => {
+    if (wordIndex > 0) el.appendChild(document.createTextNode(' '));
+    const wordSpan = document.createElement('span');
+    wordSpan.className = 'word';
+    for (const character of word) {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = character;
+      span.style.transitionDelay = (index * 0.03).toFixed(2) + 's';
+      wordSpan.appendChild(span);
+      index++;
+    }
+    el.appendChild(wordSpan);
+  });
+
+  function play() {
+    el.classList.remove('is-in');
+    // force a reflow so the transition restarts when the class comes back
+    void el.offsetWidth;
+    el.classList.add('is-in');
+  }
+
+  if (!('IntersectionObserver' in window)) { play(); return; }
+
+  // Replays whenever the hero scrolls back into view, matching AOS's once: false.
+  new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) play();
+      else el.classList.remove('is-in');
+    });
+  }, { threshold: 0.25 }).observe(el);
+}
+
 function initTyped() {
   const source = document.querySelector('.typed-text');
   const output = document.querySelector('.typed-text-output');
@@ -408,10 +461,13 @@ function initTyped() {
 function initAOS() {
   if (typeof AOS === 'undefined') return;
   AOS.init({
-    duration: 800,
-    offset: 100,
+    duration: 1000,
+    offset: 120,
     delay: 0,
-    once: true,     // don't re-hide content when scrolling back up
+    // once: false replays a section's animation every time you scroll back to it,
+    // which is what the deployed site does. mirror stays false so nothing fades
+    // *out* while you scroll down past it - that part only hid content.
+    once: false,
     mirror: false,
     disable: function () {
       return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -474,6 +530,7 @@ function initializeAllData(attempt) {
     renderFooterSocials();
 
     initCarousels();
+    initTextAnimate();
     initTyped();
     animateSkillBars();
     initAOS();

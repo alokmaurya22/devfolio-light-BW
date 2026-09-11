@@ -11097,3 +11097,35 @@ h6,
         transform: scale(1.15) !important;
     }
 }
+
+/* =====================
+   Hero subtitle reveal (see initTextAnimate in data/main.js)
+   One span per character with a staggered transition. Characters are wrapped in
+   .word so the line still breaks between words, not mid-word.
+   ===================== */
+.text-target .word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.text-target .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+                transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.text-target.is-in .char {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .text-target .char {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
