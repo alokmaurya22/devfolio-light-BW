@@ -11049,7 +11049,11 @@ h6,
     #about {
         min-height: 100vh;
         display: flex;
-        align-items: center;
+        /* Top-aligned, not centred: centring pushed the portrait far down the
+           page on tall screens (343px below a navbar that ends at 68px). Anchored
+           to the top it starts just under the navbar at any window height, and
+           the extra height from the 1.7x scale bleeds off the bottom. */
+        align-items: flex-start;
         /* clear the fixed navbar: 60px tall + 8px top margin + breathing room */
         padding-top: 96px;
         padding-bottom: 24px;
