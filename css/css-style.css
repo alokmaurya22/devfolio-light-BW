@@ -1,6 +1,5 @@
-/* PERF: removed duplicate/unused font imports to reduce render-blocking requests. */
-@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@1&display=swap');
+/* PERF: fonts are <link rel="preload">ed in index.html <head>. Do not add @import
+   here - it blocks the font request until this whole stylesheet has parsed. */
 
 /* =====================
    Section Title Spacing (match index2)
@@ -50,14 +49,36 @@ body {
     /* Firefox */
 }
 
+/* PERF: this used to be filled with a 2.97 MB animated GIF from media0.giphy.com,
+   fetched from a third party on every page load just to colour one heading. The same
+   moving aurora is reproduced here with a gradient animation - 0 bytes, no network. */
 .text-bg {
-    background-image: url(https://media0.giphy.com/media/9JxkPTP3alOykb8PmQ/giphy.gif?cid=ecf05e47stdvc0o8s3pnh651c23isusuhhw1lbw8fp7cngir&ep=v1_gifs_search&rid=giphy.gif&ct=g);
-    -webkit-background-clip: text;
+    background-image: linear-gradient(115deg,
+            #14205c 0%,
+            #2f5bdc 20%,
+            #8fb7ff 35%,
+            #e05a8a 50%,
+            #6b4bd8 65%,
+            #2f5bdc 80%,
+            #14205c 100%);
+    background-size: 300% 100%;
     background-repeat: repeat;
-    object-fit: cover;
+    animation: text-bg-aurora 12s ease-in-out infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
     -webkit-text-stroke: 0.8px rgb(47, 47, 47);
     width: auto;
+}
+
+@keyframes text-bg-aurora {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .text-project {
@@ -70,11 +91,11 @@ body {
     margin-top: 30px;
 }
 
-#zoom {
+.interest-icon {
     transition: transform .2s;
 }
 
-#zoom:hover {
+.interest-icon:hover {
     transform: scale(1.5);
 }
 
@@ -84,7 +105,7 @@ body {
     top: 0;
     left: 0;
     color: white;
-    background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+    background-image: url("../images/patterns/stardust.png");
 }
 
 .sk-img {
@@ -93,7 +114,8 @@ body {
 
 .loader {
     position: fixed;
-    z-index: 99;
+    z-index: 1040;
+    transition: opacity 0.45s ease;
     top: 0;
     left: 0;
     width: 100dvw;
@@ -103,6 +125,11 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+.loader.is-hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .fadesample {
@@ -127,7 +154,7 @@ body {
 }
 
 .fot {
-    background-image: url("https://www.transparenttextures.com/patterns/buried.png");
+    background-image: url("../images/patterns/buried.png");
     border-top-right-radius: 150px;
     border-top-left-radius: 150px;
 }
@@ -240,7 +267,7 @@ html {
 }
 
 body {
-    background-image: url("https://www.transparenttextures.com/patterns/diamond-eyes.png");
+    background-image: url("../images/patterns/diamond-eyes.png");
     margin: 0;
     font-family: "Roboto", sans-serif;
     font-size: 1rem;
@@ -738,10 +765,6 @@ h6,
     font-size: 4.5rem;
     font-weight: 300;
     line-height: 1.2;
-    background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/disp/d6a23a19730059.563432f670c65.gif);
-    -webkit-background-clip: text;
-    background-repeat: repeat;
-    color: #60606065;
 }
 
 @media (max-width: 1200px) {
@@ -4588,7 +4611,7 @@ input[type="button"].btn-block {
 }
 
 .navbar {
-    /* background-image: url("https://www.transparenttextures.com/patterns/concrete-wall.png"); */
+    /* background-image: url("../images/patterns/concrete-wall.png"); */
     padding: 0;
     position: relative;
     display: flex;
@@ -6306,7 +6329,7 @@ a.close.disabled {
     border-radius: 0.3rem;
     outline: 0;
     background-color: #ffffff;
-    background-image: url("https://www.transparenttextures.com/patterns/diamond-eyes.png");
+    background-image: url("../images/patterns/diamond-eyes.png");
 }
 
 .modal-backdrop {
@@ -10404,10 +10427,13 @@ h6,
 
 .scroll-to-bottom {
     position: fixed;
-    width: 20px;
-    left: calc(50% - 10px);
+    display: block;
+    font-size: 30px;
+    line-height: 1;
+    left: calc(50% - 15px);
     bottom: 30px;
     z-index: 11;
+    color: #000000;
     animation: action 1s infinite alternate;
 }
 
@@ -10431,8 +10457,16 @@ h6,
     }
 }
 
-.navbar-light {
-    display: none;
+/* B22: the navbar is always visible. It used to be display:none until a jQuery
+   scroll handler revealed it, which left the page with no navigation at the top
+   and none at all if JavaScript failed. */
+.navbar {
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar-scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.12);
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -10454,8 +10488,14 @@ h6,
 }
 
 .typed-cursor {
-    font-size: 45px;
-    color: #ffffff;
+    font-size: 1.25rem;
+    color: #6c757d;
+}
+
+/* Reserve one line so the typed text does not shift the layout when it starts. */
+.typed-line {
+    min-height: 1.6em;
+    font-size: 1.1rem;
 }
 
 .btn-play {
@@ -10553,9 +10593,9 @@ h6,
 }
 
 .progress .progress-bar {
-    width: 0px;
+    width: 0;
     border-radius: 10px;
-    transition: 2s;
+    transition: width 1.2s ease-out;
 }
 
 .service-icon {
@@ -10630,7 +10670,6 @@ h6,
 .projects-carousel .owl-dots {
     display: flex !important;
     justify-content: center;
-    margin-top: 15px;
     margin-top: 25px;
     text-align: center;
 }
@@ -10694,7 +10733,7 @@ h6,
     margin-bottom: 0.25rem;
 }
 
-#portfolio .card-Discription {
+#portfolio .card-description {
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -10718,13 +10757,18 @@ h6,
 /* Remove CSS-based more text; we will render a real clickable link */
 #portfolio .card-text::after { content: none; }
 
-/* Grayscale all project images except the centered owl item */
-.projects-carousel .owl-item .card-img-top {
-    filter: grayscale(100%);
-    transition: filter 0.4s ease;
-}
-.projects-carousel .owl-item.center .card-img-top {
-    filter: grayscale(0%);
+/* Grayscale all project images except the centered owl item.
+   Scoped to >=992px because Owl only applies .center at that breakpoint - below it
+   every card would stay permanently grey. */
+@media (min-width: 992px) {
+    .projects-carousel .owl-item .card-img-top {
+        filter: grayscale(100%);
+        transition: filter 0.4s ease;
+    }
+
+    .projects-carousel .owl-item.center .card-img-top {
+        filter: grayscale(0%);
+    }
 }
 
 .css-loader {
@@ -10949,7 +10993,32 @@ h6,
   #projectModal #projectModalTech {
     font-size: 0.95rem;
   }
-  .projects-carousel .owl-item .card-img-top {
-    filter: grayscale(0%);
 }
+
+/* =====================
+   B35: Reduced motion
+   Users who ask the OS to reduce motion get the layout without the movement.
+   ===================== */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .scroll-to-bottom,
+    .back-to-top,
+    .fadesample,
+    .spinner-outer,
+    .spinner-inner {
+        animation: none !important;
+    }
+
+    .progress .progress-bar {
+        transition: none !important;
+    }
 }

@@ -1,179 +1,104 @@
-// PERF: delay particles initialization until after load/idle to reduce TBT.
-window.addEventListener('load', function() {
-    var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
-    perfIdle(function() {
-        if (window.Particles && document.querySelector('.background')) {
-            Particles.init({
-                selector: '.background',
-                speed: '2',
-                sizeVariations: '2',
-                color: '#ffffff',
-            });
-        }
-    });
-});
-// block inspect - DISABLED
-
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-})
-$(document).bind("contextmenu", function(e) {
-    e.preventDefault();
-});
-$(document).keydown(function(e) {
-    if (e.which === 123) {
-        return false;
-    }
-})
-
-
-
-document.onreadystatechange = function() {
-    if (document.readyState !== "complete") {
-        document.querySelector(
-            "body").style.visibility = "hidden";
-        document.querySelector(
-            "#loader").style.visibility = "visible";
-    } else {
-        document.querySelector(
-            "#loader").style.display = "none";
-        document.querySelector(
-            "body").style.visibility = "visible";
-    }
-};
-
-
-
-
-
-(function($) {
+/**
+ * Site behaviour: loader, smooth scrolling, scroll affordances.
+ *
+ * Carousels, Typed, skill bars and every data-driven section are initialized in
+ * data/main.js — do not duplicate them here (they run before the data is rendered).
+ */
+(function () {
     "use strict";
 
-    // Navbar on scrolling
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 200) {
-            $('.navbar').fadeIn('slow').css('display', 'flex');
-        } else {
-            $('.navbar').fadeOut('slow').css('display', 'none');
+    // PERF: hide the loader as soon as the DOM is usable. Waiting for `load` kept a
+    // full-screen overlay up until every script and image had finished downloading.
+    function hideLoader() {
+        var loader = document.getElementById('loader');
+        if (!loader) return;
+        loader.classList.add('is-hidden');
+        setTimeout(function () { loader.style.display = 'none'; }, 500);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hideLoader);
+    } else {
+        hideLoader();
+    }
+    // Safety net: never let the overlay outlive the page.
+    window.addEventListener('load', hideLoader);
+
+    /* Prevent right click / devtools shortcuts.
+       Bound once, here. Uses the handler's own event object (the old code read the
+       global `event`, which is not reliable outside Chrome). */
+    document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    document.addEventListener('keydown', function (e) {
+        var key = e.key || '';
+        var blocked =
+            e.keyCode === 123 || key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && (key === 'I' || key === 'J' || key === 'C' ||
+                e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) ||
+            (e.ctrlKey && (key === 'u' || key === 'U' || e.keyCode === 85));
+        if (blocked) {
+            e.preventDefault();
+            return false;
         }
     });
 
+    function onJQueryReady() {
+        var $ = window.jQuery;
 
-    // Smooth scrolling on the navbar links
-    $(".navbar-nav a").on('click', function(event) {
-        if (this.hash !== "") {
+        // Smooth scrolling on the navbar links
+        $(document).on('click', '.navbar-nav a[href^="#"]', function (event) {
+            var hash = this.hash;
+            if (!hash || !$(hash).length) return;
             event.preventDefault();
 
             $('html, body').animate({
-                scrollTop: $(this.hash).offset().top - 45
-            }, 1500, 'easeInOutExpo');
+                scrollTop: $(hash).offset().top - 45
+            }, 1000, $.easing && $.easing.easeInOutExpo ? 'easeInOutExpo' : 'swing');
 
-            if ($(this).parents('.navbar-nav').length) {
-                $('.navbar-nav .active').removeClass('active');
-                $(this).closest('a').addClass('active');
+            $('.navbar-nav .active').removeClass('active');
+            $(this).addClass('active');
+
+            // Collapse the mobile menu after navigating.
+            var $collapse = $('#navbarCollapse');
+            if ($collapse.hasClass('show')) $collapse.collapse('hide');
+        });
+
+        // Scroll affordances: hint arrow at the top, back-to-top after scrolling.
+        var ticking = false;
+        function onScroll() {
+            var top = $(window).scrollTop();
+            $('.navbar').toggleClass('navbar-scrolled', top > 60);
+            if (top > 100) {
+                $('.scroll-to-bottom').fadeOut('slow');
+            } else {
+                $('.scroll-to-bottom').fadeIn('slow');
             }
+            if (top > 200) {
+                $('.back-to-top').fadeIn('slow');
+            } else {
+                $('.back-to-top').fadeOut('slow');
+            }
+            ticking = false;
         }
-    });
+        $(window).on('scroll', function () {
+            // PERF: coalesce scroll work into one rAF callback per frame.
+            if (!ticking) {
+                ticking = true;
+                window.requestAnimationFrame(onScroll);
+            }
+        });
+        onScroll();
 
-
-    // Typed Initiate
-    if ($('.typed-text-output').length == 1) {
-        var typed_strings = $('.typed-text').text();
-        var typed = new Typed('.typed-text-output', {
-            strings: typed_strings.split(', '),
-            typeSpeed: 100,
-            backSpeed: 20,
-            smartBackspace: false,
-            loop: true
+        $(document).on('click', '.back-to-top', function () {
+            $('html, body').animate({ scrollTop: 0 }, 1000,
+                $.easing && $.easing.easeInOutExpo ? 'easeInOutExpo' : 'swing');
+            return false;
         });
     }
 
-
-    // Modal Video
-    $(document).ready(function() {
-        var $videoSrc;
-        $('.btn-play').click(function() {
-            $videoSrc = $(this).data("src");
-        });
-        console.log($videoSrc);
-
-        $('#videoModal').on('shown.bs.modal', function(e) {
-            $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
-        })
-
-        $('#videoModal').on('hide.bs.modal', function(e) {
-            $("#video").attr('src', $videoSrc);
-        })
-    });
-
-
-    // Scroll to Bottom
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 100) {
-            $('.scroll-to-bottom').fadeOut('slow');
-        } else {
-            $('.scroll-to-bottom').fadeIn('slow');
-        }
-    });
-
-
-    // Skills
-    $('.skill').waypoint(function() {
-        $('.progress .progress-bar').each(function() {
-            $(this).css("width", $(this).attr("aria-valuenow") + '%');
-        });
-    }, { offset: '80%' });
-
-
-    // Portfolio isotope and filter
-    var portfolioIsotope = $('.portfolio-container').isotope({
-        itemSelector: '.portfolio-item',
-        layoutMode: 'fitRows'
-    });
-    $('#portfolio-flters li').on('click', function() {
-        $("#portfolio-flters li").removeClass('active');
-        $(this).addClass('active');
-
-        portfolioIsotope.isotope({ filter: $(this).data('filter') });
-    });
-
-
-    // Back to top button
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 200) {
-            $('.back-to-top').fadeIn('slow');
-        } else {
-            $('.back-to-top').fadeOut('slow');
-        }
-    });
-    $('.back-to-top').click(function() {
-        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
-        return false;
-    });
-
-
-    // Testimonials carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 700,
-        dots: true,
-        loop: true,
-        items: 1
-    });
-
-})(jQuery);
-
-// PERF: initialize smooth scroll after load/idle to reduce main-thread work.
-window.addEventListener('load', function() {
-    var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
-    perfIdle(function() {
-        if (window.LocomotiveScroll) {
-            const scroll = new LocomotiveScroll({
-                el: document.querySelector("[data-scroll-container]"),
-                smooth: true,
-                tablet: { smooth: true },
-                smartphone: { smooth: true }
-            });
-        }
-    });
-});
+    // jQuery is deferred too; wait for it without blocking.
+    (function waitForJQuery(attempts) {
+        if (window.jQuery) return onJQueryReady();
+        if (attempts > 100) return; // ~5s, then give up quietly
+        setTimeout(function () { waitForJQuery(attempts + 1); }, 50);
+    })(0);
+})();

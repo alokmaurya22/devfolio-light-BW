@@ -1,8 +1,13 @@
-
-  .notCursor {
+/* B23: hide the native cursor only once kursor has actually drawn its replacement
+   (body.kursor-ready is set after init). Previously the page had no visible cursor
+   at all between first paint and the deferred kursor init. */
+  body.kursor-ready .notCursor,
+  body.kursor-ready.notCursor {
     cursor: none;
   }
-  .notCursor * {
+
+  body.kursor-ready .notCursor *,
+  body.kursor-ready.notCursor * {
     cursor: none;
   }
   #kursorWrapper {

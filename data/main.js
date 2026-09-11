@@ -1,107 +1,121 @@
+/**
+ * Renders every dynamic section from the data/*.js globals, then initializes the
+ * plugins that depend on that markup (AOS, Owl, Typed, skill bars).
+ *
+ * Containers are addressed by explicit id — never by Bootstrap class chains, which
+ * break silently when the layout is edited.
+ */
+
+// Escape text that is interpolated into markup, so a stray < or & in the data
+// can never break the DOM.
+function escapeHTML(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 // Function to render navigation
 function renderNavigation() {
-  const navbar = document.querySelector('.navbar-nav');
-  const brandElement = document.querySelector('.navbar-brand h1');
-  const ctaButton = document.querySelector('.navbar-collapse .btn-outline-primary');
-  
+  const navbar = document.getElementById('navbar-links');
+  const brandElement = document.getElementById('navbar-brand-text');
+  const ctaButton = document.getElementById('navbar-cta');
+
   // Render brand
   if (brandElement) {
     brandElement.textContent = navigationData.brand.text;
   }
-  
+
   // Render nav items
   if (navbar) {
-    navbar.innerHTML = navigationData.navItems.map(item => 
-      `<a href="${item.href}" class="${item.class}">${item.text}</a>`
+    navbar.innerHTML = navigationData.navItems.map(item =>
+      `<a href="${escapeHTML(item.href)}" class="${escapeHTML(item.class)}">${escapeHTML(item.text)}</a>`
     ).join('');
   }
-  
+
   // Render CTA button
   if (ctaButton) {
     ctaButton.href = navigationData.ctaButton.href;
     ctaButton.textContent = navigationData.ctaButton.text;
+    ctaButton.setAttribute('target', '_blank');
+    ctaButton.setAttribute('rel', 'noopener');
   }
 }
 
 // Function to render about section
 function renderAboutSection() {
-  const nameElement = document.querySelector('#about h3.display-4');
-  const titleElement = document.querySelector('#about h3.text-target');
-  const descriptionElement = document.querySelector('#about p[data-aos="fade-up"]');
+  const nameElement = document.getElementById('about-name');
+  const titleElement = document.getElementById('about-title');
+  const descriptionElement = document.getElementById('about-description');
   const typedTextElement = document.querySelector('.typed-text');
-  
-  if (nameElement) nameElement.innerHTML = `Hey, I'm ${socialData.profileInfo.name}`;
+
+  if (nameElement) nameElement.textContent = `Hey, I'm ${socialData.profileInfo.name}`;
   if (titleElement) titleElement.textContent = socialData.profileInfo.title;
   if (descriptionElement) descriptionElement.textContent = socialData.profileInfo.description;
   if (typedTextElement) typedTextElement.textContent = socialData.profileInfo.typedText;
-  
+
   // Render social buttons
- const socialContainer = document.querySelector('#about .col-lg-7');
-  if (socialContainer) {
-      // Create a div for social buttons if it doesn't exist
-      let buttonsDiv = socialContainer.querySelector('.social-buttons-container');
-      if (!buttonsDiv) {
-          buttonsDiv = document.createElement('div');
-          buttonsDiv.className = 'social-buttons-container';
-          socialContainer.appendChild(buttonsDiv);
-      }
-      
-      buttonsDiv.innerHTML = socialData.socialLinks.map(link => {
-          if (link.isIconify) {
-              return `<a href="${link.href}" target="_blank" class="${link.class}" data-aos="fade-${link.text === 'Github' ? 'left' : 'right'}">
-                  <iconify-icon icon="${link.icon}" class="mr-2"></iconify-icon>${link.text}
+  const buttonsDiv = document.getElementById('about-social');
+  if (buttonsDiv) {
+    buttonsDiv.innerHTML = socialData.socialLinks.map(link => {
+      const icon = link.isIconify
+        ? `<iconify-icon icon="${escapeHTML(link.icon)}" class="mr-2" aria-hidden="true"></iconify-icon>`
+        : `<i class="${escapeHTML(link.icon)} mr-2" aria-hidden="true"></i>`;
+      return `<a href="${escapeHTML(link.href)}" target="_blank" rel="noopener" class="${escapeHTML(link.class)}" data-aos="fade-${link.text === 'Github' ? 'left' : 'right'}">
+                  ${icon}${escapeHTML(link.text)}
               </a>`;
-          } else {
-              return `<a href="${link.href}" target="_blank" class="${link.class}" data-aos="fade-${link.text === 'Github' ? 'left' : 'right'}">
-                  <i class="${link.icon} mr-2" data-aos="fade-in"></i>${link.text}
-              </a>`;
-          }
-      }).join('');
+    }).join('');
   }
 }
 
 // Function to render education
 function renderEducation() {
-  const educationContainer = document.querySelector('#qualification .col-lg-5 .border-left');
+  const educationContainer = document.getElementById('education-list');
   if (educationContainer) {
-    // PERF: add lazy loading + async decoding + explicit dimensions to reduce CLS/TBT.
-    educationContainer.innerHTML = educationData.map(edu => `
+    // PERF: lazy loading + async decoding + explicit dimensions to reduce CLS/TBT.
+    educationContainer.innerHTML = educationData.map(edu => {
+      const size = edu.logoSize || 20;
+      const institution = `<strong> ${escapeHTML(edu.institution)}</strong>`;
+      // An empty institutionLink renders as plain text instead of a dead link.
+      const institutionMarkup = edu.institutionLink
+        ? `<a style="color: gray;" href="${escapeHTML(edu.institutionLink)}"${edu.institutionLink.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${institution}</a>`
+        : `<span style="color: gray;">${institution}</span>`;
+      return `
       <div class="position-relative mb-4">
-        <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
+        <iconify-icon icon="mdi:circle-slice-8" class="text-primary position-absolute" style="top: 2px; left: -32px; font-size: 14px;" aria-hidden="true"></iconify-icon>
         <h5 class="font-weight-bold mb-1" data-aos="fade-right" data-aos-delay="400">
-          ${edu.degree}${edu.status ? `<i style="font-family: 'Caveat';"> ${edu.status}</i>` : ''}
-          ${edu.specialization ? `</br><span class="font-weight-medium mb-1 form-control-sm">(${edu.specialization})</span>` : ''}
+          ${escapeHTML(edu.degree)}${edu.status ? `<i style="font-family: 'Caveat';"> ${escapeHTML(edu.status)}</i>` : ''}
+          ${edu.specialization ? `<br><span class="font-weight-medium mb-1 form-control-sm">(${escapeHTML(edu.specialization)})</span>` : ''}
         </h5>
         <p class="mb-2" data-aos="fade-down" data-aos-delay="550">
-          <img src="${edu.institutionLogo}" width="${edu.degree.includes('Intermediate') ? '35' : edu.degree.includes('High') ? '23' : '20'}" height="${edu.degree.includes('Intermediate') ? '35' : edu.degree.includes('High') ? '23' : '20'}" loading="lazy" decoding="async">
-          <a style="color: gray;" href="${edu.institutionLink}" ${edu.institutionLink.startsWith('http') ? 'target="_blank"' : ''}>
-            <strong> ${edu.institution}</strong>
-          </a> | <small>${edu.duration}</small>
+          <img src="${escapeHTML(edu.institutionLogo)}" width="${size}" height="${size}" loading="lazy" decoding="async" alt="${escapeHTML(edu.institution)} logo">
+          ${institutionMarkup} | <small>${escapeHTML(edu.duration)}</small>
         </p>
-        <p data-aos="fade-down" data-aos-delay="700">${edu.description}</p>
+        ${edu.description ? `<p data-aos="fade-down" data-aos-delay="700">${escapeHTML(edu.description)}</p>` : ''}
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 }
 
 // Function to render experience
 function renderExperience() {
-  const experienceContainer = document.querySelector('#qualification .col-lg-7 .border-left');
+  const experienceContainer = document.getElementById('experience-list');
   if (experienceContainer) {
-    // PERF: add lazy loading + async decoding + explicit dimensions to reduce CLS/TBT.
+    // PERF: lazy loading + async decoding + explicit dimensions to reduce CLS/TBT.
     experienceContainer.innerHTML = experienceData.map(exp => `
       <div class="position-relative mb-4">
-        <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
-        <h5 class="font-weight-bold mb-1" data-aos="fade-right" data-aos-delay="400">${exp.position}</h5>
+        <iconify-icon icon="mdi:circle-slice-8" class="text-primary position-absolute" style="top: 2px; left: -32px; font-size: 14px;" aria-hidden="true"></iconify-icon>
+        <h5 class="font-weight-bold mb-1" data-aos="fade-right" data-aos-delay="400">${escapeHTML(exp.position)}</h5>
         <p class="mb-2" data-aos="fade-right" data-aos-delay="550">
-          <img src="${exp.companyLogo}" width="${exp.company.includes('WeKnow') ? '125' : '145'}" height="25" loading="lazy" decoding="async">
-          <strong><a style="color: gray;" href="${exp.companyLink}" target="_blank">${exp.company.includes('Webpro') ? '&nbsp; ' : ''}${exp.company}</a></strong> | 
-          <small>${exp.duration}</small>
+          <img src="${escapeHTML(exp.companyLogo)}" width="${exp.logoWidth || 145}" height="${exp.logoHeight || 25}" loading="lazy" decoding="async" alt="${escapeHTML(exp.company)} logo">
+          <strong><a style="color: gray;" href="${escapeHTML(exp.companyLink)}" target="_blank" rel="noopener">${escapeHTML(exp.company)}</a></strong> |
+          <small>${escapeHTML(exp.duration)}</small>
         </p>
-        <p style="font-family: 'Caveat';" data-aos="fade-down" data-aos-delay="600"></p>
         <ul style="font-family:'Caveat';">
-          ${exp.responsibilities.map((resp, index) => 
-            `<li data-aos="fade-down" ${index > 0 ? `data-aos-duration="${1000 + (index * 500)}"` : ''}>${resp}</li>`
+          ${exp.responsibilities.map((resp, index) =>
+            `<li data-aos="fade-down"${index > 0 ? ` data-aos-duration="${1000 + (index * 500)}"` : ''}>${escapeHTML(resp)}</li>`
           ).join('')}
         </ul>
       </div>
@@ -111,40 +125,48 @@ function renderExperience() {
 
 // Function to render skills
 function renderSkills() {
-  const leftSkillContainer = document.querySelector('#skill .col-md-6:first-child');
-  const rightSkillContainer = document.querySelector('#skill .col-md-6:last-child');
-  
+  const leftSkillContainer = document.getElementById('skills-left');
+  const rightSkillContainer = document.getElementById('skills-right');
+
+  // Icons that are line-art rather than full logos read better inline.
+  const INLINE_ICONS = ['material-icon-theme:git', 'icon-park:github', 'logos:react',
+    'logos:javascript', 'logos:java', 'logos:php', 'logos:mysql'];
+
   function createSkillHTML(skill, animationDirection) {
-    const iconHTML = skill.icons.map(icon => 
-      `<iconify-icon ${icon.icon === 'material-icon-theme:git' || icon.icon === 'icon-park:github' || icon.icon === 'logos:react' || icon.icon === 'logos:javascript' || icon.icon === 'logos:java' || icon.icon === 'logos:php' || icon.icon === 'logos:mysql' ? 'inline' : ''} icon="${icon.icon}" style="font-size: ${icon.size};"></iconify-icon>`
+    const iconHTML = skill.icons.map(icon =>
+      `<iconify-icon ${INLINE_ICONS.indexOf(icon.icon) !== -1 ? 'inline ' : ''}icon="${escapeHTML(icon.icon)}" style="font-size: ${escapeHTML(icon.size)};" aria-hidden="true"></iconify-icon>`
     ).join(' ');
-    
+
+    // The bar starts at 0% and is filled by a CSS transition once it scrolls into
+    // view (see animateSkillBars) — no JS per-frame animation.
     return `
       <div class="skill mb-4" data-aos="fade-${animationDirection}">
         <div class="d-flex justify-content-between">
-          <h6 class="font-weight-bold">${iconHTML} ${skill.name}</h6>
+          <h6 class="font-weight-bold">${iconHTML} ${escapeHTML(skill.name)}</h6>
           <h6 class="font-weight-bold">${skill.percentage}%</h6>
         </div>
         <div class="progress">
-          <div class="progress-bar ${skill.color.startsWith('bg-') ? skill.color : ''}" 
-               ${!skill.color.startsWith('bg-') ? `style="background-color: ${skill.color};"` : ''} 
-               role="progressbar" 
-               aria-valuenow="${skill.percentage}" 
-               aria-valuemin="0" 
+          <div class="progress-bar"
+               style="width: 0%; background-color: ${escapeHTML(skill.color)};"
+               role="progressbar"
+               data-target-width="${skill.percentage}"
+               aria-label="${escapeHTML(skill.name)}"
+               aria-valuenow="${skill.percentage}"
+               aria-valuemin="0"
                aria-valuemax="100"></div>
         </div>
       </div>
     `;
   }
-  
+
   if (leftSkillContainer) {
-    leftSkillContainer.innerHTML = skillData.leftColumn.map((skill, index) => 
+    leftSkillContainer.innerHTML = skillData.leftColumn.map((skill, index) =>
       createSkillHTML(skill, index % 2 === 0 ? 'right' : 'left')
     ).join('');
   }
-  
+
   if (rightSkillContainer) {
-    rightSkillContainer.innerHTML = skillData.rightColumn.map((skill, index) => 
+    rightSkillContainer.innerHTML = skillData.rightColumn.map((skill, index) =>
       createSkillHTML(skill, index % 2 === 0 ? 'left' : 'right')
     ).join('');
   }
@@ -152,26 +174,27 @@ function renderSkills() {
 
 // Function to render projects
 function renderProjects() {
-  const projectsContainer = document.querySelector('.projects-carousel');
+  const projectsContainer = document.getElementById('projects-carousel');
   if (projectsContainer) {
-    // PERF: add intrinsic dimensions + lazy loading for project images to prevent CLS.
+    // PERF: intrinsic dimensions + lazy loading to prevent CLS.
     projectsContainer.innerHTML = projectsData.map((project, idx) => `
       <div class="text-center" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-        <div class="card border-0 project-card mx-auto" data-index="${idx}" style="width: 20rem;">
-          <img src="${project.image}" class="card-img-top" alt="${project.title}" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" data-aos="flip-up" data-aos-delay="300" data-aos-duration="1200">
+        <div class="card border-0 project-card mx-auto" data-index="${idx}" style="width: 20rem;"
+             role="button" tabindex="0" aria-label="View details for ${escapeHTML(project.title)}">
+          <img src="${escapeHTML(project.image)}" class="card-img-top" alt="${escapeHTML(project.title)} screenshot" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" data-aos="flip-up" data-aos-delay="300" data-aos-duration="1200">
           <div class="card-body mx-auto">
-            <h5 class="card-title fw-bolder" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">${project.title}</h5>
-            <h6 class="card-Discription fw-semibold" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">${project.subtitle}</h6>
-            <p class="card-text fw-normal" style="font-family: 'Caveat', cursive;" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">${project.description} <a href="#" class="project-read-more" data-index="${idx}">...more</a></p>
-            <small class="card-techStack fst-italic d-none" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000" style="font-family: 'Caveat', cursive;">
-              <iconify-icon icon="streamline-color:file-code-1-flat"></iconify-icon> ${project.techStack}
+            <h5 class="card-title font-weight-bold" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">${escapeHTML(project.title)}</h5>
+            <h6 class="card-description font-weight-bold" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">${escapeHTML(project.subtitle)}</h6>
+            <p class="card-text" style="font-family: 'Caveat', cursive;" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000">${escapeHTML(project.description)} <a href="#" class="project-read-more" data-index="${idx}">...more</a></p>
+            <small class="card-techStack font-italic d-none" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1000" style="font-family: 'Caveat', cursive;">
+              <iconify-icon icon="streamline-color:file-code-1-flat" aria-hidden="true"></iconify-icon> ${escapeHTML(project.techStack)}
             </small>
             <div class="card-actions">
-              <a href="${project.liveLink}" target="_blank" class="btn btn-sm btn-outline-primary tilt mr-2" data-aos="fade-right">
-                <iconify-icon icon="line-md:link"></iconify-icon> Live
+              <a href="${escapeHTML(project.liveLink)}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary tilt mr-2" data-aos="fade-right" aria-label="Open ${escapeHTML(project.title)} live site">
+                <iconify-icon icon="line-md:link" aria-hidden="true"></iconify-icon> Live
               </a>
-              <a href="${project.githubLink}" target="_blank" class="btn btn-sm btn-outline-primary tilt" data-aos="fade-left">
-                <i class="lni lni-github-original"></i> Github
+              <a href="${escapeHTML(project.githubLink)}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary tilt" data-aos="fade-left" aria-label="Open ${escapeHTML(project.title)} source on GitHub">
+                <i class="lni lni-github-original" aria-hidden="true"></i> Github
               </a>
             </div>
           </div>
@@ -189,13 +212,15 @@ function openProjectModal(index) {
   $('#projectModalLabel').text(p.title);
   // PERF: apply intrinsic dimensions to avoid layout shift in modal.
   var $modalImg = $('#projectModalImg');
-  $modalImg.attr('src', p.image).attr('alt', p.title);
+  $modalImg.attr('src', p.image).attr('alt', p.title + ' screenshot');
   if (p.width && p.height) {
     $modalImg.attr('width', p.width).attr('height', p.height);
   }
   $('#projectModalSubtitle').text(p.subtitle || '');
   $('#projectModalDesc').text(p.description || '');
-  $('#projectModalTech').html(p.techStack ? `<iconify-icon icon="streamline-color:file-code-1-flat"></iconify-icon> ${p.techStack}` : '');
+  $('#projectModalTech').html(p.techStack
+    ? `<iconify-icon icon="streamline-color:file-code-1-flat" aria-hidden="true"></iconify-icon> ${escapeHTML(p.techStack)}`
+    : '');
   $('#projectModalLive').attr('href', p.liveLink || '#');
   $('#projectModalGithub').attr('href', p.githubLink || '#');
   // Show modal
@@ -204,13 +229,13 @@ function openProjectModal(index) {
 
 // Function to render certifications
 function renderCertifications() {
-  const certContainer = document.querySelector('.testimonial-carousel');
+  const certContainer = document.getElementById('certification-carousel');
   if (certContainer) {
-    // PERF: add intrinsic dimensions + lazy loading for certificate images to prevent CLS.
+    // PERF: intrinsic dimensions + lazy loading for certificate images to prevent CLS.
     certContainer.innerHTML = certificationData.map(cert => `
       <div class="text-center certificate-view">
-        <a href="${cert.link}" target="_blank" rel="noopener" title="View Certificate">
-          <img class="img-fluid rounded mx-auto d-block" src="${cert.image}" alt="${cert.title}" width="${cert.width}" height="${cert.height}" loading="lazy" decoding="async" style="max-width: 450px; height: auto;" />
+        <a href="${escapeHTML(cert.link)}" target="_blank" rel="noopener" title="View Certificate">
+          <img class="img-fluid rounded mx-auto d-block" src="${escapeHTML(cert.image)}" alt="${escapeHTML(cert.title)} certificate" width="${cert.width}" height="${cert.height}" loading="lazy" decoding="async" style="max-width: 450px; height: auto;" />
         </a>
       </div>
     `).join('');
@@ -219,32 +244,33 @@ function renderCertifications() {
 
 // Function to render interests
 function renderInterests() {
-  const interestContainer = document.querySelector('#service .row.pb-3');
+  const interestContainer = document.getElementById('interest-list');
   if (interestContainer) {
     interestContainer.innerHTML = interestData.map(interest => `
       <div class="col-lg-4 col-md-6 text-center mb-5">
         <div class="d-flex align-items-center justify-content-center mb-4" data-aos="fade-down" data-aos-delay="600">
-          <iconify-icon icon="${interest.icon}" class="fadesample" width="${interest.width}" height="${interest.height}" id="zoom"></iconify-icon>
+          <iconify-icon icon="${escapeHTML(interest.icon)}" class="fadesample interest-icon" width="${escapeHTML(interest.width)}" height="${escapeHTML(interest.height)}" aria-hidden="true"></iconify-icon>
         </div>
-        <h4 class="font-weight-bold m-0" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">${interest.title}</h4>
+        <h4 class="font-weight-bold m-0" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">${escapeHTML(interest.title)}</h4>
       </div>
     `).join('');
   }
 }
 
-// Function to render extra curricular (continued)
+// Function to render extra curricular
 function renderExtraCurricular() {
-  const extraContainer = document.querySelector('#testimonial .testimonial-carousel');
+  const extraContainer = document.getElementById('extracurricular-carousel');
   if (extraContainer) {
+    // `achievement` intentionally allows inline markup (<br>) authored in the data file.
     extraContainer.innerHTML = extraCurricularData.map(item => `
       <div class="text-center">
-        <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-        <span>${item.category}</span>
+        <iconify-icon icon="bi:quote" class="text-primary mb-4" style="font-size: 48px;" aria-hidden="true"></iconify-icon>
+        <span>${escapeHTML(item.category)}</span>
         <h4 class="font-weight-light mb-4">
-          <iconify-icon icon="${item.icon}" width="50" height="50"></iconify-icon><br>${item.achievement}
+          <iconify-icon icon="${escapeHTML(item.icon)}" width="50" height="50" aria-hidden="true"></iconify-icon><br>${item.achievement}
         </h4>
-        <iconify-icon icon="${item.bottomIcon}" width="50" height="50"></iconify-icon>
-        <h5 class="font-weight-bold m-0">${item.organization}</h5>
+        <iconify-icon icon="${escapeHTML(item.bottomIcon)}" width="50" height="50" aria-hidden="true"></iconify-icon>
+        <h5 class="font-weight-bold m-0">${escapeHTML(item.organization)}</h5>
       </div>
     `).join('');
   }
@@ -252,51 +278,189 @@ function renderExtraCurricular() {
 
 // Function to render footer social links
 function renderFooterSocials() {
-  const footerSocialContainer = document.querySelector('.fot .d-flex.justify-content-center.mb-4');
+  const footerSocialContainer = document.getElementById('footer-socials');
   if (footerSocialContainer) {
     footerSocialContainer.innerHTML = socialData.footerSocials.map(social => {
-      if (social.isIconify) {
-        return `<a class="${social.class}" href="${social.href}">
-          <iconify-icon icon="${social.icon}" data-aos="fade-down"></iconify-icon>
+      // Derive an accessible name from the host, e.g. "linkedin.com" -> "LinkedIn".
+      const label = social.label || labelFromHref(social.href);
+      const icon = social.isIconify
+        ? `<iconify-icon icon="${escapeHTML(social.icon)}" data-aos="fade-down" aria-hidden="true"></iconify-icon>`
+        : `<i class="${escapeHTML(social.icon)}" data-aos="fade-down" aria-hidden="true"></i>`;
+      return `<a class="${escapeHTML(social.class)}" href="${escapeHTML(social.href)}" target="_blank" rel="noopener" aria-label="${escapeHTML(label)}">
+          ${icon}
         </a>`;
-      } else {
-        return `<a class="${social.class}" href="${social.href}">
-          <i class="${social.icon}" data-aos="fade-down"></i>
-        </a>`;
-      }
     }).join('');
   }
-  
+
   // Render contact info
-  const contactContainer = document.querySelector('.fot .d-flex.justify-content-center.mb-3');
+  const contactContainer = document.getElementById('footer-contact');
   if (contactContainer) {
     contactContainer.innerHTML = `
-      <a class="text-white" href="mailto:${socialData.contactInfo.email}" data-aos="fade-down">${socialData.contactInfo.email}</a>
+      <a class="text-white" href="mailto:${escapeHTML(socialData.contactInfo.email)}" data-aos="fade-down">${escapeHTML(socialData.contactInfo.email)}</a>
       <span class="px-2">|</span>
-      <a class="text-white" href="tel:${socialData.contactInfo.phone}" data-aos="fade-down">${socialData.contactInfo.phone}</a>
+      <a class="text-white" href="tel:${escapeHTML(socialData.contactInfo.phone)}" data-aos="fade-down">${escapeHTML(socialData.contactInfo.phone)}</a>
     `;
   }
 }
 
-// Initialize all renders when DOM is loaded
-function initializeAllData() {
-  console.log('Initializing all data...');
-  
-  // Check if all required data is loaded
-  if (typeof navigationData === 'undefined' || 
-      typeof socialData === 'undefined' || 
-      typeof educationData === 'undefined' || 
-      typeof experienceData === 'undefined' || 
-      typeof skillData === 'undefined' || 
-      typeof projectsData === 'undefined' || 
-      typeof certificationData === 'undefined' || 
-      typeof interestData === 'undefined' || 
-      typeof extraCurricularData === 'undefined') {
-    console.error('Some data files are not loaded yet. Retrying...');
-    setTimeout(initializeAllData, 100);
+function labelFromHref(href) {
+  const known = { linkedin: 'LinkedIn', github: 'GitHub', leetcode: 'LeetCode',
+    instagram: 'Instagram', facebook: 'Facebook', 'x.com': 'X', twitter: 'X' };
+  const match = Object.keys(known).find(key => String(href).indexOf(key) !== -1);
+  return match ? known[match] + ' profile' : 'Social profile';
+}
+
+// Fill the skill bars with a CSS transition the first time they scroll into view.
+function animateSkillBars() {
+  const bars = document.querySelectorAll('.progress-bar[data-target-width]');
+  if (!bars.length) return;
+
+  const fill = () => bars.forEach(bar => {
+    bar.style.width = bar.getAttribute('data-target-width') + '%';
+  });
+
+  if (!('IntersectionObserver' in window)) { fill(); return; }
+
+  const section = document.getElementById('skill');
+  const observer = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) {
+      fill();
+      observer.disconnect();
+    }
+  }, { threshold: 0.2 });
+  observer.observe(section || bars[0]);
+}
+
+// Owl carousels can only be created once their slides exist, so they are all
+// initialized here — after rendering — and nowhere else.
+function initCarousels() {
+  if (!window.jQuery || typeof $.fn.owlCarousel === 'undefined') return;
+
+  const $projects = $('#projects-carousel');
+  if ($projects.length && $projects.children().length) {
+    $projects.owlCarousel({
+      autoplay: true,
+      autoplayHoverPause: true,
+      smartSpeed: 700,
+      dots: true,
+      loop: true,
+      center: true,
+      margin: 20,
+      responsive: {
+        0: { items: 1, center: false },
+        768: { items: 2, center: false },
+        992: { items: 3, center: true }
+      }
+    });
+
+    // Delegated handlers for modal open (survive Owl cloning the slides).
+    $projects.on('click', '.project-read-more', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openProjectModal($(this).data('index'));
+    });
+    $projects.on('click', '.project-card', function (e) {
+      if ($(e.target).closest('.card-actions').length) return;
+      openProjectModal($(this).data('index'));
+    });
+    // Keyboard equivalent of the card click (cards are role="button").
+    $projects.on('keydown', '.project-card', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+        e.preventDefault();
+        openProjectModal($(this).data('index'));
+      }
+    });
+  }
+
+  $('#certification-carousel, #extracurricular-carousel').each(function () {
+    const $this = $(this);
+    if (!$this.children().length) return;
+    $this.owlCarousel({
+      autoplay: true,
+      autoplayHoverPause: true,
+      smartSpeed: 1500,
+      dots: true,
+      loop: true,
+      items: 1
+    });
+  });
+}
+
+function initTyped() {
+  const source = document.querySelector('.typed-text');
+  const output = document.querySelector('.typed-text-output');
+  if (!source || !output || typeof Typed === 'undefined') return;
+
+  const strings = source.textContent.split(',').map(s => s.trim()).filter(Boolean);
+  if (!strings.length) return;
+
+  new Typed('.typed-text-output', {
+    strings: strings,
+    typeSpeed: 100,
+    backSpeed: 20,
+    smartBackspace: false,
+    loop: true
+  });
+}
+
+// AOS must be initialized *after* the dynamic markup exists, otherwise the injected
+// elements are never registered and stay at opacity 0 forever.
+function initAOS() {
+  if (typeof AOS === 'undefined') return;
+  AOS.init({
+    duration: 800,
+    offset: 100,
+    delay: 0,
+    once: true,     // don't re-hide content when scrolling back up
+    mirror: false,
+    disable: function () {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+  });
+}
+
+// Initialize all renders when DOM is loaded.
+// NOTE: the data files declare `const` at top level, which creates a global *binding*
+// but never a property on `window` - so these must be probed by identifier, not by
+// window lookup.
+const DATA_SOURCES = {
+  navigationData: () => navigationData,
+  socialData: () => socialData,
+  educationData: () => educationData,
+  experienceData: () => experienceData,
+  skillData: () => skillData,
+  projectsData: () => projectsData,
+  certificationData: () => certificationData,
+  interestData: () => interestData,
+  extraCurricularData: () => extraCurricularData
+};
+const MAX_DATA_ATTEMPTS = 50; // ~5s
+
+function missingDataFiles() {
+  return Object.keys(DATA_SOURCES).filter(name => {
+    try {
+      return typeof DATA_SOURCES[name]() === 'undefined';
+    } catch (e) {
+      return true; // not evaluated yet
+    }
+  });
+}
+
+function initializeAllData(attempt) {
+  attempt = attempt || 0;
+
+  const missing = missingDataFiles();
+  if (missing.length) {
+    if (attempt >= MAX_DATA_ATTEMPTS) {
+      console.error('Data files failed to load:', missing.join(', '));
+      // Reveal whatever static content exists rather than leaving the page blank.
+      document.querySelectorAll('[data-aos]').forEach(el => el.removeAttribute('data-aos'));
+      return;
+    }
+    setTimeout(() => initializeAllData(attempt + 1), 100);
     return;
   }
-  
+
   try {
     renderNavigation();
     renderAboutSection();
@@ -308,122 +472,26 @@ function initializeAllData() {
     renderInterests();
     renderExtraCurricular();
     renderFooterSocials();
-    
-    console.log('All data rendered successfully!');
-    
-    // Re-initialize any necessary plugins after rendering
-    if (typeof AOS !== 'undefined') {
-      AOS.refresh();
-    }
-    
-    // Re-initialize owl carousel for projects
-    if ($('.projects-carousel').length && typeof $.fn.owlCarousel !== 'undefined') {
-      const $proj = $('.projects-carousel');
-      // Destroy existing instance if any
-      if ($proj.hasClass('owl-loaded')) {
-        $proj.trigger('destroy.owl.carousel');
-        $proj.removeClass('owl-loaded');
-        $proj.find('.owl-stage-outer').children().unwrap();
-        $proj.find('.owl-stage-outer').remove();
-      }
-      if ($proj.children().length > 0) {
-        $proj.owlCarousel({
-          autoplay: true,
-          smartSpeed: 700,
-          dots: true,
-          loop: true,
-          center: true,
-          margin: 20,
-          responsive: {
-            0: {
-              items: 1,
-              center: false
-            },
-            768: {
-              items: 2,
-              center: false
-            },
-            992: {
-              items: 3,
-              center: true
-            }
-          }
-        });
-        // Delegated handlers for modal open
-        $proj.on('click', '.project-read-more', function(e) {
-          e.preventDefault();
-          var idx = $(this).data('index');
-          openProjectModal(idx);
-        });
-        $proj.on('click', '.project-card', function(e) {
-          // Ignore clicks on action buttons
-          if ($(e.target).closest('.card-actions').length) return;
-          var idx = $(this).data('index');
-          openProjectModal(idx);
-        });
-      }
-    }
-    
-    // Re-initialize testimonial carousel
-    if ($('.testimonial-carousel').length && typeof $.fn.owlCarousel !== 'undefined') {
-      $('.testimonial-carousel').each(function() {
-        const $this = $(this);
-        if ($this.hasClass('owl-loaded')) {
-          $this.trigger('destroy.owl.carousel');
-          $this.removeClass('owl-loaded');
-          $this.find('.owl-stage-outer').children().unwrap();
-          $this.find('.owl-stage-outer').remove();
-        }
-        if ($this.children().length > 0) {
-          $this.owlCarousel({
-            autoplay: true,
-            smartSpeed: 1500,
-            dots: true,
-            loop: true,
-            items: 1
-          });
-        }
-      });
-    }
-    
-    // Animate skill progress bars on scroll into view
-    (function() {
-      var animatedOnce = false;
-      function animateBars() {
-        if (animatedOnce) return;
-        $('.progress .progress-bar').each(function() {
-          var $bar = $(this);
-          var target = parseInt($bar.attr('aria-valuenow'), 10) || 0;
-          $bar.stop(true, true).css('width', '0%').animate({ width: target + '%' }, 1500);
-        });
-        animatedOnce = true;
-      }
 
-      var $skill = $('#skill');
-      if ($skill.length && typeof $.fn.waypoint !== 'undefined') {
-        $skill.waypoint(function() {
-          animateBars();
-          this.destroy();
-        }, { offset: '80%' });
-      } else {
-        // Fallback: trigger after a short delay
-        setTimeout(animateBars, 500);
+    initCarousels();
+    initTyped();
+    animateSkillBars();
+    initAOS();
+
+    // Web fonts and lazy images land after this point and change element heights.
+    // Recalculate once everything has settled so Owl keeps correct slide widths and
+    // AOS keeps correct trigger positions.
+    window.addEventListener('load', function () {
+      if (window.jQuery && typeof $.fn.owlCarousel !== 'undefined') {
+        $('.owl-carousel').trigger('refresh.owl.carousel');
       }
-    })();
-    
-    // Re-initialize typed text if needed
-    if ($('.typed-text').length && typeof Typed !== 'undefined') {
-      var typed_strings = $('.typed-text').text();
-      var typed = new Typed('.typed-text-output', {
-        strings: typed_strings.split(', '),
-        typeSpeed: 100,
-        backSpeed: 20,
-        smartBackspace: false,
-        loop: true
-      });
-    }
-    
+      if (typeof AOS !== 'undefined') AOS.refresh();
+    });
   } catch (error) {
     console.error('Error initializing data:', error);
+    // Never leave the page invisible because an animation library failed.
+    if (typeof AOS === 'undefined') {
+      document.querySelectorAll('[data-aos]').forEach(el => el.removeAttribute('data-aos'));
+    }
   }
 }

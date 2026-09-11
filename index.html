@@ -2,20 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Alok - Software Engineer</title>
+    <title>Alok Maurya — Software Engineer &amp; Full Stack Developer</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="description" content="Alok Maurya portfolio website | Software Engineer | Web Developer | Full Stack Developer">
     <meta name="author" content="Alok Maurya">
-    <meta name="keywords" content="HTML, CSS, JavaScript, Who is Alok Maurya, Alok Maurya, Who is Alok22, Who is alok22, alok22portfolio">
+    <link rel="canonical" href="https://founder.sonint.in/">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Open Graph / link previews (LinkedIn, WhatsApp, Slack) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Alok Maurya">
+    <meta property="og:title" content="Alok Maurya — Software Engineer &amp; Full Stack Developer">
+    <meta property="og:description" content="Portfolio of Alok Maurya — Software Engineer and Full Stack Developer. Projects, experience, skills and certifications.">
+    <meta property="og:url" content="https://founder.sonint.in/">
+    <meta property="og:image" content="https://founder.sonint.in/images/img-about.webp">
+    <meta property="og:image:alt" content="Alok Maurya">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alok Maurya — Software Engineer &amp; Full Stack Developer">
+    <meta name="twitter:description" content="Portfolio of Alok Maurya — Software Engineer and Full Stack Developer.">
+    <meta name="twitter:image" content="https://founder.sonint.in/images/img-about.webp">
     <!-- perf: preconnect to critical origins to reduce connection latency -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://cdn.lineicons.com" crossorigin>
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <!-- perf: preload LCP hero image for earlier discovery -->
-    <link rel="preload" as="image" href="images/img-about.png" imagesrcset="images/img-about.png 837w, images/img-about5.png 595w" imagesizes="(min-width: 992px) 50vw, 90vw">
+    <link rel="preload" as="image" href="images/img-about.webp" imagesrcset="images/img-about.webp 837w, images/img-about5.webp 595w" imagesizes="(min-width: 992px) 50vw, 90vw" fetchpriority="high">
     <!-- perf: inline critical above-the-fold CSS to improve FCP -->
     <style>
         *, *::before, *::after { box-sizing: border-box; }
@@ -27,7 +38,7 @@
             line-height: 1.5;
             color: #6c757d;
             background-color: #ffffff;
-            background-image: url("https://www.transparenttextures.com/patterns/diamond-eyes.png");
+            background-image: url("images/patterns/diamond-eyes.png");
             overflow-x: hidden;
         }
         img { border-style: none; }
@@ -122,19 +133,17 @@
             }
         }
     </style>
-    <!-- shery -->
     <!-- perf: async-load non-critical stylesheets (with noscript fallback) -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/sheryjs/dist/Shery.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sheryjs/dist/Shery.css"></noscript>
-    <!-- particles -->
-    <script defer src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    
-    <!-- <link href="img/favicon.ico" rel="icon"> -->
-    <link rel="icon" type="image/png" sizes="1500x200" href="favicons/Logo.webp">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
     <link rel="preload" href="https://cdn.lineicons.com/3.0/lineicons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css"></noscript>
     <!-- perf: defer iconify loader to avoid parser blocking -->
     <script defer src="js/1.0.1-iconify-icon.min.js"></script>
+    <!-- perf: registers the icons this page uses so no request goes to api.iconify.design -->
+    <script defer src="js/iconify-bundle.js"></script>
 
     <!-- Google Web Fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -144,23 +153,18 @@
     <link rel="preload" href="https://api.fontshare.com/v2/css?f%5B%5D=quicksand@400&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://api.fontshare.com/v2/css?f%5B%5D=quicksand@400&amp;display=swap" rel="stylesheet"></noscript>
 
-    <!-- Font Awesome -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Finger+Paint&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Finger+Paint&amp;display=swap" rel="stylesheet"></noscript>
+    <!-- perf: fonts moved out of css-style.css @import so they download in parallel -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Finger+Paint&amp;family=Caveat&amp;family=Josefin+Sans:wght@300;400;500;600&amp;family=Tiro+Devanagari+Hindi:ital@1&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Finger+Paint&amp;family=Caveat&amp;family=Josefin+Sans:wght@300;400;500;600&amp;family=Tiro+Devanagari+Hindi:ital@1&amp;display=swap" rel="stylesheet"></noscript>
 
     <!-- Libraries Stylesheet -->
-    <link rel="preload" href="css/assets-owl.carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="css/assets-owl.carousel.min.css" rel="stylesheet"></noscript>
-    <link rel="preload" href="css/css-lightbox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="css/css-lightbox.min.css" rel="stylesheet"></noscript>
+    <link href="css/assets-owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link rel="preload" href="css/css-style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="css/css-style.css" rel="stylesheet"></noscript>
+    <link href="css/css-style.css" rel="stylesheet">
 
     <!-- scoll -->
-    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
+    <link href="css/aos.css" rel="stylesheet">
     
     <!-- kursor-->
     <link rel="preload" href="css/css-kursur.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -180,16 +184,23 @@
         <!--Navbar Start -->
         <nav class="navbar fixed-top shadow-sm navbar-expand-lg  navbar-light py-1 py-lg-0 px-lg-5">
             <a class="navbar-brand ml-lg-3" href="#">
-                <h1 class="m-0 display-5 a1" style="font-family: 'Panchang', sans-serif;"></h1>
+                <h1 class="m-0 display-5 a1" id="navbar-brand-text" style="font-family: 'Panchang', sans-serif;">Alok</h1>
             </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse px-lg-3" id="navbarCollapse">
-                <div class="navbar-nav m-auto py-0" style="font-family: 'Panchang', sans-serif; font-size: 12px; ">
-                    <!-- Navigation items will be rendered here -->
+                <div class="navbar-nav m-auto py-0" id="navbar-links" style="font-family: 'Panchang', sans-serif; font-size: 12px; ">
+                    <a href="#about" class="nav-item nav-link tilt">About</a>
+                    <a href="#qualification" class="nav-item nav-link tilt">Qualifications</a>
+                    <a href="#skill" class="nav-item nav-link tilt">Skill</a>
+                    <a href="#portfolio" class="nav-item nav-link tilt">Projects</a>
+                    <a href="#certification" class="nav-item nav-link tilt">Certification</a>
+                    <a href="#service" class="nav-item nav-link tilt">Interest</a>
+                    <a href="#testimonial" class="nav-item nav-link tilt">Ex-Curricular</a>
+                    <a href="#contact" class="nav-item nav-link tilt">Contact</a>
                 </div>
-                <a href="" class="btn btn-outline-primary d-none d-lg-block tilt" style="font-family: 'Caveat';"></a>
+                <a href="https://www.linkedin.com/in/alok22/" id="navbar-cta" class="btn btn-outline-primary d-none d-lg-block tilt" style="font-family: 'Caveat';">Connect With Me!</a>
             </div>
         </nav>
         <!-- Navbar End -->
@@ -204,26 +215,29 @@
                             <source srcset="images/img-about5.webp" media="(min-width: 992px)">
                             <!-- Default (mobile + tablet) -->
                             <!-- perf: LCP image dimensions + priority for faster LCP and no CLS -->
-                            <img title="Hey, Nice to meet you :)" class="profile-img mask-target img-fluid rounded" data-aos="fade-right" data-aos-delay="600" src="images/img-about.png" width="837" height="1024" loading="eager" decoding="async" fetchpriority="high" alt="Web Browser not supported profile image">
+                            <img title="Hey, Nice to meet you :)" class="profile-img img-fluid rounded" src="images/img-about.webp" width="837" height="1024" loading="eager" decoding="async" fetchpriority="high" alt="Alok Maurya">
                         </picture>
                     </div>
-                    </br>
                     <div class="col-lg-7" style="scale: 0.9;">
-                        <h3 class="mb-2 display-4 display-md-6 text-bg aos-init" data-aos="fade-down-left" data-aos-delay="1000" data-aos-offset="100" style="font-family: 'Panchang', sans-serif;">
-                            <!-- Name will be rendered here -->
-                        </h3>
-                        <h3 class="text-target mb-4 display-5 text-muted aos-init w-auto" style="font-family: 'Panchang', sans-serif;">
-                            <!-- Title will be rendered here -->
-                        </h3>
-                        <p class="" data-aos="fade-up" data-aos-delay="1000" style="font-family: 'Caveat', cursive;">
+                        <h3 class="mb-2 display-4 display-md-6 text-bg" id="about-name" data-aos="fade-down-left" data-aos-delay="200" data-aos-offset="100" style="font-family: 'Panchang', sans-serif;">Hey, I&#39;m Alok</h3>
+                        <h3 class="text-target mb-4 display-5 text-muted w-auto" id="about-title" style="font-family: 'Panchang', sans-serif;">a Software Engineer &amp; Full Stack Developer</h3>
+                        <p id="about-description" data-aos="fade-up" data-aos-delay="200" style="font-family: 'Caveat', cursive;">
                             <!-- Description will be rendered here -->
                         </p>
-                        <div class="row mb-3 text-black-500" data-aos="fade-up">
-                            <div class="typed-text d-none text-black-50" style="font-family: 'Quicksand', sans-serif;" data-aos-duration="3500" data-aos="fade-down">
-                                <!-- Typed text will be rendered here -->
-                            </div>
+                        <div class="mb-3 text-black-500">
+                            <!-- Source list for the typing effect (hidden by design) -->
+                            <div class="typed-text d-none"><!-- Typed strings will be rendered here --></div>
+                            <h5 class="typed-line text-black-50 m-0" style="font-family: 'Quicksand', sans-serif;">
+                                <span class="typed-text-output"></span>
+                            </h5>
                         </div>
-                        <!-- Social buttons and links will be rendered here -->
+                        <div class="social-buttons-container" id="about-social"></div>
+                        <noscript>
+                            <p style="font-family: 'Caveat', cursive;">Computer Science graduate, Software Engineer and Full Stack Developer — experienced in React, React Native, Java/Spring Boot, PHP and cloud tooling. Projects: Sir Musiz, Extrabite, Social Sphere, Restro Sathi, Tip Top Dresses.</p>
+                            <p><a href="https://github.com/alokmaurya22" rel="noopener">GitHub</a> &middot;
+                               <a href="https://www.linkedin.com/in/alok22/" rel="noopener">LinkedIn</a> &middot;
+                               <a href="mailto:er.alokmaurya22@gmail.com">er.alokmaurya22@gmail.com</a></p>
+                        </noscript>
                     </div>
                 </div>
             </div>
@@ -235,28 +249,28 @@
             <div class="container">
                 <div class="position-relative d-flex align-items-center justify-content-center">
                     <!-- With space (small screens) -->
-                    <h1 class="display-1 text-uppercase text-white d-block d-lg-none" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">
+                    <h1 aria-hidden="true" class="display-1 text-uppercase text-white d-block d-lg-none" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">
                         &#2358;&#2367;&#2325;&#2381;&#2359;&#2366;&#2324;&#2352; &#2309;&#2344;&#2369;&#2349;&#2357;
                     </h1>
                     <!-- Without space (large screens) -->
-                    <h1 class="display-1 text-uppercase text-white d-none d-lg-block" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">
+                    <h1 aria-hidden="true" class="display-1 text-uppercase text-white d-none d-lg-block" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">
                         &#2358;&#2367;&#2325;&#2381;&#2359;&#2366;&#2324;&#2352;&#2309;&#2344;&#2369;&#2349;&#2357;
                     </h1>
-                    <h1 class="position-absolute text-uppercase text-primary" style="font-family: 'Panchang', sans-serif;" data-aos="fade-left">Education &amp; Expericence</h1>
+                    <h1 class="position-absolute text-uppercase text-primary" style="font-family: 'Panchang', sans-serif;" data-aos="fade-left">Education &amp; Experience</h1>
                 </div>
                 <div class="row align-items-center">
                     <div class="col-lg-5">
                         <h3 class="mb-4" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
                             Education<i data-aos="zoom-in-down" data-aos-delay="500" class="lni lni-graduation"></i></h3>
-                        <div data-aos="zoom-out-right" class="border-left border-primary pt-2 pl-4 ml-2">
+                        <div data-aos="zoom-out-right" id="education-list" class="border-left border-primary pt-2 pl-4 ml-2">
                             <!-- Education items will be rendered here -->
                         </div>
                     </div>
                     <div class="col-lg-7">
-                        <h3 class="mb-4" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">My Expericence
+                        <h3 class="mb-4" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">My Experience
                             <iconify-icon inline icon="material-symbols:work-history-outline" data-aos="zoom-in-down" data-aos-delay="500"></iconify-icon>
                         </h3>
-                        <div data-aos="zoom-out-left" class="border-left border-primary pt-2 pl-4 ml-2">
+                        <div data-aos="zoom-out-left" id="experience-list" class="border-left border-primary pt-2 pl-4 ml-2">
                             <!-- Experience items will be rendered here -->
                         </div>
                     </div>
@@ -270,14 +284,14 @@
         <div class="container-fluid py-5" id="skill">
             <div class="container">
                 <div class="position-relative d-flex align-items-center justify-content-center">
-                    <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right"> &#2361;&#2369;&#2344;&#2352;</h1>
+                    <h1 aria-hidden="true" class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right"> &#2361;&#2369;&#2344;&#2352;</h1>
                     <h1 class="position-absolute text-uppercase text-primary" style="font-family: 'Panchang', sans-serif;" data-aos="fade-left">My Skills</h1>
                 </div>
                 <div class="row align-items-center">
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="skills-left">
                         <!-- Left column skills will be rendered here -->
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="skills-right">
                         <!-- Right column skills will be rendered here -->
                     </div>
                 </div>
@@ -289,12 +303,12 @@
          <div class="container-fluid py-5" id="portfolio">
         <div class="container">
             <div class="position-relative d-flex align-items-center justify-content-center">
-                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">&#2346;&#2352;&#2367;&#2351;&#2379;&#2332;&#2344;&#2366;</h1>
+                <h1 aria-hidden="true" class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">&#2346;&#2352;&#2367;&#2351;&#2379;&#2332;&#2344;&#2366;</h1>
                 <h1 class="position-absolute text-uppercase text-primary" style="font-family: 'Panchang', sans-serif;" data-aos="fade-left">PROJECTS</h1>
             </div>
             <div class="row justify-content-center" data-aos="flip-left">
                 <div class="col-lg-11">
-                    <div class="owl-carousel projects-carousel">
+                    <div class="owl-carousel projects-carousel" id="projects-carousel">
                             <!-- Projects will be rendered here -->
                         </div>
                     </div>
@@ -307,12 +321,12 @@
         <div class="container-fluid py-5" id="certification">
             <div class="container">
                 <div class="position-relative d-flex align-items-center justify-content-center">
-                    <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">&#2346;&#2381;&#2352;&#2350;&#2366;&#2339;&#2368;&#2325;&#2352;&#2339;</h1>
+                    <h1 aria-hidden="true" class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">&#2346;&#2381;&#2352;&#2350;&#2366;&#2339;&#2368;&#2325;&#2352;&#2339;</h1>
                     <h1 class="position-absolute text-uppercase text-primary" style="font-family: 'Panchang', sans-serif;" data-aos="fade-left">Certification</h1>
                 </div>
                 <div class="row justify-content-center" data-aos="flip-left">
                     <div class="col-lg-8">
-                        <div class="owl-carousel testimonial-carousel" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
+                        <div class="owl-carousel testimonial-carousel" id="certification-carousel" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
                             <!-- Certifications will be rendered here -->
                         </div>
                     </div>
@@ -325,10 +339,10 @@
         <div class="container-fluid py-5" id="service">
             <div class="container">
                 <div class="position-relative d-flex align-items-center justify-content-center">
-                    <h1 class="display-1 text-uppercase text-white" data-aos="fade-right" style="-webkit-text-stroke: 1px #cdcecf;">&#2342;&#2367;&#2354;&#2330;&#2360;&#2381;&#2346;&#2368;</h1>
+                    <h1 aria-hidden="true" class="display-1 text-uppercase text-white" data-aos="fade-right" style="-webkit-text-stroke: 1px #cdcecf;">&#2342;&#2367;&#2354;&#2330;&#2360;&#2381;&#2346;&#2368;</h1>
                     <h1 class="position-absolute text-uppercase text-primary" data-aos="fade-left" style="font-family: 'Panchang', sans-serif;">INTEREST</h1>
                 </div>
-                <div class="row pb-3" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
+                <div class="row pb-3" id="interest-list" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
                     <!-- Interests will be rendered here -->
                 </div>
             </div>
@@ -339,12 +353,12 @@
         <div class="container-fluid py-5" id="testimonial">
             <div class="container">
                 <div class="position-relative d-flex align-items-center justify-content-center">
-                    <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">&#2346;&#2366;&#2336;&#2381;&#2351;&#2325;&#2381;&#2352;&#2350;&#2375;&#2340;&#2352;</h1>
+                    <h1 aria-hidden="true" class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">&#2346;&#2366;&#2336;&#2381;&#2351;&#2325;&#2381;&#2352;&#2350;&#2375;&#2340;&#2352;</h1>
                     <h1 class="position-absolute text-uppercase text-primary" style="font-family: 'Panchang', sans-serif;" data-aos="fade-left">Extra-Curricular</h1>
                 </div>
                 <div class="row justify-content-center" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
                     <div class="col-lg-8">
-                        <div class="owl-carousel testimonial-carousel">
+                        <div class="owl-carousel testimonial-carousel" id="extracurricular-carousel">
                             <!-- Extra curricular items will be rendered here -->
                         </div>
                     </div>
@@ -357,7 +371,7 @@
         <div class="container-fluid py-5" id="contact">
             <div class="container">
                 <div class="position-relative d-flex align-items-center justify-content-center">
-                    <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">&#2360;&#2306;&#2346;&#2352;&#2381;&#2325; &#2325;&#2352;&#2375;&#2306;</h1>
+                    <h1 aria-hidden="true" class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #cdcecf;" data-aos="fade-right">&#2360;&#2306;&#2346;&#2352;&#2381;&#2325; &#2325;&#2352;&#2375;&#2306;</h1>
                     <h1 class="position-absolute text-uppercase text-primary" style="font-family: 'Panchang', sans-serif;" data-aos="fade-left">Contact Me</h1>
                 </div>
                 <div class="row justify-content-center">
@@ -389,6 +403,8 @@
                                 <!-- Hidden fields for Formspree -->
                                 <input type="hidden" name="_subject" value="New contact form submission">
                                 <input type="hidden" name="_template" value="table">
+                                <!-- Honeypot: real people never fill this in -->
+                                <input type="text" name="_gotcha" id="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
                             </form>
                         </div>
                     </div>
@@ -404,7 +420,7 @@
         <footer class="page-footer">
             <a href="#About" class="nav-item nav-link">
                 <!-- perf: lazy-load footer image to reduce initial network -->
-                <img width="60" height="40" src="images/img-sig-min.webp" loading="lazy" decoding="async" alt="Alok Signature Logo">
+                <img width="96" height="36" src="images/img-sig-min.webp" loading="lazy" decoding="async" alt="Alok Maurya signature">
             </a>
         </footer>
         <!-- Bottom Signature -->
@@ -412,10 +428,10 @@
         <!-- Footer Start -->
         <div class="container-fluid bg-primary text-white mt-5 py-5 px-sm-3 px-md-5 fot">
             <div class="container text-center py-5">
-                <div class="d-flex justify-content-center mb-4" data-aos="fade-up">
+                <div class="d-flex justify-content-center mb-4" id="footer-socials" data-aos="fade-up">
                     <!-- Social icons will be rendered here -->
                 </div>
-                <div class="d-flex justify-content-center mb-3" data-aos="fade-in">
+                <div class="d-flex justify-content-center mb-3" id="footer-contact" data-aos="fade-in">
                     <!-- Contact info will be rendered here -->
                 </div>
                 <p class="d-flex justify-content-center mb-3" data-aos="zoom-out-up" data-aos-duration="2000" data-aos-delay="500"> All Rights Reserved.</p>
@@ -432,11 +448,11 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <!-- perf: reserve modal image space to prevent CLS -->
-                    <img id="projectModalImg" class="img-fluid rounded mb-3" width="2849" height="1564" loading="lazy" decoding="async" alt="Project image" />
+                    <img id="projectModalImg" class="img-fluid rounded mb-3" width="700" height="384" loading="lazy" decoding="async" alt="Project image" />
                     <h5 class="modal-title text-center" id="projectModalLabel">Project</h5>
                     <h6 id="projectModalSubtitle" class="text-muted mb-2"></h6>
                     <p id="projectModalDesc" class="mb-2" style="font-family: 'Caveat', cursive;"></p>
-                    <small id="projectModalTech" class="fst-italic" style="font-family: 'Caveat', cursive;"></small>
+                    <small id="projectModalTech" class="font-italic" style="font-family: 'Caveat', cursive;"></small>
                 </div>
                 <div class="modal-footer">
                     <a id="projectModalLive" target="_blank" class="btn btn-outline-primary">
@@ -445,203 +461,79 @@
                     <a id="projectModalGithub" target="_blank" class="btn btn-outline-primary">
                         <i class="lni lni-github-original" style="font-size: 20px;"></i> Github
                     </a>
-                    <a type="button" data-dismiss="modal" class="btn btn-outline-primary">
-                        <iconify-icon icon="icon-park-outline:close-one" style="font-size: 20px;"></iconify-icon> Close
-                    </a>
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-primary">
+                        <iconify-icon icon="icon-park-outline:close-one" style="font-size: 20px;" aria-hidden="true"></iconify-icon> Close
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
         <!-- Scroll to Bottom -->
-        <i class="fa fa-2x fa-angle-down text-white scroll-to-bottom"></i>
+        <iconify-icon icon="mdi:chevron-double-down" class="scroll-to-bottom text-white" aria-hidden="true"></iconify-icon>
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-outline-dark px-0 back-to-top"><i class="lni lni-angle-double-up"></i></a>
+        <a href="#" class="btn btn-outline-dark px-0 back-to-top" aria-label="Back to top"><i class="lni lni-angle-double-up" aria-hidden="true"></i></a>
     
-        <!-- perf: defer external scripts to reduce main-thread blocking -->
-        <script defer src="js/dist-locomotive-scroll.js"></script>
-        <script defer src="js/3.12.2-gsap.min.js"></script>
-        <!-- Scroll Trigger is needed for Scroll Effects -->
-        <script defer src="js/3.12.2-ScrollTrigger.min.js"></script>
-        <!-- Three.js is needed for 3d Effects -->
-        <script defer src="js/0.158.0-three.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <!-- ControlKit is needed for Debug Panel -->
-        <script defer src="js/bin-controlKit.min.js"></script>
-        <script defer type="text/javascript" src="js/dist-Shery.js"></script>
-    
+        <!-- perf: every script is deferred; heavy init is pushed to idle time after load -->
         <!-- JavaScript Libraries -->
         <script defer src="js/jquery-3.4.1.min.js"></script>
         <script defer src="js/js-bootstrap.bundle.min.js"></script>
         <script defer src="js/typed-typed.min.js"></script>
         <script defer src="js/easing-easing.min.js"></script>
-        <script defer src="js/waypoints-waypoints.min.js"></script>
         <script defer src="js/owlcarousel-owl.carousel.min.js"></script>
-        <script defer src="js/isotope-isotope.pkgd.min.js"></script>
-        <script defer src="js/js-lightbox.min.js"></script>
-    
-        <!-- Contact Javascript File -->
+
+        <!-- Contact form -->
         <script defer src="js/862-mail-jqBootstrapValidation.min.js"></script>
         <script defer src="js/2653-mail-contact.js"></script>
-    
-        <!-- scroll -->
+
+        <!-- Scroll animations (initialized in data/main.js, after the markup exists) -->
         <script defer src="js/dist-aos.js"></script>
 
-        <script>
-            // PERF: defer AOS init until after first paint to cut TBT.
-            window.addEventListener('load', function() {
-                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
-                perfIdle(function() {
-                    if (window.AOS) {
-                        AOS.init({
-                            duration: 1000,
-                            offset: 120,
-                            delay: 200,
-                            mirror: true,
-                            smooth: true
-                        });
-                    }
-                });
-            });
-        </script>
-    
-    
-        <!-- Template Javascript -->
+        <!-- Site behaviour: loader, smooth scroll, scroll affordances -->
         <script defer src="js/2967-js-main.js"></script>
-        <script defer src="js/3.11.3-gsap.min.js"></script>
-        <script defer src="js/3.11.3-ScrollTrigger.min.js"></script>
-        <script defer src="js/4694-js-a.js"></script>
-    
-    
-        <script defer src="js/489-js-locomotive-scroll.min.js"></script>
-        <script>
-            // PERF: defer LocomotiveScroll init until idle to reduce blocking.
-            window.addEventListener('load', function() {
-                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
-                perfIdle(function() {
-                    if (window.LocomotiveScroll) {
-                        var scroll = new LocomotiveScroll();
-                    }
-                });
-            });
-        </script>
-    
-        <!-- Particles-->
-        <script defer src="js/9547-js-particles.min.js"></script>
-    
-        <!-- tilt -->
+
+        <!-- Pointer effects: loaded everywhere, initialized only on real pointers -->
         <script defer src="js/8202-js-vanilla-tilt.js"></script>
-    
-    
-        <script defer src="js/particles-app.js"></script>
-    
-        <script>
-            // PERF: delay tilt initialization until idle.
-            window.addEventListener('load', function() {
-                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
-                perfIdle(function() {
-                    if (window.VanillaTilt) {
-                        VanillaTilt.init(document.querySelectorAll(".tilt"), {
-                            reverse: true,
-                            max: 15,
-                            perspective: 1000,
-                            easing: "cubic-bezier(.03,.98,.52,.99)",
-                            scale: 1,
-                            speed: 500,
-                            transition: true,
-                            axis: null,
-                            glare: true,
-                            "max-glare": 20,
-                            "glare-prerender": false,
-                            "mouse-event-element": null,
-                            reset: true
-                        });
-                    }
-                });
-            });
-        </script>
-    
-        <!-- kursur -->
-        <script defer src="js/7907-js-kur2.js"></script>
-        <script defer src="js/2568-js-kur3.js"></script>
         <script defer src="js/9495-js-kursor.js"></script>
         <script>
-            // PERF: delay cursor effects until idle.
-            window.addEventListener('load', function() {
-                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
-                perfIdle(function() {
-                    if (window.kursor) {
-                        new kursor({
-                            type: 4,
-                            removeDefaultCursor: true
-                        });
-                    }
-                });
-            });
-        </script>
+            // PERF: tilt + custom cursor are desktop-only and never block first paint.
+            (function () {
+                var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+                var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (!finePointer || reducedMotion) return;
 
-        <!-- Impress-->
-        <script defer src="js/6659-js-impress.js"></script>
-        <script defer src="js/3.0.1-iconify.min.js"></script>
-        
-        <script>
-            /*Prevent Right Click*/
-            // PERF: bind non-critical listeners after DOM is ready.
-            document.addEventListener('DOMContentLoaded', function() {
-                document.addEventListener('contextmenu', event => event.preventDefault());
-                document.onkeydown = function(e) {
-                    if (event.keyCode == 123) {
-                        return false;
-                    }
-                    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-                        return false;
-                    }
-                    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-                        return false;
-                    }
-                    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-                        return false;
-                    }
-                }
-            });
-        </script>
-    
-        <script>
-            // PERF: delay carousel init until idle after load.
-            window.addEventListener('load', function() {
-                var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
-                perfIdle(function() {
-                    if (window.jQuery && $.fn.owlCarousel) {
-                        if ($('.projects-carousel').length) {
-                            $('.projects-carousel').owlCarousel({
-                                autoplay: true,
-                                smartSpeed: 700,
-                                dots: true,
-                                loop: true,
-                                center: true,
-                                margin: 20,
-                                responsive: {
-                                    0: {
-                                        items: 1,
-                                        center: false
-                                    },
-                                    768: {
-                                        items: 2,
-                                        center: false
-                                    },
-                                    992: {
-                                        items: 3,
-                                        center: true
-                                    }
-                                }
+                window.addEventListener('load', function () {
+                    var idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 1); };
+                    idle(function () {
+                        if (window.VanillaTilt) {
+                            VanillaTilt.init(document.querySelectorAll('.tilt'), {
+                                reverse: true,
+                                max: 15,
+                                perspective: 1000,
+                                easing: 'cubic-bezier(.03,.98,.52,.99)',
+                                scale: 1,
+                                speed: 500,
+                                transition: true,
+                                axis: null,
+                                glare: true,
+                                'max-glare': 20,
+                                'glare-prerender': false,
+                                'mouse-event-element': null,
+                                reset: true
                             });
                         }
-                    }
+                        if (window.kursor) {
+                            new kursor({ type: 4, removeDefaultCursor: true });
+                            // Only hide the native cursor once the replacement exists (B23).
+                            document.body.classList.add('kursor-ready');
+                        }
+                    });
                 });
-            });
+            })();
         </script>
 
-    <!-- Data scripts for dynamic content -->
+    <!-- Data files (plain globals) + the renderers that consume them -->
     <script defer src="data/navigationData.js"></script>
     <script defer src="data/socialData.js"></script>
     <script defer src="data/educationData.js"></script>
@@ -654,38 +546,20 @@
     <script defer src="data/main.js"></script>
 
     <script>
-      // PERF: wait for deferred JS + data before initializing dynamic content.
-      window.addEventListener('DOMContentLoaded', function() {
-        var perfIdle = window.requestIdleCallback || function(cb) { return setTimeout(cb, 1); };
-        perfIdle(function() {
-          function initWhenReady() {
-            if (window.jQuery) {
-              $(document).ready(function () {
-                function checkDataAndInitialize() {
-                  if (typeof navigationData !== 'undefined' &&
-                      typeof socialData !== 'undefined' &&
-                      typeof educationData !== 'undefined' &&
-                      typeof experienceData !== 'undefined' &&
-                      typeof skillData !== 'undefined' &&
-                      typeof projectsData !== 'undefined' &&
-                      typeof certificationData !== 'undefined' &&
-                      typeof interestData !== 'undefined' &&
-                      typeof extraCurricularData !== 'undefined' &&
-                      typeof initializeAllData === 'function') {
-                    initializeAllData();
-                  } else {
-                    setTimeout(checkDataAndInitialize, 100);
-                  }
-                }
-                checkDataAndInitialize();
-              });
+        // Deferred scripts have all executed by DOMContentLoaded, so the renderers and
+        // every data global are available here. AOS is initialized inside
+        // initializeAllData(), after the markup exists - see data/main.js.
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof initializeAllData === 'function') {
+                initializeAllData();
             } else {
-              setTimeout(initWhenReady, 50);
+                console.error('data/main.js failed to load; showing static content.');
+                document.querySelectorAll('[data-aos]').forEach(function (el) {
+                    el.removeAttribute('data-aos');
+                });
             }
-          }
-          initWhenReady();
         });
-      });
     </script>
 </body>
+
 </html>

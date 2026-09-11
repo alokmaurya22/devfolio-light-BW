@@ -1,28 +1,75 @@
-$(function() {
+/**
+ * Contact form submission.
+ *
+ * Primary: Formspree. Fallback: Web3Forms (only when Formspree genuinely fails).
+ * Both keys are public client-side keys by design.
+ */
+$(function () {
     // API endpoints
     const FORMSPREE_URL = "https://formspree.io/f/myznyzpa";
     const WEB3FORMS_URL = "https://api.web3forms.com/submit";
     const WEB3FORMS_ACCESS_KEY = "7c987ec4-6a93-41c8-8241-e6debb218535";
 
+    const $status = $('#success');
+    const $submitButton = $("#sendMessageButton");
+
+    function setBusy(busy) {
+        $submitButton.prop("disabled", busy);
+    }
+
+    // The status box used to be left with display:none by a fadeOut, which made every
+    // message after the first one invisible. Always re-show it before writing.
+    function showMessage(type, text) {
+        $status
+            .stop(true, true)
+            .empty()
+            .show()
+            .html(
+                $('<div>')
+                    .addClass('alert alert-' + type + ' alert-dismissible')
+                    .attr('role', 'alert')
+                    .append($('<strong>').text(text))
+                    .append(
+                        $('<button>')
+                            .attr({ type: 'button', 'class': 'close', 'data-dismiss': 'alert', 'aria-label': 'Close' })
+                            .append($('<span>').attr('aria-hidden', 'true').html('&times;'))
+                    )
+            );
+    }
+
+    function showSuccessMessage() {
+        showMessage('success', 'Thank you! Your message has been sent successfully.');
+        $('#contactForm').trigger("reset");
+        setTimeout(function () { $status.fadeOut('slow'); }, 5000);
+    }
+
+    function showErrorMessage(errorText) {
+        showMessage('danger', errorText || 'Something went wrong. Please try again later!');
+    }
+
     $("#contactForm input, #contactForm textarea").jqBootstrapValidation({
         preventSubmit: true,
-        submitError: function($form, event, errors) {
-            // Handle validation errors
+        submitError: function ($form, event, errors) {
+            // Validation messages are rendered by jqBootstrapValidation itself.
         },
-        submitSuccess: function($form, event) {
+        submitSuccess: function ($form, event) {
             event.preventDefault();
-            
+
+            // Honeypot: only bots fill this in. Pretend it worked, send nothing.
+            if ($("#_gotcha").val()) {
+                showSuccessMessage();
+                return;
+            }
+
             // Get form values
             var name = $("input#name").val();
             var email = $("input#email").val();
             var subject = $("input#subject").val();
             var message = $("textarea#message").val();
 
-            // Disable submit button
-            var $submitButton = $("#sendMessageButton");
-            $submitButton.prop("disabled", true);
+            setBusy(true);
 
-            // Function to send via Web3Forms
+            // Fallback path - only reached when Formspree actually failed.
             function sendViaWeb3Forms() {
                 var web3FormData = {
                     access_key: WEB3FORMS_ACCESS_KEY,
@@ -40,93 +87,57 @@ $(function() {
                     data: JSON.stringify(web3FormData),
                     contentType: "application/json",
                     dataType: "json",
-                    success: function(response) {
-                        if (response.success) {
+                    success: function (response) {
+                        if (response && response.success) {
                             showSuccessMessage();
                         } else {
                             showErrorMessage("Form submission failed. Please try again.");
                         }
                     },
-                    error: function() {
-                        showErrorMessage("Unable to send message. Please try again later.");
+                    error: function () {
+                        showErrorMessage("Unable to send message. Please email me directly at er.alokmaurya22@gmail.com");
                     },
-                    complete: function() {
-                        setTimeout(function() {
-                            $submitButton.prop("disabled", false);
-                        }, 1000);
+                    complete: function () {
+                        setBusy(false);
                     }
                 });
             }
 
-            // Function to show success message
-            function showSuccessMessage() {
-                $('#success').html("<div class='alert alert-success'>");
-                $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                    .append("</button>");
-                $('#success > .alert-success')
-                    .append("<strong>Thank you! Your message has been sent successfully. </strong>");
-                $('#success > .alert-success')
-                    .append('</div>');
-                
-                // Clear form
-                $('#contactForm').trigger("reset");
-                
-                // Auto hide success message after 5 seconds
-                setTimeout(function() {
-                    $('#success').fadeOut('slow');
-                }, 5000);
-            }
-
-            // Function to show error message
-            function showErrorMessage(errorText) {
-                $('#success').html("<div class='alert alert-danger'>");
-                $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                    .append("</button>");
-                $('#success > .alert-danger').append($("<strong>").html(errorText || "Sorry " + name + ", something went wrong. Please try again later!"));
-                $('#success > .alert-danger').append('</div>');
-            }
-
-            // First try Formspree
-            var formspreeData = {
-                name: name,
-                email: email,
-                subject: subject,
-                subjects: subject,
-                message: message,
-                _subject: "New contact from " + name,
-            };
-
+            // First try Formspree.
+            // The Accept header is required: without it Formspree answers an AJAX POST
+            // with an HTML redirect, jQuery reports a parse error, and the old code fell
+            // through to Web3Forms even though the message had already been delivered -
+            // sending every message twice.
             $.ajax({
                 url: FORMSPREE_URL,
                 type: "POST",
-                data: formspreeData,
+                headers: { Accept: "application/json" },
+                data: {
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    subjects: subject,
+                    message: message,
+                    _subject: "New contact from " + name
+                },
                 dataType: "json",
-                success: function(data) {
+                success: function () {
                     showSuccessMessage();
+                    setBusy(false);
                 },
-                error: function(xhr, status, error) {
-                    console.log("Formspree failed, trying Web3Forms...");
-                    // If Formspree fails, try Web3Forms
+                error: function () {
+                    // Genuine failure - try the backup endpoint, which re-enables the button.
                     sendViaWeb3Forms();
-                },
-                complete: function() {
-                    // Don't re-enable button here, let individual handlers do it
                 }
             });
         },
-        filter: function() {
+        filter: function () {
             return $(this).is(":visible");
-        },
+        }
     });
 
-    // Clear messages when user clicks on any form field
-    $('#name, #email, #subject, #message').focus(function() {
-        $('#success').html('');
-    });
-    
-    // Handle tab navigation
-    $("a[data-toggle=\"tab\"]").click(function(e) {
-        e.preventDefault();
-        $(this).tab("show");
+    // Clear messages when the user starts correcting the form.
+    $('#name, #email, #subject, #message').on('focus', function () {
+        $status.stop(true, true).empty().hide();
     });
 });

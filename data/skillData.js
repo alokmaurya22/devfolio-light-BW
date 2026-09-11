@@ -6,7 +6,7 @@ const skillData = {
                 { icon: "logos:css-3", size: "22px" }
             ],
             percentage: 90,
-            color: "green"
+            color: "#28a745"
         },
         {
             name: "Tailwind & Bootstrap",
@@ -15,7 +15,7 @@ const skillData = {
                 { icon: "logos:bootstrap", size: "20px" }
             ],
             percentage: 85,
-            color: "bg-info"
+            color: "#17a2b8"
         },
         {
             name: "React Js & Next Js",
@@ -24,7 +24,7 @@ const skillData = {
                 { icon: "devicon:nextjs", size: "20px" }
             ],
             percentage: 85,
-            color: "bg-green"
+            color: "#28a745"
         },
         {
             name: "Git & GitHub",
@@ -33,7 +33,7 @@ const skillData = {
                 { icon: "icon-park:github", size: "22px" }
             ],
             percentage: 90,
-            color: "bg-info"
+            color: "#17a2b8"
         },
         {
             name: "Docker",
@@ -41,7 +41,7 @@ const skillData = {
                 { icon: "skill-icons:docker", size: "22px" }
             ],
             percentage: 70,
-            color: "rgb(0, 140, 255)"
+            color: "#008cff"
         },
         {
             name: "System Design and Data Structure & Algorithm",
@@ -49,7 +49,7 @@ const skillData = {
                 { icon: "streamline-sharp-color:browser-code-2-flat", size: "22px" }
             ],
             percentage: 75,
-            color: "green"
+            color: "#28a745"
         }
     ],
     rightColumn: [{
@@ -58,7 +58,7 @@ const skillData = {
                 { icon: "logos:javascript", size: "22px" }
             ],
             percentage: 85,
-            color: "bg-info"
+            color: "#17a2b8"
         },
         {
             name: "Java",
@@ -66,7 +66,7 @@ const skillData = {
                 { icon: "logos:java", size: "24px" }
             ],
             percentage: 80,
-            color: "rgb(0, 140, 255)"
+            color: "#008cff"
         },
         {
             name: "Spring-boot",
@@ -74,7 +74,7 @@ const skillData = {
                 { icon: "logos:spring-icon", size: "22px" }
             ],
             percentage: 75,
-            color: "bg-danger"
+            color: "#dc3545"
         },
         {
             name: "PHP",
@@ -82,7 +82,7 @@ const skillData = {
                 { icon: "logos:php", size: "22px" }
             ],
             percentage: 85,
-            color: "rgb(0, 140, 255)"
+            color: "#008cff"
         },
         {
             name: "Python",
@@ -90,7 +90,7 @@ const skillData = {
                 { icon: "logos:python", size: "22px" }
             ],
             percentage: 70,
-            color: "bg-2"
+            color: "#3776ab"
         },
         {
             name: "MySQL & Postgres Sql",
@@ -99,7 +99,7 @@ const skillData = {
                 { icon: "logos:postgresql", size: "22px" }
             ],
             percentage: 85,
-            color: "bg-danger"
+            color: "#dc3545"
         }
     ]
 };

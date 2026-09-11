@@ -7,7 +7,7 @@ const extraCurricularData = [{
     },
     {
         category: "Top Performer (MVP)",
-        achievement: "Awarded highest performance score at Weknow Technology based on professional behavior, on-time delivery, high team engagement, and technical contributions.",
+        achievement: "Awarded highest performance score at WeKnow Technologies based on professional behavior, on-time delivery, high team engagement, and technical contributions.",
         icon: "marketeq:gold-medal",
         bottomIcon: "guidance:office",
         organization: "Weknow Technologies Pvt Ltd."
