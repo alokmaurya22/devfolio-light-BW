@@ -99,14 +99,7 @@ body {
     transform: scale(1.5);
 }
 
-.background {
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    color: white;
-    background-image: url("../images/patterns/stardust.png");
-}
+
 
 .sk-img {
     max-width: 80vw;
