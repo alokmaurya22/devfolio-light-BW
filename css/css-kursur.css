@@ -265,3 +265,33 @@
     }
   }
   
+/* Pointer follower.
+   Restores the lagging circle the site had when Shery.mouseFollower was loaded.
+   Same spec as Shery's .mousefollower (15px, mix-blend-mode: exclusion, so it
+   inverts whatever is behind it) without the 1.27 MB of three.js + ControlKit +
+   Shery that used to be pulled in just to draw it. */
+.mouse-follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    mix-blend-mode: exclusion;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: transform;
+}
+
+.mouse-follower.is-visible {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mouse-follower {
+        display: none;
+    }
+}

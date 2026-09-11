@@ -41,6 +41,61 @@
         }
     });
 
+    /**
+     * Pointer follower: a small circle that trails the cursor and inverts what is
+     * behind it (mix-blend-mode: exclusion), sitting behind kursor's ring and dot.
+     *
+     * This used to come from the mouseFollower helper in Shery, which dragged in
+     * three.js and ControlKit with it - 1.27 MB to draw one 15px circle. Same
+     * look here in ~30 lines: one rAF loop that stops as soon as it settles.
+     */
+    function initPointerFollower() {
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        var dot = document.createElement('div');
+        dot.className = 'mouse-follower';
+        document.body.appendChild(dot);
+
+        var targetX = 0, targetY = 0, x = 0, y = 0, running = false, seen = false;
+
+        function frame() {
+            // Ease towards the pointer; 0.12 lands in roughly the 0.6s Shery used.
+            x += (targetX - x) * 0.12;
+            y += (targetY - y) * 0.12;
+            dot.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) translate(-50%,-50%)';
+            if (Math.abs(targetX - x) < 0.1 && Math.abs(targetY - y) < 0.1) {
+                running = false;   // settled - stop burning frames
+                return;
+            }
+            requestAnimationFrame(frame);
+        }
+
+        document.addEventListener('mousemove', function (e) {
+            targetX = e.clientX;
+            targetY = e.clientY;
+            if (!seen) {
+                // Start from under the pointer so it does not fly in from 0,0.
+                seen = true;
+                x = targetX;
+                y = targetY;
+                dot.classList.add('is-visible');
+            }
+            if (!running) {
+                running = true;
+                requestAnimationFrame(frame);
+            }
+        }, { passive: true });
+
+        document.addEventListener('mouseleave', function () { dot.classList.remove('is-visible'); });
+        document.addEventListener('mouseenter', function () { if (seen) dot.classList.add('is-visible'); });
+    }
+
+    window.addEventListener('load', function () {
+        var idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 1); };
+        idle(initPointerFollower);
+    });
+
     function onJQueryReady() {
         var $ = window.jQuery;
 
