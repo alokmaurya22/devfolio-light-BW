@@ -11131,3 +11131,11 @@ h6,
         transition: none !important;
     }
 }
+
+/* Hero description: Caveat has a small x-height, so 16px read smaller than it
+   measured. A modest bump with a little more leading, which suits a handwriting
+   face better than tightening it up. */
+#about-description {
+    font-size: 1.2rem;
+    line-height: 1.7;
+}
