@@ -11,9 +11,10 @@ const socialData = {
     },
     socialLinks: [{
             href: "https://github.com/alokmaurya22",
-            icon: "lni lni-github-original",
+            icon: "mdi:github",
             text: "Github",
-            class: "btn btn-outline-primary mr-4 tilt"
+            class: "btn btn-outline-primary mr-4 tilt",
+            isIconify: true
         },
         {
             href: "https://drive.google.com/open?id=1YWVLEAfu01DdftCqMT7YQXabtCQpkcE3&usp=drive_copy",
@@ -24,12 +25,12 @@ const socialData = {
         }
     ],
     footerSocials: [
-        { href: "https://www.linkedin.com/in/alok22/", icon: "lni lni-linkedin", class: "btn btn-light btn-social mr-2" },
-        { href: "https://github.com/alokmaurya22", icon: "lni lni-github-original", class: "btn btn-light btn-social mr-2" },
+        { href: "https://www.linkedin.com/in/alok22/", icon: "mdi:linkedin", class: "btn btn-light btn-social mr-2", isIconify: true },
+        { href: "https://github.com/alokmaurya22", icon: "mdi:github", class: "btn btn-light btn-social mr-2", isIconify: true },
         { href: "https://leetcode.com/u/alokmaurya22/", icon: "cib:leetcode", class: "btn btn-light btn-social mr-2", isIconify: true },
-        { href: "https://instagram.com/alok.2003", icon: "lni lni-instagram-filled", class: "btn btn-light btn-social mr-2" },
-        { href: "https://x.com/alok_2003", icon: "lni lni-twitter-filled", class: "btn btn-light btn-social mr-2" },
-        { href: "https://www.facebook.com/alokmaurya.2003", icon: "lni lni-facebook-filled", class: "btn btn-light btn-social mr-2" }
+        { href: "https://instagram.com/alok.2003", icon: "mdi:instagram", class: "btn btn-light btn-social mr-2", isIconify: true },
+        { href: "https://x.com/alok_2003", icon: "ri:twitter-x-fill", class: "btn btn-light btn-social mr-2", isIconify: true },
+        { href: "https://www.facebook.com/alokmaurya.2003", icon: "mdi:facebook", class: "btn btn-light btn-social mr-2", isIconify: true }
     ],
     contactInfo: {
         email: "er.alokmaurya22@gmail.com",

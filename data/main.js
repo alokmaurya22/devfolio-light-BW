@@ -194,7 +194,7 @@ function renderProjects() {
                 <iconify-icon icon="line-md:link" aria-hidden="true"></iconify-icon> Live
               </a>
               <a href="${escapeHTML(project.githubLink)}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary tilt" data-aos="fade-left" aria-label="Open ${escapeHTML(project.title)} source on GitHub">
-                <i class="lni lni-github-original" aria-hidden="true"></i> Github
+                <iconify-icon icon="mdi:github" aria-hidden="true"></iconify-icon> Github
               </a>
             </div>
           </div>

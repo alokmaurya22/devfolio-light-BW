@@ -24,7 +24,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.lineicons.com" crossorigin>
     <!-- perf: preload LCP hero image for earlier discovery -->
     <link rel="preload" as="image" href="images/img-about.webp" imagesrcset="images/img-about.webp 837w, images/img-about5.webp 595w" imagesizes="(min-width: 992px) 50vw, 90vw" fetchpriority="high">
     <!-- perf: inline critical above-the-fold CSS to improve FCP -->
@@ -138,8 +137,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
-    <link rel="preload" href="https://cdn.lineicons.com/3.0/lineicons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css"></noscript>
     <!-- perf: defer iconify loader to avoid parser blocking -->
     <script defer src="js/1.0.1-iconify-icon.min.js"></script>
     <!-- perf: registers the icons this page uses so no request goes to api.iconify.design -->
@@ -261,7 +258,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-5">
                         <h3 class="mb-4" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300">
-                            Education<i data-aos="zoom-in-down" data-aos-delay="500" class="lni lni-graduation"></i></h3>
+                            Education<iconify-icon data-aos="zoom-in-down" data-aos-delay="500" icon="mdi:school" aria-hidden="true"></iconify-icon></h3>
                         <div data-aos="zoom-out-right" id="education-list" class="border-left border-primary pt-2 pl-4 ml-2">
                             <!-- Education items will be rendered here -->
                         </div>
@@ -459,7 +456,7 @@
                         <iconify-icon icon="line-md:link" style="font-size: 20px;"></iconify-icon> Live
                     </a>
                     <a id="projectModalGithub" target="_blank" class="btn btn-outline-primary">
-                        <i class="lni lni-github-original" style="font-size: 20px;"></i> Github
+                        <iconify-icon icon="mdi:github" style="font-size: 20px;" aria-hidden="true"></iconify-icon> Github
                     </a>
                     <button type="button" data-dismiss="modal" class="btn btn-outline-primary">
                         <iconify-icon icon="icon-park-outline:close-one" style="font-size: 20px;" aria-hidden="true"></iconify-icon> Close
@@ -473,7 +470,7 @@
         <iconify-icon icon="mdi:chevron-double-down" class="scroll-to-bottom text-white" aria-hidden="true"></iconify-icon>
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-outline-dark px-0 back-to-top" aria-label="Back to top"><i class="lni lni-angle-double-up" aria-hidden="true"></i></a>
+        <a href="#" class="btn btn-outline-dark px-0 back-to-top" aria-label="Back to top"><iconify-icon icon="mdi:chevron-double-up" aria-hidden="true"></iconify-icon></a>
     
         <!-- perf: every script is deferred; heavy init is pushed to idle time after load -->
         <!-- JavaScript Libraries -->
