@@ -11072,6 +11072,15 @@ h6,
     .profile-img {
         transform-origin: center top;
     }
+
+    /* Nudge the text column down so it sits against the middle of the portrait
+       rather than its top. 10vh keeps the offset proportional to the screen. */
+    #about .col-lg-7 {
+        /* A margin here would only move it half as far: the row centres its items
+           including their margins. A relative offset shifts it by exactly 10vh. */
+        position: relative;
+        top: 10vh;
+    }
 }
 
 /* Short desktop screens: 1.7x would push the portrait past the fold, so scale it

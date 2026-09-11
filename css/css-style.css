@@ -2568,6 +2568,10 @@ h5 .font-weight-medium{
         width: 100%;
     }.profile-img{
         transform-origin: center top;
+    }#about .col-lg-7{
+        
+        position: relative;
+        top: 10vh;
     }}
 
 
