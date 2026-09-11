@@ -43,7 +43,7 @@
             #10162a 100%);
     background-size: 200% 100%;
     background-repeat: repeat;
-    animation: text-bg-aurora 9s ease-in-out infinite;
+    animation: text-bg-aurora 5s ease-in-out infinite;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
