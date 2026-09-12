@@ -126,47 +126,42 @@ function renderSkills() {
   const leftSkillContainer = document.getElementById('skills-left');
   const rightSkillContainer = document.getElementById('skills-right');
 
-  // Icons that are line-art rather than full logos read better inline.
-  const INLINE_ICONS = ['material-icon-theme:git', 'icon-park:github', 'logos:react',
-    'logos:javascript', 'logos:java', 'logos:php', 'logos:mysql'];
-
-  function createSkillHTML(skill, animationDirection) {
+  function createSkillHTML(skill, index) {
+    // No `inline` attribute here: the card centres its icons with flexbox, and the
+    // baseline shift `inline` adds pushed each card's title a few pixels out of line.
     const iconHTML = skill.icons.map(icon =>
-      `<iconify-icon ${INLINE_ICONS.indexOf(icon.icon) !== -1 ? 'inline ' : ''}icon="${escapeHTML(icon.icon)}" style="font-size: ${escapeHTML(icon.size)};" aria-hidden="true"></iconify-icon>`
-    ).join(' ');
+      `<iconify-icon icon="${escapeHTML(icon.icon)}" style="font-size: ${escapeHTML(icon.size)};" aria-hidden="true"></iconify-icon>`
+    ).join('');
 
-    // The bar starts at 0% and is filled by a CSS transition once it scrolls into
-    // view (see animateSkillBars) — no JS per-frame animation.
+    // The meter starts at 0% and is filled by a CSS transition once the section
+    // scrolls into view (see animateSkillBars) - no JS per-frame animation.
     return `
-      <div class="skill mb-4" data-aos="fade-${animationDirection}">
-        <div class="d-flex justify-content-between">
-          <h6 class="font-weight-bold">${iconHTML} ${escapeHTML(skill.name)}</h6>
-          <h6 class="font-weight-bold">${skill.percentage}%</h6>
+      <div class="skill-card" data-aos="fade-up" data-aos-delay="${(index % 3) * 80}">
+        <div class="skill-card-top">
+          <span class="skill-card-icons">${iconHTML}</span>
+          <span class="skill-card-value">${skill.percentage}<i>%</i></span>
         </div>
-        <div class="progress">
-          <div class="progress-bar"
-               style="width: 0%; background-color: ${escapeHTML(skill.color)};"
-               role="progressbar"
-               data-target-width="${skill.percentage}"
-               aria-label="${escapeHTML(skill.name)}"
-               aria-valuenow="${skill.percentage}"
-               aria-valuemin="0"
-               aria-valuemax="100"></div>
+        <h6 class="skill-card-name">${escapeHTML(skill.name)}</h6>
+        <div class="skill-card-meter">
+          <span class="skill-card-fill"
+                style="width: 0%;"
+                role="progressbar"
+                data-target-width="${skill.percentage}"
+                aria-label="${escapeHTML(skill.name)}"
+                aria-valuenow="${skill.percentage}"
+                aria-valuemin="0"
+                aria-valuemax="100"></span>
         </div>
       </div>
     `;
   }
 
   if (leftSkillContainer) {
-    leftSkillContainer.innerHTML = skillData.leftColumn.map((skill, index) =>
-      createSkillHTML(skill, index % 2 === 0 ? 'right' : 'left')
-    ).join('');
+    leftSkillContainer.innerHTML = skillData.leftColumn.map(createSkillHTML).join('');
   }
 
   if (rightSkillContainer) {
-    rightSkillContainer.innerHTML = skillData.rightColumn.map((skill, index) =>
-      createSkillHTML(skill, index % 2 === 0 ? 'left' : 'right')
-    ).join('');
+    rightSkillContainer.innerHTML = skillData.rightColumn.map(createSkillHTML).join('');
   }
 }
 
@@ -314,7 +309,7 @@ function labelFromHref(href) {
 
 // Fill the skill bars with a CSS transition the first time they scroll into view.
 function animateSkillBars() {
-  const bars = document.querySelectorAll('.progress-bar[data-target-width]');
+  const bars = document.querySelectorAll('[data-target-width]');
   if (!bars.length) return;
 
   const fill = () => bars.forEach(bar => {

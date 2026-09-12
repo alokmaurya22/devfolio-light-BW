@@ -11014,8 +11014,13 @@ h6,
         animation: none !important;
     }
 
-    .progress .progress-bar {
+    .progress .progress-bar,
+    .skill-card-fill {
         transition: none !important;
+    }
+
+    .skill-card:hover {
+        transform: none;
     }
 }
 
@@ -11237,5 +11242,140 @@ h6,
 
     #interest-list h4 {
         font-size: 1.15rem;
+    }
+}
+
+/* =====================
+   Skills - monochrome card grid
+   The section used to be twelve full-width Bootstrap progress bars painted
+   green / teal / red / blue. On a black-and-white site they were the only
+   saturated block on the page, and at ~74px a row the list ran ~450px tall.
+
+   Same data, rebuilt as a 4-up grid of hairline cards: the only colour left is
+   the brand logos themselves, and the block is roughly half the height.
+   ===================== */
+/* One grid for all twelve cards, not two grids side by side: `display: contents`
+   dissolves the two Bootstrap halves so every card is a direct grid item and the
+   rows line up across all four columns. */
+#skill .skill-grid-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+}
+
+#skills-left,
+#skills-right {
+    display: contents;
+}
+
+.skill-card {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px 15px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #e4e4e6;
+    border-radius: 12px;
+    transition: border-color .35s ease, box-shadow .35s ease, transform .35s ease;
+}
+
+.skill-card:hover {
+    border-color: #16181d;
+    box-shadow: 0 12px 26px -18px rgba(0, 0, 0, .55);
+    transform: translateY(-3px);
+}
+
+.skill-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 9px;
+}
+
+.skill-card-icons {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    line-height: 1;
+}
+
+.skill-card-value {
+    flex: 0 0 auto;
+    margin-left: auto;
+    font-family: 'Panchang', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: .03em;
+    color: #16181d;
+    white-space: nowrap;
+}
+
+.skill-card-value i {
+    font-style: normal;
+    font-size: 10px;
+    color: #9a9ba1;
+}
+
+.skill-card-name {
+    margin: 0 0 11px;
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: .01em;
+    color: #16181d;
+}
+
+.skill-card-meter {
+    position: relative;
+    margin-top: auto;      /* keeps every meter on the same baseline in a row */
+    height: 3px;
+    border-radius: 3px;
+    background: #e6e6e8;
+    overflow: hidden;
+}
+
+.skill-card-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #494f5c 0%, #0d0f14 100%);
+    transition: width 1.2s cubic-bezier(.22, .61, .36, 1);
+}
+
+@media (max-width: 991.98px) {
+    #skill .skill-grid-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    #skill .skill-grid-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    #skill .skill-grid-row {
+        gap: 12px;
+    }
+
+    .skill-card {
+        padding: 12px 13px 13px;
+        border-radius: 10px;
+    }
+
+    .skill-card-top {
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .skill-card-name {
+        margin-bottom: 10px;
+        font-size: 12.5px;
+        line-height: 1.3;
     }
 }

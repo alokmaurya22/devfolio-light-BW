@@ -1,14 +1,18 @@
 const experienceData = [{
-        position: "Software Development Engineer",
-        company: "Manya Fintech",
-        companyLink: "https://manyafintech.in/",
-        companyLogo: "images/exp-manya.webp",
-        logoWidth: 40,
-        logoHeight: 30,
+        position: "Founding Software Development Engineer",
+        company: "Twynup (Manya Fintech)",
+        companyLink: "https://twynup.com/",
+        companyLogo: "images/exp-twynup.webp",
+        logoWidth: 32,
+        logoHeight: 40,
         duration: "Dec 2025 - Ongoing",
         responsibilities: [
-            "Building an AI-based application that maps an athlete's complete journey.",
-            "Working across React Native, Android and iOS."
+            "First engineer on TwynUp (twynup.com) and took it from an idea to a live product on web, Play Store and App Store. It is a video-first sports platform - courtside cameras hold a continuous buffer, ML models trigger on sound and vision, and every winner, rally and blooper is clipped and published to the player's profile with the match data and score, without anyone ever pressing record.",
+            "Work directly with the founding team - an IIT Bombay founder and ex-Deutsche Bank VP, a tech lead with 13+ years in tech and twice a founder, an XLRI business head, and an IIM adviser who is an Operating Partner at Bain Capital and ex-McKinsey.",
+            "Own the backend end to end - PostgreSQL schema design, every REST API, OTP-based authentication, the admin panel, a notification centre with push notifications, and the WebSocket and WebRTC layer that drives live matches, the TwynCam courtside cameras and instant replay for referees.",
+            "Built the automated pipeline that turns those buffered clips into playable media - scraper and upload flow into AWS object storage, HLS transcoding, and delivery through Cloudflare Stream.",
+            "Run infrastructure and releases for every module - Cloudflare deployments, Dockerised services on DigitalOcean droplets, AWS object and vector databases, Git versioning, and Play Store and App Store releases.",
+            "Shipped a Fast2SMS-backed WhatsApp campaign pipeline, Sanity CMS for the blog, product analytics with Google Analytics, Microsoft Clarity and cursor tracking, and hardened the platform's security. Also contribute on the React and Next.js frontend and on MLOps."
         ]
     },{
         position: "Software Developer - Full Stack",

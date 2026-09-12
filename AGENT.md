@@ -10,7 +10,7 @@ Live at `https://founder.sonint.in/` · Repo: `https://github.com/alokmaurya22/d
 There is **no build system, no package manager, no tests, no linter, and no CI**.
 It is plain HTML + CSS + vendored JavaScript served as files. Everything you edit ships as-is.
 
-Stack: Bootstrap 4.4.1 markup, jQuery 3.4.1, Owl Carousel, Typed.js, AOS, vanilla-tilt, kursor,
+Stack: Bootstrap 4.6.2 markup, jQuery 3.7.1, Owl Carousel, AOS, vanilla-tilt, kursor,
 Iconify (web component) and lineicons. Fonts come from Google Fonts / Fontshare; everything else is
 local in `js/`.
 
@@ -70,7 +70,7 @@ js/               vendored libraries + 3 site scripts + iconify-bundle.js
    unstyled page: slides came out 93 px wide and most cards never became visible.
 2. Every `<script>` is `defer`-ed, so they all run before `DOMContentLoaded`.
 3. On `DOMContentLoaded`, the inline script calls `initializeAllData()`.
-4. `initializeAllData()` renders all ten sections, then `initCarousels()` → `initTyped()` →
+4. `initializeAllData()` renders all ten sections, then `initCarousels()` → `initTextAnimate()` →
    `animateSkillBars()` → `initAOS()`. AOS **must** be initialized after the markup exists, or the
    injected elements never get `aos-animate` and stay at `opacity: 0`.
 5. On `load`, Owl and AOS refresh once so late fonts/images can't leave stale measurements.
@@ -162,6 +162,11 @@ real browser's device toolbar.
 - Keep content (data) and presentation (HTML/CSS) separated — don't hardcode new content into
   `index.html`. The exceptions are the small static fallbacks (nav links, name, title) that exist so
   the page is not blank before JS runs; if you change those in the data files, update the fallback.
+- The skills section is a single CSS grid of `.skill-card`s. `#skills-left` / `#skills-right` are
+  `display: contents`, so all twelve cards are direct children of one grid and their rows line up
+  across the full width - the two Bootstrap halves only survive so the container ids stay stable.
+  It is deliberately monochrome (the brand logos are the only colour); `skillData` carries no
+  per-skill colour any more.
 - `css/css-style.css` is ~220 KB of accumulated Bootstrap + template CSS with heavy selector chains
   and many `!important`s. Prefer adding a small, clearly-commented block at the end over rewriting
   existing rules.
