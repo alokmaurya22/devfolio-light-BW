@@ -2300,7 +2300,7 @@ h5 .font-weight-medium{
 }#portfolio .card-text::after{ content: none; }
 
 
-@media (min-width: 992px) {.projects-carousel .owl-item .card-img-top{
+@media (min-width: 768px) {.projects-carousel .owl-item .card-img-top{
         filter: grayscale(100%);
         transition: filter 0.4s ease;
     }.projects-carousel .owl-item.center .card-img-top{
@@ -2884,7 +2884,17 @@ h5 .font-weight-medium{
 }#portfolio .card-img-top{
     border-radius: 0;
     border-bottom: 1px solid #ececee;
-}#portfolio .project-read-more{
+}
+
+
+@media (max-width: 991.98px) {#portfolio .card-actions .btn{
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: .78rem;
+        gap: 5px;
+    }#portfolio .card-actions .btn iconify-icon{
+        font-size: 15px;
+    }}#portfolio .project-read-more{
     font-weight: 700;
     color: #16181d;
     white-space: nowrap;
@@ -3126,7 +3136,9 @@ h5 .font-weight-medium{
 }:root[data-theme="dark"] .display-1.text-white{
     color: transparent !important;
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-color: #3a3d45 !important;
+    -webkit-text-stroke-color: #50545e !important;
+}:root[data-theme="dark"] .border-primary{
+    border-color: #3a3d45 !important;
 }:root[data-theme="dark"] .navbar{
     background: rgba(18, 20, 26, .92) !important;
     border-color: #262930;

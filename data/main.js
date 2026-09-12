@@ -364,10 +364,11 @@ function initCarousels() {
       loop: true,
       center: true,
       margin: 20,
+      // Between 768 and 991 this used to drop to two items with no centring, so
+      // the section lost the middle-card-selected look at tablet widths.
       responsive: {
         0: { items: 1, center: false },
-        768: { items: 2, center: false },
-        992: { items: 3, center: true }
+        768: { items: 3, center: true }
       }
     });
 

@@ -4,14 +4,12 @@
     <meta charset="utf-8">
     <script>
         /* Runs before the body paints - a deferred script would flash the light
-           theme first. Falls back to the OS preference on a first visit. */
+           theme first. Light is the default; dark only when asked for. */
         (function () {
             try {
-                var stored = localStorage.getItem('theme');
-                var dark = stored
-                    ? stored === 'dark'
-                    : window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
             } catch (e) { /* private mode: stay light */ }
         })();
     </script>

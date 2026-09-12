@@ -168,8 +168,8 @@ real browser's device toolbar.
   colour decisions the site actually makes; nothing else is themed, so removing the attribute
   restores the light theme exactly. The attribute is set by an inline script in `<head>` (it must
   stay inline and non-deferred, or the light theme flashes first), and flipped by `initThemeToggle`
-  in `js/2967-js-main.js`, which stores the choice in `localStorage.theme` and otherwise follows
-  `prefers-color-scheme`. Three things needed real work rather than a colour swap: the outlined
+  in `js/2967-js-main.js`, which stores the choice in `localStorage.theme`. Light is the default -
+  `prefers-color-scheme` is deliberately **not** followed, the site is light-first. Three things needed real work rather than a colour swap: the outlined
   Hindi headings are white-filled (invisible on white, a solid slab on black - the fill is made
   transparent), the modal needs an opaque fill rather than the cards' 3.5% white, and the
   signature and older employer logos are black-on-transparent so they are inverted or given a

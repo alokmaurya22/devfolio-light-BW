@@ -10753,9 +10753,9 @@ h6,
 #portfolio .card-text::after { content: none; }
 
 /* Grayscale all project images except the centered owl item.
-   Scoped to >=992px because Owl only applies .center at that breakpoint - below it
-   every card would stay permanently grey. */
-@media (min-width: 992px) {
+   Scoped to >=768px, which is where Owl starts applying .center - below it every
+   card would stay permanently grey. */
+@media (min-width: 768px) {
     .projects-carousel .owl-item .card-img-top {
         filter: grayscale(100%);
         transition: filter 0.4s ease;
@@ -11695,6 +11695,22 @@ h6,
     border-bottom: 1px solid #ececee;
 }
 
+/* Three cards from 768px up makes each one ~217px wide, and at that width the
+   two action buttons (220px together) spilled out of the card. Shrink them to
+   fit rather than letting them overflow. */
+@media (max-width: 991.98px) {
+    #portfolio .card-actions .btn {
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: .78rem;
+        gap: 5px;
+    }
+
+    #portfolio .card-actions .btn iconify-icon {
+        font-size: 15px;
+    }
+}
+
 /* The read-more link was a bare anchor in the middle of handwritten copy. */
 #portfolio .project-read-more {
     font-weight: 700;
@@ -12078,7 +12094,13 @@ h6,
 :root[data-theme="dark"] .display-1.text-white {
     color: transparent !important;
     -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-color: #3a3d45 !important;
+    -webkit-text-stroke-color: #50545e !important;
+}
+
+/* The rule connecting the qualification timeline dots is .border-primary, which
+   resolves to black - invisible on a dark page. */
+:root[data-theme="dark"] .border-primary {
+    border-color: #3a3d45 !important;
 }
 
 /* ---- navbar ---- */

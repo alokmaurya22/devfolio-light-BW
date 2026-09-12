@@ -76,7 +76,8 @@
 
     /**
      * Theme toggle. The chosen theme is already applied by the inline script in
-     * <head>; this only flips it and remembers the choice.
+     * <head>; this only flips it and remembers the choice. Light is the default -
+     * the OS preference is deliberately not followed, the site is light-first.
      */
     function initThemeToggle() {
         var root = document.documentElement;
@@ -96,17 +97,6 @@
             try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch (e) { /* ignore */ }
             sync();
         });
-
-        // Follow the OS while the visitor has not made a choice of their own.
-        var media = window.matchMedia('(prefers-color-scheme: dark)');
-        var onChange = function (e) {
-            try { if (localStorage.getItem('theme')) return; } catch (err) { return; }
-            if (e.matches) root.setAttribute('data-theme', 'dark');
-            else root.removeAttribute('data-theme');
-            sync();
-        };
-        if (media.addEventListener) media.addEventListener('change', onChange);
-        else if (media.addListener) media.addListener(onChange);
 
         sync();
     }
