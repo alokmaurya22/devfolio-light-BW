@@ -11974,3 +11974,293 @@ h6,
         border-radius: 12px;
     }
 }
+
+/* =====================================================================
+   Dark theme
+   The site is monochrome, so this is mostly one inversion: the near-white
+   paper becomes near-black and the black ink becomes off-white. Everything
+   here is scoped to :root[data-theme="dark"], so the light theme is
+   untouched and removing the attribute restores it exactly.
+   ===================================================================== */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    margin-left: auto;
+    padding: 0;
+    background: transparent;
+    border: 1px solid #dcdcdf;
+    border-radius: 50%;
+    color: #16181d;
+    cursor: pointer;
+    transition: border-color .3s ease, color .3s ease, transform .3s ease;
+}
+
+.theme-toggle:hover {
+    border-color: #16181d;
+    transform: translateY(-2px);
+}
+
+.theme-toggle .theme-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* Show the theme you would switch TO, not the one you are in. */
+.theme-toggle .theme-icon-sun {
+    display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .theme-icon-moon {
+    display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .theme-icon-sun {
+    display: inline-flex;
+}
+
+@media (min-width: 992px) {
+    /* DOM order puts the toggle next to the hamburger for phones; on desktop
+       flex order moves it past the expanded menu to the far right. */
+    .navbar > .theme-toggle {
+        order: 3;
+        margin-left: 14px;
+    }
+
+    .navbar > .navbar-collapse {
+        order: 2;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .theme-toggle {
+        margin-right: 10px;
+    }
+}
+
+/* ---- palette ---- */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    /* native scrollbars, form controls and caret follow the theme */
+}
+
+:root[data-theme="dark"] body {
+    background-color: #0d0f14;
+    background-image: none;
+    color: #9a9ba1;
+}
+
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3,
+:root[data-theme="dark"] h4,
+:root[data-theme="dark"] h5,
+:root[data-theme="dark"] h6,
+:root[data-theme="dark"] strong,
+:root[data-theme="dark"] .text-primary,
+:root[data-theme="dark"] .navbar-brand h1 {
+    color: #eceef2 !important;
+}
+
+:root[data-theme="dark"] p,
+:root[data-theme="dark"] li,
+:root[data-theme="dark"] small,
+:root[data-theme="dark"] .text-muted {
+    color: #9a9ba1 !important;
+}
+
+/* The outlined Hindi word behind each heading. In the light theme its fill is
+   white, which is invisible against the white page - only the 1px stroke shows.
+   On a dark page that same white fill becomes a solid slab covering the English
+   heading, so the fill has to be made transparent for the outline to survive. */
+:root[data-theme="dark"] .display-1.text-white {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-color: #3a3d45 !important;
+}
+
+/* ---- navbar ---- */
+:root[data-theme="dark"] .navbar {
+    background: rgba(18, 20, 26, .92) !important;
+    border-color: #262930;
+}
+
+:root[data-theme="dark"] .navbar .nav-link {
+    color: #9a9ba1 !important;
+}
+
+:root[data-theme="dark"] .navbar .nav-link:hover,
+:root[data-theme="dark"] .navbar .nav-link.active {
+    color: #eceef2 !important;
+}
+
+:root[data-theme="dark"] .navbar-toggler {
+    border-color: #33363d;
+}
+
+:root[data-theme="dark"] .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='%23eceef2' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+:root[data-theme="dark"] .theme-toggle {
+    border-color: #33363d;
+    color: #eceef2;
+}
+
+:root[data-theme="dark"] .theme-toggle:hover {
+    border-color: #eceef2;
+}
+
+/* ---- the card system: skills, projects, certificates, interests, extra ---- */
+:root[data-theme="dark"] .skill-card,
+:root[data-theme="dark"] .interest-card,
+:root[data-theme="dark"] .extra-card,
+:root[data-theme="dark"] .certificate-card,
+:root[data-theme="dark"] #portfolio .project-card,
+:root[data-theme="dark"] #contact .contact-form {
+    background: rgba(255, 255, 255, .035);
+    border-color: #262930 !important;
+}
+
+/* The modal floats over the page, so it needs an opaque fill - the 3.5% white
+   the in-page cards use would let the hero show straight through it. */
+:root[data-theme="dark"] #projectModal .modal-content {
+    background: #15171d;
+    border-color: #262930 !important;
+}
+
+:root[data-theme="dark"] .skill-card:hover,
+:root[data-theme="dark"] .interest-card:hover,
+:root[data-theme="dark"] .extra-card:hover,
+:root[data-theme="dark"] .certificate-card:hover,
+:root[data-theme="dark"] #portfolio .project-card:hover {
+    border-color: #6f717a !important;
+    box-shadow: 0 14px 32px -20px rgba(0, 0, 0, .9);
+}
+
+:root[data-theme="dark"] .skill-card-name,
+:root[data-theme="dark"] .skill-card-value,
+:root[data-theme="dark"] .interest-title,
+:root[data-theme="dark"] .extra-card-category,
+:root[data-theme="dark"] .certificate-title,
+:root[data-theme="dark"] .interest-card .interest-icon {
+    color: #eceef2;
+}
+
+:root[data-theme="dark"] .skill-card-detail,
+:root[data-theme="dark"] .interest-detail,
+:root[data-theme="dark"] .extra-card-text,
+:root[data-theme="dark"] .extra-card-org,
+:root[data-theme="dark"] .certificate-issuer,
+:root[data-theme="dark"] .contact-intro {
+    color: #9a9ba1;
+}
+
+:root[data-theme="dark"] .skill-card-meter {
+    background: #262930;
+}
+
+:root[data-theme="dark"] .skill-card-fill {
+    background: linear-gradient(90deg, #6f717a 0%, #eceef2 100%);
+}
+
+:root[data-theme="dark"] .extra-card-org,
+:root[data-theme="dark"] .certificate-card img,
+:root[data-theme="dark"] #portfolio .card-img-top,
+:root[data-theme="dark"] #projectModal .modal-body img {
+    border-color: #262930;
+}
+
+:root[data-theme="dark"] .tech-chip {
+    background: rgba(255, 255, 255, .04);
+    border-color: #33363d;
+    color: #b9bac0;
+}
+
+:root[data-theme="dark"] .certificate-view-link {
+    color: #6f717a;
+}
+
+:root[data-theme="dark"] .certificate-card:hover .certificate-view-link,
+:root[data-theme="dark"] .contact-intro a,
+:root[data-theme="dark"] #portfolio .project-read-more {
+    color: #eceef2;
+}
+
+/* ---- buttons, forms ---- */
+:root[data-theme="dark"] .btn-outline-primary {
+    border-color: #4a4d56;
+    color: #eceef2;
+}
+
+:root[data-theme="dark"] .btn-outline-primary:hover,
+:root[data-theme="dark"] .btn-outline-primary:focus,
+:root[data-theme="dark"] .btn-outline-primary:not(:disabled):not(.disabled):active {
+    background-color: #eceef2;
+    border-color: #eceef2;
+    color: #0d0f14;
+}
+
+:root[data-theme="dark"] .form-control {
+    background-color: rgba(255, 255, 255, .04);
+    border-color: #33363d;
+    color: #eceef2;
+}
+
+:root[data-theme="dark"] .form-control::placeholder {
+    color: #6f717a;
+}
+
+:root[data-theme="dark"] #contact .form-control:focus {
+    background-color: rgba(255, 255, 255, .06);
+    border-color: #eceef2;
+}
+
+/* ---- footer: it is already black in the light theme, so on a black page it
+        needs a seam of its own rather than a different fill ---- */
+:root[data-theme="dark"] .fot {
+    background-color: #070809 !important;
+    border-top: 1px solid #1c1f25;
+}
+
+:root[data-theme="dark"] #footer-socials .btn-light {
+    background-color: #eceef2;
+    border-color: #eceef2;
+    color: #0d0f14;
+}
+
+/* ---- affordances ---- */
+:root[data-theme="dark"] .back-to-top {
+    border-color: #4a4d56;
+    color: #eceef2;
+}
+
+:root[data-theme="dark"] .scroll-to-bottom {
+    color: #6f717a !important;
+}
+
+/* ---- assets that were drawn for a white page ---- */
+/* The signature is pure black ink on transparency, and the older employer and
+   school logos are near-black wordmarks: all of them vanish on a dark page.
+   The signature inverts cleanly; the logos carry brand colour, so they get a
+   light plate instead of an inversion that would wreck it. */
+:root[data-theme="dark"] img[src*="img-sig"] {
+    filter: invert(1);
+}
+
+:root[data-theme="dark"] img[src*="exp-webpro"],
+:root[data-theme="dark"] img[src*="exp-weknow"],
+:root[data-theme="dark"] img[src*="edu-rsm"],
+:root[data-theme="dark"] img[src*="edu-rn"] {
+    background: #ffffff;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+/* The heading gradient was sampled against white; lift it for a dark page. */
+:root[data-theme="dark"] .text-bg {
+    background-image: linear-gradient(100deg, #8e9bc8 0%, #a6b2da 30%, #c2cdf2 43%,
+        #ffffff 50%, #c2cdf2 57%, #a3afd6 72%, #8e9bc8 100%);
+}

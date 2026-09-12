@@ -74,6 +74,49 @@
         document.addEventListener('mouseenter', function () { if (seen) dot.classList.add('is-visible'); });
     }
 
+    /**
+     * Theme toggle. The chosen theme is already applied by the inline script in
+     * <head>; this only flips it and remembers the choice.
+     */
+    function initThemeToggle() {
+        var root = document.documentElement;
+        var button = document.getElementById('theme-toggle');
+        if (!button) return;
+
+        function sync() {
+            var dark = root.getAttribute('data-theme') === 'dark';
+            button.setAttribute('aria-pressed', dark ? 'true' : 'false');
+            button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        }
+
+        button.addEventListener('click', function () {
+            var dark = root.getAttribute('data-theme') === 'dark';
+            if (dark) root.removeAttribute('data-theme');
+            else root.setAttribute('data-theme', 'dark');
+            try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch (e) { /* ignore */ }
+            sync();
+        });
+
+        // Follow the OS while the visitor has not made a choice of their own.
+        var media = window.matchMedia('(prefers-color-scheme: dark)');
+        var onChange = function (e) {
+            try { if (localStorage.getItem('theme')) return; } catch (err) { return; }
+            if (e.matches) root.setAttribute('data-theme', 'dark');
+            else root.removeAttribute('data-theme');
+            sync();
+        };
+        if (media.addEventListener) media.addEventListener('change', onChange);
+        else if (media.addListener) media.addListener(onChange);
+
+        sync();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initThemeToggle);
+    } else {
+        initThemeToggle();
+    }
+
     window.addEventListener('load', function () {
         var idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 1); };
         idle(initPointerFollower);

@@ -164,6 +164,16 @@ real browser's device toolbar.
 - Keep content (data) and presentation (HTML/CSS) separated — don't hardcode new content into
   `index.html`. The exceptions are the small static fallbacks (nav links, name, title) that exist so
   the page is not blank before JS runs; if you change those in the data files, update the fallback.
+- **Dark theme.** `:root[data-theme="dark"]` at the end of `css-style.css.full` overrides the ~40
+  colour decisions the site actually makes; nothing else is themed, so removing the attribute
+  restores the light theme exactly. The attribute is set by an inline script in `<head>` (it must
+  stay inline and non-deferred, or the light theme flashes first), and flipped by `initThemeToggle`
+  in `js/2967-js-main.js`, which stores the choice in `localStorage.theme` and otherwise follows
+  `prefers-color-scheme`. Three things needed real work rather than a colour swap: the outlined
+  Hindi headings are white-filled (invisible on white, a solid slab on black - the fill is made
+  transparent), the modal needs an opaque fill rather than the cards' 3.5% white, and the
+  signature and older employer logos are black-on-transparent so they are inverted or given a
+  white plate.
 - The skills section is a single CSS grid of `.skill-card`s. `#skills-left` / `#skills-right` are
   `display: contents`, so all twelve cards are direct children of one grid and their rows line up
   across the full width - the two Bootstrap halves only survive so the container ids stay stable.

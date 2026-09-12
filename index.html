@@ -2,6 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <script>
+        /* Runs before the body paints - a deferred script would flash the light
+           theme first. Falls back to the OS preference on a first visit. */
+        (function () {
+            try {
+                var stored = localStorage.getItem('theme');
+                var dark = stored
+                    ? stored === 'dark'
+                    : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+            } catch (e) { /* private mode: stay light */ }
+        })();
+    </script>
     <title>Alok Maurya — Software Engineer | Backend &amp; Infrastructure</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="description" content="Founding engineer at TwynUp. I build software end to end - databases, REST APIs, realtime video pipelines, cloud infrastructure and the releases that ship it.">
@@ -177,6 +190,10 @@
             <a class="navbar-brand ml-lg-3" href="#">
                 <h1 class="m-0 display-5 a1" id="navbar-brand-text" style="font-family: 'Panchang', sans-serif;">Alok</h1>
             </a>
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
+                <iconify-icon class="theme-icon theme-icon-moon" icon="material-symbols:dark-mode-rounded" aria-hidden="true"></iconify-icon>
+                <iconify-icon class="theme-icon theme-icon-sun" icon="material-symbols:light-mode-rounded" aria-hidden="true"></iconify-icon>
+            </button>
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
