@@ -1,4 +1,14 @@
 const educationData = [{
+        degree: "Bachelor of Laws (LLB)",
+        status: "(Pursuing)",
+        institution: "Maa Vindhyavasini University, Mirzapur",
+        institutionLink: "https://mvvu.ac.in/",
+        institutionLogo: "images/edu-mvvu.webp",
+        logoSize: 24,
+        duration: "2026 - 2029",
+        description: ""
+    },
+    {
         degree: "Bachelors of Technology",
         status: "(Graduated)",
         specialization: "Computer Science and Engineering",
@@ -10,7 +20,7 @@ const educationData = [{
         description: ""
     },
     {
-        degree: "Intermediate (10+2)",
+        degree: "Senior Secondary",
         institution: "R.S.M. Inter College, Robertsganj",
         institutionLink: "",
         institutionLogo: "images/edu-rsm.webp",
@@ -20,6 +30,7 @@ const educationData = [{
     },
     {
         degree: "High School",
+        hidden: true,
         institution: "R.N. HSS Biradhi, Robertsganj",
         institutionLink: "",
         institutionLogo: "images/edu-rn.webp",

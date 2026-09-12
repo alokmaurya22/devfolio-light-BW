@@ -23,9 +23,9 @@ const experienceData = [{
         logoHeight: 30,
         duration: "Jan 2023 - Feb 2024",
         responsibilities: [
-            "Engineered a streamlined digital solution for KNI Online admissions, cutting down processing time by 66% and creating a better experience for applicants.",
-            "Developed and maintain the Library and Exam module in KNIPSS ERP, which automated exam scheduling and grading, and eliminated all manual paperwork in the library management for over 14000+ students.",
-            "Made the ERP system more accurate and much faster, cutting down the time needed by 90%. Also took care of fixing problems, adding new features, and making sure the system ran smoothly"
+            "Designed and shipped the KNI Online admissions system, carrying it from build to a live intake and cutting application processing time by 66%.",
+            "Owned the Library and Exam modules of the KNIPSS ERP end to end - built the exam scheduling and grading automation, rolled it out, and took library operations for 14,000+ students off paper entirely.",
+            "Stayed with both systems in production - traced and fixed defects, shipped new features as the institution's needs changed, and tuned the ERP for accuracy and speed until it ran in 90% less time."
         ]
     },
     {
@@ -37,8 +37,8 @@ const experienceData = [{
         logoHeight: 15,
         duration: "Oct 2022 - Jan 2023",
         responsibilities: [
-            "Improved system reliability by managing SaaS upgrades and resolving high-priority bugs for 40+ enterprise clients, boosting uptime and customer satisfaction.",
-            "Assisted in development and quality testing of survey software for 13,000+ societies, ensuring scalability and seamless deployment."
+            "Ran SaaS upgrades and resolved high-priority bugs across 40+ enterprise clients, holding uptime and customer satisfaction steady through every release.",
+            "Worked the government survey software for 13,000+ societies across development, quality testing and deployment - proving it would scale before it shipped, not after."
         ]
     }
 

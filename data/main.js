@@ -72,7 +72,9 @@ function renderEducation() {
   const educationContainer = document.getElementById('education-list');
   if (educationContainer) {
     // PERF: lazy loading + async decoding + explicit dimensions to reduce CLS/TBT.
-    educationContainer.innerHTML = educationData.map(edu => {
+    // `hidden: true` parks an entry - kept in the data file for the record, but
+    // not rendered. Deleting it would lose the logo, link and dates.
+    educationContainer.innerHTML = educationData.filter(edu => !edu.hidden).map(edu => {
       const size = edu.logoSize || 20;
       const institution = `<strong> ${escapeHTML(edu.institution)}</strong>`;
       // An empty institutionLink renders as plain text instead of a dead link.

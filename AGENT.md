@@ -55,6 +55,8 @@ js/               vendored libraries + 3 site scripts + iconify-bundle.js
   `extraCurricularData.achievement`, which may contain `<br>`.
 - Image `width`/`height` in the data files reserve layout space (CLS). If you re-export an image at a
   new size, update those numbers too.
+- An `educationData` entry with `hidden: true` is skipped by `renderEducation()`. Use it to park an
+  entry - its logo, link and dates stay on file - instead of deleting it.
 - Adding a new data file → add a `<script defer src="data/…">` tag before `data/main.js` **and** add
   the global to `DATA_SOURCES` in `data/main.js`.
 - **After editing any `data/*.js`, re-run `python tools/prerender.py`.** The rendered markup of every
