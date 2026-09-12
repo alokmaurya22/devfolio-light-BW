@@ -12281,8 +12281,30 @@ h6,
     padding: 2px;
 }
 
-/* The heading gradient was sampled against white; lift it for a dark page. */
+/* The heading gradient is painted with background-clip: text over `color:
+   transparent`. The heading colour rule above sets `color` with !important, which
+   filled the text back in and hid the gradient completely - the transparency has
+   to be restored here. The gradient itself is mirrored for a dark page: a light
+   blue-grey word with the same bright blue sweep travelling through it. */
 :root[data-theme="dark"] .text-bg {
-    background-image: linear-gradient(100deg, #8e9bc8 0%, #a6b2da 30%, #c2cdf2 43%,
-        #ffffff 50%, #c2cdf2 57%, #a3afd6 72%, #8e9bc8 100%);
+    color: transparent !important;
+    background-image: linear-gradient(100deg,
+            #d7dbe8 0%,
+            #c6cde4 30%,
+            #a9b8ee 43%,
+            #5b8cff 50%,
+            #a9b8ee 57%,
+            #c6cde4 72%,
+            #d7dbe8 100%);
+    -webkit-text-stroke-color: rgba(120, 128, 150, .5);
+}
+
+/* kursor writes `--k-color: 0,0,0` as an inline style on the ring and the dot, so
+   the cursor stayed black on a black page. An !important author declaration is
+   the one case that outranks an inline style, and every colour in css-kursur.css
+   is `rgba(var(--k-color), a)` - so overriding the one variable also carries the
+   hover and mousedown states, whichever kursor type is configured. */
+:root[data-theme="dark"] div[class*='kursor'],
+:root[data-theme="dark"] div[class*='kursorChild'] {
+    --k-color: 236, 238, 242 !important;
 }

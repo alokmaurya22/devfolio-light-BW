@@ -3247,6 +3247,17 @@ h5 .font-weight-medium{
     border-radius: 3px;
     padding: 2px;
 }:root[data-theme="dark"] .text-bg{
-    background-image: linear-gradient(100deg, #8e9bc8 0%, #a6b2da 30%, #c2cdf2 43%,
-        #ffffff 50%, #c2cdf2 57%, #a3afd6 72%, #8e9bc8 100%);
+    color: transparent !important;
+    background-image: linear-gradient(100deg,
+            #d7dbe8 0%,
+            #c6cde4 30%,
+            #a9b8ee 43%,
+            #5b8cff 50%,
+            #a9b8ee 57%,
+            #c6cde4 72%,
+            #d7dbe8 100%);
+    -webkit-text-stroke-color: rgba(120, 128, 150, .5);
+}:root[data-theme="dark"] div[class*='kursor'],
+:root[data-theme="dark"] div[class*='kursorChild']{
+    --k-color: 236, 238, 242 !important;
 }
