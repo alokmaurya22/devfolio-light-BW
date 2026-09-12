@@ -1,8 +1,8 @@
 const socialData = {
     profileInfo: {
         name: "Alok",
-        title: "a Software Engineer & Full Stack Developer",
-        description: "Computer Science graduate, Software Engineer, and Full Stack Developer. With a degree in hand and a passion for coding, I bring a blend of knowledge and creativity to the table. My expertise in designing, development, testing and maintenance is geared towards meeting the unique needs of our clients. Now, I'm on the lookout for a dynamic team of go-getters, united by the common goal of propelling the company to new heights. Let's code the future together and make some tech magic happen !",
+        title: "an end-to-end Software Engineer",
+        description: "End to end means the database under a product, the APIs through it, the infrastructure it runs on, and the release that puts it in front of people. At TwynUp I was the first SDE, and carried a sports platform from an idea to a live product on web, Play Store and App Store: PostgreSQL schemas, every REST API, realtime WebRTC, an ML-triggered video pipeline across AWS and Cloudflare Stream, and the servers holding all of it up. Before that, an admissions system and an ERP used by 14,000+ students. I care about the whole machine, not just the code inside it.",
         profileImages: {
             desktop: "images/img-about5.webp",
             mobile: "images/img-about.webp"
