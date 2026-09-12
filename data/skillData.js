@@ -1,93 +1,121 @@
 const skillData = {
     leftColumn: [{
-            name: "HTML5 & CSS3",
+            name: "Backend Architecture & APIs",
+            detail: "Node.js · Python · Java · REST · Auth · Security",
             icons: [
-                { icon: "logos:html-5", size: "22px" },
-                { icon: "logos:css-3", size: "22px" }
+                { icon: "logos:nodejs-icon", size: "21px" },
+                { icon: "logos:python", size: "21px" },
+                { icon: "logos:java", size: "23px" }
+            ],
+            percentage: 85
+        },
+        {
+            name: "AI Engineering",
+            detail: "Claude Code · Codex · MCP · AI agents",
+            icons: [
+                { icon: "logos:claude-icon", size: "22px" },
+                { icon: "logos:openai-icon", size: "20px" },
+                { icon: "simple-icons:modelcontextprotocol", size: "19px" }
             ],
             percentage: 90
         },
         {
-            name: "Tailwind & Bootstrap",
+            name: "Databases & Data Modelling",
+            detail: "PostgreSQL · MySQL · Vector DBs · Schema design",
             icons: [
-                { icon: "vscode-icons:file-type-tailwind", size: "22px" },
-                { icon: "logos:bootstrap", size: "20px" }
+                { icon: "logos:postgresql", size: "22px" },
+                { icon: "logos:mysql", size: "22px" }
             ],
-            percentage: 85
+            percentage: 88
         },
         {
-            name: "React Js & Next Js",
+            name: "Deployments & App Releases",
+            detail: "Docker · Cloudflare · DigitalOcean · Play Store · App Store",
             icons: [
-                { icon: "logos:react", size: "20px" },
-                { icon: "devicon:nextjs", size: "20px" }
-            ],
-            percentage: 85
-        },
-        {
-            name: "Git & GitHub",
-            icons: [
-                { icon: "material-icon-theme:git", size: "25px" },
-                { icon: "icon-park:github", size: "22px" }
-            ],
-            percentage: 90
-        },
-        {
-            name: "Docker",
-            icons: [
-                { icon: "skill-icons:docker", size: "22px" }
-            ],
-            percentage: 70
-        },
-        {
-            name: "System Design and Data Structure & Algorithm",
-            icons: [
-                { icon: "streamline-sharp-color:browser-code-2-flat", size: "22px" }
-            ],
-            percentage: 75
-        }
-    ],
-    rightColumn: [{
-            name: "Javascript",
-            icons: [
-                { icon: "logos:javascript", size: "22px" }
-            ],
-            percentage: 85
-        },
-        {
-            name: "Java",
-            icons: [
-                { icon: "logos:java", size: "24px" }
+                { icon: "logos:docker-icon", size: "20px" },
+                { icon: "logos:cloudflare-icon", size: "16px" },
+                { icon: "logos:google-play-icon", size: "19px" },
+                { icon: "logos:apple-app-store", size: "19px" }
             ],
             percentage: 80
         },
         {
-            name: "Spring-boot",
+            name: "Realtime Systems",
+            detail: "WebRTC · WebSockets · Live match streaming",
             icons: [
-                { icon: "logos:spring-icon", size: "22px" }
+                { icon: "logos:webrtc", size: "24px" },
+                { icon: "logos:socket-io", size: "20px" }
             ],
-            percentage: 75
+            percentage: 86
         },
         {
-            name: "PHP",
+            name: "Storage, Video Pipeline & Streaming",
+            detail: "AWS · Object storage · HLS · Cloudflare Stream",
             icons: [
-                { icon: "logos:php", size: "22px" }
+                { icon: "devicon:amazonwebservices", size: "21px" },
+                { icon: "material-symbols:movie", size: "20px" },
+                { icon: "logos:cloudflare-icon", size: "17px" }
+            ],
+            percentage: 85
+        }
+    ],
+    rightColumn: [{
+            name: "Languages",
+            detail: "Java · JavaScript · TypeScript · Python · PHP",
+            icons: [
+                { icon: "logos:java", size: "22px" },
+                { icon: "logos:javascript", size: "20px" },
+                { icon: "logos:typescript-icon", size: "19px" },
+                { icon: "logos:python", size: "20px" }
+            ],
+            percentage: 88
+        },
+        {
+            name: "Notifications & Messaging",
+            detail: "Push · WhatsApp · Email · OTP/SMS · Campaign pipelines",
+            icons: [
+                { icon: "logos:whatsapp-icon", size: "21px" },
+                { icon: "flat-color-icons:sms", size: "21px" },
+                { icon: "streamline-sharp-color:mail-send-envelope-flat", size: "21px" }
             ],
             percentage: 85
         },
         {
-            name: "Python",
+            name: "System Design & DSA",
+            detail: "Architecture · Scaling · Data structures",
             icons: [
-                { icon: "logos:python", size: "22px" }
+                { icon: "flat-color-icons:workflow", size: "22px" },
+                { icon: "streamline-sharp-color:hierarchy-2-flat", size: "21px" }
             ],
-            percentage: 70
+            percentage: 84
         },
         {
-            name: "MySQL & Postgres Sql",
+            name: "Frontend Engineering",
+            detail: "React · Next.js · Tailwind · Bootstrap · HTML/CSS",
             icons: [
-                { icon: "logos:mysql", size: "22px" },
-                { icon: "logos:postgresql", size: "22px" }
+                { icon: "logos:react", size: "20px" },
+                { icon: "devicon:nextjs", size: "20px" },
+                { icon: "vscode-icons:file-type-tailwind", size: "22px" }
             ],
             percentage: 85
+        },
+        {
+            name: "Analytics & Instrumentation",
+            detail: "Google Analytics · Clarity · Event tracking",
+            icons: [
+                { icon: "logos:google-analytics", size: "21px" },
+                { icon: "logos:microsoft-icon", size: "19px" }
+            ],
+            percentage: 80
+        },
+        {
+            name: "MLOps",
+            detail: "Model training · Inference · Deployment · Monitoring",
+            icons: [
+                { icon: "carbon:model-builder", size: "22px" },
+                { icon: "carbon:machine-learning-model", size: "22px" }
+            ],
+            percentage: 72
         }
     ]
 };

@@ -144,6 +144,7 @@ function renderSkills() {
           <span class="skill-card-value">${skill.percentage}<i>%</i></span>
         </div>
         <h6 class="skill-card-name">${escapeHTML(skill.name)}</h6>
+        ${skill.detail ? `<p class="skill-card-detail">${escapeHTML(skill.detail)}</p>` : ''}
         <div class="skill-card-meter">
           <span class="skill-card-fill"
                 style="width: 0%;"
