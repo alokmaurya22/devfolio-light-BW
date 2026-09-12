@@ -33,7 +33,7 @@ const socialData = {
     ],
     contactInfo: {
         email: "er.alokmaurya22@gmail.com",
-        phone: "+919519376314"
+        location: "Mumbai, India"
     }
 
 };

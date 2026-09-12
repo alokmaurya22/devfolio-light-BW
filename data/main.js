@@ -214,8 +214,13 @@ function openProjectModal(index) {
   }
   $('#projectModalSubtitle').text(p.subtitle || '');
   $('#projectModalDesc').text(p.description || '');
+  // Tech stack reads as chips rather than one long italic run-on.
   $('#projectModalTech').html(p.techStack
-    ? `<iconify-icon icon="streamline-color:file-code-1-flat" aria-hidden="true"></iconify-icon> ${escapeHTML(p.techStack)}`
+    ? p.techStack.split(',')
+        .map(t => t.trim())
+        .filter(Boolean)
+        .map(t => `<span class="tech-chip">${escapeHTML(t)}</span>`)
+        .join('')
     : '');
   $('#projectModalLive').attr('href', p.liveLink || '#');
   $('#projectModalGithub').attr('href', p.githubLink || '#');
@@ -230,8 +235,15 @@ function renderCertifications() {
     // PERF: intrinsic dimensions + lazy loading for certificate images to prevent CLS.
     certContainer.innerHTML = certificationData.map(cert => `
       <div class="text-center certificate-view">
-        <a href="${escapeHTML(cert.link)}" target="_blank" rel="noopener" title="View Certificate">
-          <img class="img-fluid rounded mx-auto d-block" src="${escapeHTML(cert.image)}" alt="${escapeHTML(cert.title)} certificate" width="${cert.width}" height="${cert.height}" loading="lazy" decoding="async" style="max-width: 450px; height: auto;" />
+        <a class="certificate-card" href="${escapeHTML(cert.link)}" target="_blank" rel="noopener">
+          <img src="${escapeHTML(cert.image)}" alt="${escapeHTML(cert.title)} certificate" width="${cert.width}" height="${cert.height}" loading="lazy" decoding="async" />
+          <span class="certificate-meta">
+            <span class="certificate-title">${escapeHTML(cert.title)}</span>
+            <span class="certificate-issuer">${escapeHTML(cert.issuer || '')}${cert.date ? ` &middot; ${escapeHTML(cert.date)}` : ''}</span>
+            <span class="certificate-view-link">View certificate
+              <iconify-icon icon="line-md:link" aria-hidden="true"></iconify-icon>
+            </span>
+          </span>
         </a>
       </div>
     `).join('');
@@ -246,12 +258,11 @@ function renderCertifications() {
 function renderInterests() {
   const interestContainer = document.getElementById('interest-list');
   if (interestContainer) {
-    interestContainer.innerHTML = interestData.map(interest => `
-      <div class="col-lg-4 col-md-6 text-center mb-5">
-        <div class="d-flex align-items-center justify-content-center mb-4" data-aos="fade-down" data-aos-delay="600">
-          <iconify-icon icon="${escapeHTML(interest.icon)}" class="fadesample interest-icon" style="font-size: ${parseInt(interest.width, 10) || 150}px;" aria-hidden="true"></iconify-icon>
-        </div>
-        <h4 class="font-weight-bold m-0" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">${escapeHTML(interest.title)}</h4>
+    interestContainer.innerHTML = interestData.map((interest, index) => `
+      <div class="interest-card" data-aos="fade-up" data-aos-delay="${(index % 4) * 70}">
+        <iconify-icon class="interest-icon" icon="${escapeHTML(interest.icon)}" aria-hidden="true"></iconify-icon>
+        <h4 class="interest-title">${escapeHTML(interest.title)}</h4>
+        ${interest.detail ? `<p class="interest-detail">${escapeHTML(interest.detail)}</p>` : ''}
       </div>
     `).join('');
   }
@@ -262,15 +273,17 @@ function renderExtraCurricular() {
   const extraContainer = document.getElementById('extracurricular-carousel');
   if (extraContainer) {
     // `achievement` intentionally allows inline markup (<br>) authored in the data file.
-    extraContainer.innerHTML = extraCurricularData.map(item => `
-      <div class="text-center">
-        <iconify-icon icon="bi:quote" class="text-primary mb-4" style="font-size: 48px;" aria-hidden="true"></iconify-icon>
-        <span>${escapeHTML(item.category)}</span>
-        <h4 class="font-weight-light mb-4">
-          <iconify-icon icon="${escapeHTML(item.icon)}" width="50" height="50" aria-hidden="true"></iconify-icon><br>${item.achievement}
-        </h4>
-        <iconify-icon icon="${escapeHTML(item.bottomIcon)}" width="50" height="50" aria-hidden="true"></iconify-icon>
-        <h5 class="font-weight-bold m-0">${escapeHTML(item.organization)}</h5>
+    extraContainer.innerHTML = extraCurricularData.map((item, index) => `
+      <div class="extra-card" data-aos="fade-up" data-aos-delay="${index * 90}">
+        <div class="extra-card-top">
+          <iconify-icon class="extra-card-icon" icon="${escapeHTML(item.icon)}" aria-hidden="true"></iconify-icon>
+          <span class="extra-card-category">${escapeHTML(item.category)}</span>
+        </div>
+        <p class="extra-card-text">${item.achievement}</p>
+        <p class="extra-card-org">
+          <iconify-icon icon="${escapeHTML(item.bottomIcon)}" aria-hidden="true"></iconify-icon>
+          ${escapeHTML(item.organization)}
+        </p>
       </div>
     `).join('');
   }
@@ -295,10 +308,15 @@ function renderFooterSocials() {
   // Render contact info
   const contactContainer = document.getElementById('footer-contact');
   if (contactContainer) {
+    const location = socialData.contactInfo.location;
     contactContainer.innerHTML = `
-      <a class="text-white" href="mailto:${escapeHTML(socialData.contactInfo.email)}" data-aos="fade-down">${escapeHTML(socialData.contactInfo.email)}</a>
-      <span class="px-2">|</span>
-      <a class="text-white" href="tel:${escapeHTML(socialData.contactInfo.phone)}" data-aos="fade-down">${escapeHTML(socialData.contactInfo.phone)}</a>
+      <a class="footer-link" href="mailto:${escapeHTML(socialData.contactInfo.email)}" data-aos="fade-down">
+        <iconify-icon icon="mdi:email-outline" aria-hidden="true"></iconify-icon>${escapeHTML(socialData.contactInfo.email)}
+      </a>
+      ${location ? `<span class="footer-sep" aria-hidden="true"></span>
+      <span class="footer-link footer-link-static">
+        <iconify-icon icon="mdi:map-marker-outline" aria-hidden="true"></iconify-icon>${escapeHTML(location)}
+      </span>` : ''}
     `;
   }
 }
@@ -372,7 +390,7 @@ function initCarousels() {
     });
   }
 
-  $('#certification-carousel, #extracurricular-carousel').each(function () {
+  $('#certification-carousel').each(function () {
     const $this = $(this);
     if (!$this.children().length) return;
     $this.owlCarousel({

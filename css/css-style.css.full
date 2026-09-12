@@ -11399,3 +11399,576 @@ h6,
         line-height: 1.4;
     }
 }
+
+/* =====================
+   Project modal + card actions
+   The buttons put their icon and label in normal inline flow, so at narrow
+   widths the label dropped to a second line under the icon. inline-flex with a
+   gap makes that impossible at any width, and is also how the gap between the
+   two is set now (it used to be a literal space in the markup).
+   ===================== */
+#projectModal .modal-footer .btn,
+#portfolio .card-actions .btn,
+#about-social .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+/* The `mr-2` on the about buttons' icons is now handled by the flex gap. */
+#about-social .btn iconify-icon {
+    margin-right: 0 !important;
+}
+
+/* Modal shell: same hairline-card language as the skills grid. */
+#projectModal .modal-content {
+    border: 1px solid #e4e4e6;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px -30px rgba(0, 0, 0, .55);
+}
+
+#projectModal .modal-body {
+    padding: 18px 20px 14px;
+}
+
+#projectModal .modal-body img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid #ececee;
+}
+
+/* Tech stack as chips - one long italic line was unreadable at any width. */
+.tech-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.tech-chip {
+    display: inline-block;
+    padding: 4px 10px;
+    border: 1px solid #e2e2e5;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .6);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: .01em;
+    color: #4a4d56;
+    white-space: nowrap;
+}
+
+/* Footer: no hard divider, and Close reads as the quiet option. */
+#projectModal .modal-footer {
+    border-top: 0;
+    padding: 6px 20px 18px;
+    gap: 8px;
+}
+
+#projectModal .modal-footer .btn {
+    margin: 0;
+}
+
+@media (max-width: 575.98px) {
+    #projectModal .modal-body {
+        padding: 14px 14px 10px;
+    }
+
+    #projectModal .modal-footer {
+        padding: 4px 14px 14px;
+        gap: 6px;
+    }
+
+    .tech-chip {
+        font-size: 10.5px;
+        padding: 3px 8px;
+    }
+}
+
+/* =====================
+   Certificates
+   The slide used to be a bare image link - no title, no issuer, no sign it
+   was clickable. Now it is a hairline card in the same language as the skills
+   grid, with the certificate named underneath it.
+   ===================== */
+/* Owl clips its stage, so a card that lifts on hover loses its top border.
+   The padding lives on the slide and gives the lift somewhere to go. */
+.certificate-view {
+    padding: 8px 0;
+}
+
+.certificate-card {
+    display: block;
+    max-width: 470px;
+    margin: 0 auto;
+    padding: 12px 12px 4px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #e4e4e6;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: border-color .35s ease, box-shadow .35s ease, transform .35s ease;
+}
+
+.certificate-card:hover {
+    border-color: #16181d;
+    box-shadow: 0 14px 30px -20px rgba(0, 0, 0, .55);
+    transform: translateY(-3px);
+    text-decoration: none;
+}
+
+.certificate-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ececee;
+}
+
+.certificate-meta {
+    display: block;
+    padding: 13px 4px 12px;
+    text-align: center;
+}
+
+.certificate-title {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #16181d;
+}
+
+.certificate-issuer {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    color: #6f717a;
+}
+
+.certificate-view-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 9px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #9a9ba1;
+    transition: color .3s ease;
+}
+
+.certificate-card:hover .certificate-view-link {
+    color: #16181d;
+}
+
+@media (max-width: 575.98px) {
+    .certificate-card {
+        padding: 10px 10px 2px;
+    }
+
+    .certificate-title {
+        font-size: 13.5px;
+    }
+}
+
+/* =====================
+   Interests
+   Six 150px glyphs in a three-column grid ran most of a screen tall for what is
+   a list of eight short labels. Same hairline-card language as the skills grid,
+   at a lighter weight so the two sections do not read as the same block.
+   ===================== */
+.interest-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 44px 0 0;
+}
+
+.interest-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 22px 16px 20px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #e4e4e6;
+    border-radius: 12px;
+    transition: border-color .35s ease, box-shadow .35s ease, transform .35s ease;
+}
+
+.interest-card:hover {
+    border-color: #16181d;
+    box-shadow: 0 12px 26px -18px rgba(0, 0, 0, .55);
+    transform: translateY(-3px);
+}
+
+/* <iconify-icon> is sized by font-size, not width/height: those attributes size
+   the SVG inside the shadow DOM where a media query cannot reach it. */
+.interest-card .interest-icon {
+    font-size: 38px;
+    color: #16181d;
+    line-height: 1;
+}
+
+.interest-title {
+    margin: 14px 0 0;
+    font-size: 14.5px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #16181d;
+}
+
+.interest-detail {
+    margin: 5px 0 0;
+    font-size: 11.5px;
+    line-height: 1.45;
+    color: #6f717a;
+}
+
+@media (max-width: 991.98px) {
+    .interest-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    .interest-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    .interest-grid {
+        gap: 12px;
+        margin-top: 28px;
+    }
+
+    .interest-card {
+        padding: 18px 12px 16px;
+        border-radius: 10px;
+    }
+
+    .interest-card .interest-icon {
+        font-size: 32px;
+    }
+
+    .interest-title {
+        margin-top: 11px;
+        font-size: 13px;
+    }
+
+    .interest-detail {
+        font-size: 10.5px;
+    }
+}
+
+/* =====================
+   Project cards
+   Brought into the same hairline-card language as skills, certificates and
+   interests, so the four grids on the page read as one system.
+   ===================== */
+#portfolio .project-card {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #e4e4e6 !important;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color .35s ease, box-shadow .35s ease, transform .35s ease;
+}
+
+#portfolio .project-card:hover {
+    border-color: #16181d !important;
+    box-shadow: 0 14px 32px -22px rgba(0, 0, 0, .55);
+    transform: translateY(-3px);
+}
+
+#portfolio .card-img-top {
+    border-radius: 0;
+    border-bottom: 1px solid #ececee;
+}
+
+/* The read-more link was a bare anchor in the middle of handwritten copy. */
+#portfolio .project-read-more {
+    font-weight: 700;
+    color: #16181d;
+    white-space: nowrap;
+}
+
+#portfolio .project-read-more:hover {
+    text-decoration: underline;
+}
+
+/* =====================
+   Extra-curricular
+   Was a one-at-a-time carousel for three items, so two were always hidden and
+   the section ran mostly empty. All three now sit side by side as cards.
+   ===================== */
+.extra-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 44px 0 0;
+}
+
+.extra-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 18px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #e4e4e6;
+    border-radius: 12px;
+    text-align: left;
+    transition: border-color .35s ease, box-shadow .35s ease, transform .35s ease;
+}
+
+.extra-card:hover {
+    border-color: #16181d;
+    box-shadow: 0 12px 26px -18px rgba(0, 0, 0, .55);
+    transform: translateY(-3px);
+}
+
+.extra-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.extra-card-icon {
+    font-size: 26px;
+    line-height: 1;
+}
+
+.extra-card-category {
+    font-family: 'Panchang', sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #16181d;
+}
+
+.extra-card-text {
+    margin: 0 0 14px;
+    font-family: 'Caveat', cursive;
+    font-size: 17px;
+    line-height: 1.5;
+    color: #4a4d56;
+}
+
+.extra-card-org {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: auto 0 0;
+    padding-top: 12px;
+    border-top: 1px solid #ececee;
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: #6f717a;
+}
+
+.extra-card-org iconify-icon {
+    flex: 0 0 auto;
+    font-size: 16px;
+}
+
+@media (max-width: 991.98px) {
+    .extra-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    .extra-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 575.98px) {
+    .extra-grid {
+        gap: 12px;
+        margin-top: 28px;
+    }
+
+    .extra-card {
+        padding: 16px 16px 14px;
+    }
+}
+
+/* =====================
+   Footer
+   ===================== */
+.fot .container {
+    padding-top: 56px;
+    padding-bottom: 48px;
+}
+
+/* The circles sized themselves from Bootstrap's button padding, so the glyph
+   sat off-centre. Fixed box + flex centring puts every icon in the middle. */
+#footer-socials {
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#footer-socials .btn-social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    margin: 0 !important;
+    border-radius: 50%;
+    line-height: 1;
+    transition: transform .3s ease, background-color .3s ease;
+}
+
+#footer-socials .btn-social iconify-icon {
+    font-size: 19px;
+    line-height: 1;
+}
+
+#footer-socials .btn-social:hover {
+    transform: translateY(-3px);
+}
+
+#footer-contact {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    margin-top: 22px;
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.footer-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.footer-link-static:hover {
+    text-decoration: none;
+}
+
+.footer-link iconify-icon {
+    font-size: 17px;
+    opacity: .7;
+}
+
+/* A dot between items instead of a pipe glyph that sat off the text baseline. */
+.footer-sep {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .45);
+    vertical-align: middle;
+}
+
+.footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 12px;
+    margin: 26px 0 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, .72);
+}
+
+.footer-brand {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.footer-brand:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+@media (max-width: 575.98px) {
+    .fot .container {
+        padding-top: 40px;
+        padding-bottom: 34px;
+    }
+
+    .footer-link {
+        font-size: 13px;
+    }
+
+    .footer-legal {
+        font-size: 12px;
+        margin-top: 20px;
+    }
+}
+
+/* =====================
+   Contact
+   The form floated on the page with nothing to say what it was for. An intro
+   line sets the expectation, and the form sits in the same hairline card as
+   every other block on the page.
+   ===================== */
+.contact-intro {
+    max-width: 640px;
+    margin: 40px auto 26px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #6f717a;
+}
+
+.contact-intro a {
+    color: #16181d;
+    font-weight: 700;
+}
+
+#contact .contact-form {
+    padding: 26px 26px 24px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid #e4e4e6;
+    border-radius: 14px;
+}
+
+/* The inputs were full pills, which read as a different design language from
+   the cards around them. */
+#contact .form-control {
+    border-radius: 10px;
+    border-color: #e2e2e5;
+}
+
+#contact .form-control:focus {
+    border-color: #16181d;
+    box-shadow: none;
+}
+
+#contact #sendMessageButton {
+    margin-top: 4px;
+    border-radius: 10px;
+    padding-left: 26px;
+    padding-right: 26px;
+}
+
+@media (max-width: 575.98px) {
+    .contact-intro {
+        margin: 28px auto 20px;
+        font-size: 13.5px;
+    }
+
+    #contact .contact-form {
+        padding: 18px 16px 16px;
+        border-radius: 12px;
+    }
+}
