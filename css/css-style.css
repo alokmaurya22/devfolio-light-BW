@@ -2756,7 +2756,8 @@ h5 .font-weight-medium{
     }.tech-chip{
         font-size: 10.5px;
         padding: 3px 8px;
-    }}.certificate-view{
+    }}.certificate-view,
+#projects-carousel .owl-item > div{
     padding: 8px 0;
 }.certificate-card{
     display: block;

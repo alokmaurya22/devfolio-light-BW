@@ -11498,8 +11498,10 @@ h6,
    grid, with the certificate named underneath it.
    ===================== */
 /* Owl clips its stage, so a card that lifts on hover loses its top border.
-   The padding lives on the slide and gives the lift somewhere to go. */
-.certificate-view {
+   The padding lives on the slide and gives the lift somewhere to go. Both
+   carousels need it - certificates and projects. */
+.certificate-view,
+#projects-carousel .owl-item > div {
     padding: 8px 0;
 }
 

@@ -297,8 +297,8 @@ function renderFooterSocials() {
       // Derive an accessible name from the host, e.g. "linkedin.com" -> "LinkedIn".
       const label = social.label || labelFromHref(social.href);
       const icon = social.isIconify
-        ? `<iconify-icon icon="${escapeHTML(social.icon)}" data-aos="fade-down" aria-hidden="true"></iconify-icon>`
-        : `<i class="${escapeHTML(social.icon)}" data-aos="fade-down" aria-hidden="true"></i>`;
+        ? `<iconify-icon icon="${escapeHTML(social.icon)}" aria-hidden="true"></iconify-icon>`
+        : `<i class="${escapeHTML(social.icon)}" aria-hidden="true"></i>`;
       return `<a class="${escapeHTML(social.class)}" href="${escapeHTML(social.href)}" target="_blank" rel="noopener" aria-label="${escapeHTML(label)}">
           ${icon}
         </a>`;
@@ -310,7 +310,7 @@ function renderFooterSocials() {
   if (contactContainer) {
     const location = socialData.contactInfo.location;
     contactContainer.innerHTML = `
-      <a class="footer-link" href="mailto:${escapeHTML(socialData.contactInfo.email)}" data-aos="fade-down">
+      <a class="footer-link" href="mailto:${escapeHTML(socialData.contactInfo.email)}">
         <iconify-icon icon="mdi:email-outline" aria-hidden="true"></iconify-icon>${escapeHTML(socialData.contactInfo.email)}
       </a>
       ${location ? `<span class="footer-sep" aria-hidden="true"></span>
