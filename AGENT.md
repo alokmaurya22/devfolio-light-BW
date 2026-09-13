@@ -19,6 +19,7 @@ local in `js/`.
 ```
 index.html        the site (dynamic sections rendered by data/main.js)
 404.html          error page, self-contained
+resume/           self-hosted resumes; the About button links to the one in socialData.js
 robots.txt        allows everything, points crawlers at the sitemap
 sitemap.xml       single URL
 css/              css-style.css is the real stylesheet; owl, aos + kursor CSS alongside
@@ -45,6 +46,8 @@ js/               vendored libraries + 3 site scripts + iconify-bundle.js
 | `certificationData.js` | `certificationData` | `renderCertifications()` | `#certification-carousel` |
 | `interestData.js` | `interestData` | `renderInterests()` | `#interest-list` |
 | `extraCurricularData.js` | `extraCurricularData` | `renderExtraCurricular()` | `#extracurricular-carousel` |
+| `testimonialsData.js` | `testimonialsData` | `renderTestimonials()` | `#recommendation-list` |
+| `servicesData.js` | `servicesData` | `renderServices()` | `#service-intro`, `#service-offerings`, `#service-engagements`, `#service-availability` |
 
 **Rules of thumb**
 
@@ -55,6 +58,10 @@ js/               vendored libraries + 3 site scripts + iconify-bundle.js
   `extraCurricularData.achievement`, which may contain `<br>`.
 - Image `width`/`height` in the data files reserve layout space (CLS). If you re-export an image at a
   new size, update those numbers too.
+- **Recommendations only carry words their author actually wrote or approved.** `testimonialsData`
+  ships empty and `#recommendation` ships with the `hidden` attribute, so the section leaves no trace
+  on the page until there is something real to publish. `renderTestimonials()` is the only thing that
+  clears `hidden`. Do not write a quote for a named person.
 - An `educationData` entry with `hidden: true` is skipped by `renderEducation()`. Use it to park an
   entry - its logo, link and dates stay on file - instead of deleting it.
 - Adding a new data file → add a `<script defer src="data/…">` tag before `data/main.js` **and** add
@@ -106,6 +113,12 @@ build-icon-bundle which just need network access.
   api.iconify.design on every load. **Adding a new icon means regenerating this bundle**: fetch
   `https://api.iconify.design/<prefix>.json?icons=<names>` for every collection used across
   `index.html` + `data/*.js` (fields `icon:`, `bottomIcon:`, `icon="`) and rebuild the array.
+- `js/analytics.js` — Google Analytics 4 + Microsoft Clarity, and **the only third-party traffic on
+  the site**. Two guards keep that honest: the two ids at the top of the file are empty by default, so
+  nothing loads and no request is made until someone fills them in; and the vendor tags load on idle
+  *after* the load event, so they can never compete with FCP/LCP. Local hostnames are skipped. It also
+  tracks resume opens, project and certificate opens, outbound clicks and contact submits - plus
+  anything carrying `data-analytics="event_name"`.
 - `data/main.js` — all rendering and plugin init.
 
 Everything else in `js/` is vendored — do not hand-edit.
@@ -119,7 +132,12 @@ without the owner.
 
 - Prefix convention: `pro-*` projects, `exp-*` employers, `edu-*` institutions, `certi-*`
   certificates, `img-*` profile/signature art. Prefer `.webp`.
-- **Everything is self-hosted on purpose.** Background textures live in `images/patterns/`, AOS CSS in
+- Resumes are self-hosted in `resume/`, not linked to Google Drive: some corporate networks block
+  Drive, and a local file is one click instead of two. Dropping a new PDF in that folder means
+  pointing the Resume entry in `socialData.js` at it; replacing the existing file in place needs no
+  code change at all.
+- **Everything is self-hosted on purpose** (the one deliberate exception is `js/analytics.js`, above).
+   Background textures live in `images/patterns/`, AOS CSS in
   `css/aos.css`, icons in `js/iconify-bundle.js`. Do not reintroduce assets from giphy, behance,
   unpkg or transparenttextures - that is exactly what B47-B51 were.
 - New `<img>` tags need explicit `width`/`height` plus `loading="lazy" decoding="async"`
@@ -174,6 +192,12 @@ real browser's device toolbar.
   transparent), the modal needs an opaque fill rather than the cards' 3.5% white, and the
   signature and older employer logos are black-on-transparent so they are inverted or given a
   white plate.
+- **The navbar is one row that only just fits.** Nine links plus the "Connect With Me!" button are
+  wider than the viewport between `lg` and `xl`, and `body { overflow-x: hidden }` used to hide that
+  rather than show it - the button simply sat off-screen. A `Navbar fit` block near the end of
+  `css-style.css.full` tightens padding and type from 992px and drops the CTA below 1366px, and pins
+  the CTA at its natural width so it cannot be squeezed into two lines. **Adding a tenth nav item
+  means re-measuring that band.**
 - The skills section is a single CSS grid of `.skill-card`s. `#skills-left` / `#skills-right` are
   `display: contents`, so all twelve cards are direct children of one grid and their rows line up
   across the full width - the two Bootstrap halves only survive so the container ids stay stable.

@@ -16,7 +16,7 @@ const socialData = {
             isIconify: true
         },
         {
-            href: "https://drive.google.com/open?id=1YWVLEAfu01DdftCqMT7YQXabtCQpkcE3&usp=drive_copy",
+            href: "resume/Alok-Maurya-Resume.pdf",
             icon: "ph:read-cv-logo-fill",
             text: "Resume",
             class: "btn btn-outline-primary tilt",

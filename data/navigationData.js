@@ -9,6 +9,7 @@ const navigationData = {
         { href: "#qualification", text: "Qualifications", class: "nav-item nav-link tilt" },
         { href: "#skill", text: "Skill", class: "nav-item nav-link tilt" },
         { href: "#portfolio", text: "Projects", class: "nav-item nav-link tilt" },
+        { href: "#hire", text: "Services", class: "nav-item nav-link tilt" },
         { href: "#certification", text: "Certification", class: "nav-item nav-link tilt" },
         { href: "#service", text: "Interest", class: "nav-item nav-link tilt" },
         { href: "#testimonial", text: "Ex-Curricular", class: "nav-item nav-link tilt" },

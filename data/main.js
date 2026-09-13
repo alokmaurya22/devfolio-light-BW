@@ -289,6 +289,92 @@ function renderExtraCurricular() {
   }
 }
 
+// Function to render the freelance services section
+function renderServices() {
+  const introContainer = document.getElementById('service-intro');
+  if (introContainer) introContainer.textContent = servicesData.intro;
+
+  const offeringsContainer = document.getElementById('service-offerings');
+  if (offeringsContainer) {
+    offeringsContainer.innerHTML = servicesData.offerings.map((item, index) => `
+      <div class="service-card" data-aos="fade-up" data-aos-delay="${(index % 4) * 70}">
+        <iconify-icon class="service-card-icon" icon="${escapeHTML(item.icon)}" aria-hidden="true"></iconify-icon>
+        <h4 class="service-card-title">${escapeHTML(item.title)}</h4>
+        <p class="service-card-detail">${escapeHTML(item.detail)}</p>
+      </div>
+    `).join('');
+  }
+
+  const engagementContainer = document.getElementById('service-engagements');
+  if (engagementContainer) {
+    engagementContainer.innerHTML = servicesData.engagements.map((item, index) => `
+      <div class="engagement-card" data-aos="fade-up" data-aos-delay="${index * 80}">
+        <iconify-icon class="engagement-icon" icon="${escapeHTML(item.icon)}" aria-hidden="true"></iconify-icon>
+        <span class="engagement-body">
+          <span class="engagement-title">${escapeHTML(item.title)}</span>
+          <span class="engagement-detail">${escapeHTML(item.detail)}</span>
+        </span>
+      </div>
+    `).join('');
+  }
+
+  const availabilityContainer = document.getElementById('service-availability');
+  if (availabilityContainer) {
+    const availability = servicesData.availability;
+    availabilityContainer.innerHTML = `
+      <p class="availability-status">
+        <span class="availability-dot" aria-hidden="true"></span>${escapeHTML(availability.status)}
+      </p>
+      <p class="availability-note">${escapeHTML(availability.note)}</p>
+      <a class="btn btn-outline-primary tilt availability-cta" href="${escapeHTML(availability.cta.href)}" data-analytics="hire_cta">
+        <iconify-icon icon="mdi:arrow-right" class="mr-2" aria-hidden="true"></iconify-icon>${escapeHTML(availability.cta.text)}
+      </a>
+    `;
+  }
+}
+
+// Function to render recommendations
+function renderTestimonials() {
+  const container = document.getElementById('recommendation-list');
+  const section = document.getElementById('recommendation');
+
+  // The section ships hidden. Only real, approved quotes belong here, so an
+  // empty data file must leave no trace on the page rather than an empty heading.
+  if (section) section.hidden = !testimonialsData.length;
+  if (!container || !testimonialsData.length) return;
+
+  container.innerHTML = testimonialsData.map((item, index) => {
+    const avatar = item.avatar
+      ? `<img class="recommendation-avatar" src="${escapeHTML(item.avatar)}" alt="" width="${item.width}" height="${item.height}" loading="lazy" decoding="async">`
+      : `<span class="recommendation-avatar recommendation-initials" aria-hidden="true">${escapeHTML(initialsFrom(item.name))}</span>`;
+    const who = `<span class="recommendation-name">${escapeHTML(item.name)}</span>
+            <span class="recommendation-role">${escapeHTML([item.role, item.company].filter(Boolean).join(' · '))}</span>`;
+
+    return `
+      <figure class="recommendation-card" data-aos="fade-up" data-aos-delay="${(index % 3) * 80}">
+        <iconify-icon class="recommendation-mark" icon="mdi:format-quote-open" aria-hidden="true"></iconify-icon>
+        <blockquote class="recommendation-quote">${escapeHTML(item.quote)}</blockquote>
+        <figcaption class="recommendation-by">
+          ${avatar}
+          <span class="recommendation-meta">${item.link
+            ? `<a href="${escapeHTML(item.link)}" target="_blank" rel="noopener">${who}</a>`
+            : who}</span>
+        </figcaption>
+      </figure>
+    `;
+  }).join('');
+}
+
+// "Manvendra Yadav" -> "MY". Used when a recommendation has no photo.
+function initialsFrom(name) {
+  return String(name || '')
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part.charAt(0).toUpperCase())
+    .join('');
+}
+
 // Function to render footer social links
 function renderFooterSocials() {
   const footerSocialContainer = document.getElementById('footer-socials');
@@ -490,7 +576,9 @@ const DATA_SOURCES = {
   projectsData: () => projectsData,
   certificationData: () => certificationData,
   interestData: () => interestData,
-  extraCurricularData: () => extraCurricularData
+  extraCurricularData: () => extraCurricularData,
+  servicesData: () => servicesData,
+  testimonialsData: () => testimonialsData
 };
 const MAX_DATA_ATTEMPTS = 50; // ~5s
 
@@ -529,6 +617,8 @@ function initializeAllData(attempt) {
     renderCertifications();
     renderInterests();
     renderExtraCurricular();
+    renderTestimonials();
+    renderServices();
     renderFooterSocials();
 
     initCarousels();

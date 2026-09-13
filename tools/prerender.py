@@ -31,7 +31,9 @@ CHROME = os.environ.get('CHROME', r'C:\Program Files\Google\Chrome\Application\c
 CONTAINERS = [
     'navbar-links', 'about-social', 'education-list', 'experience-list',
     'skills-left', 'skills-right', 'projects-carousel', 'certification-carousel',
-    'interest-list', 'extracurricular-carousel', 'footer-socials', 'footer-contact',
+    'interest-list', 'extracurricular-carousel', 'recommendation-list',
+    'service-intro', 'service-offerings', 'service-engagements', 'service-availability',
+    'footer-socials', 'footer-contact',
 ]
 
 HARVEST = """
