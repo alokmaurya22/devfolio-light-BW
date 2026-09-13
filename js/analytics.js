@@ -23,7 +23,7 @@
        Clarity: Settings -> Overview -> the id in the install snippet
        ------------------------------------------------------------------ */
     var GA4_MEASUREMENT_ID = '';   // e.g. 'G-XXXXXXXXXX'
-    var CLARITY_PROJECT_ID = '';   // e.g. 'abcdefghij'
+    var CLARITY_PROJECT_ID = 'yhtqyisk0o';   // e.g. 'abcdefghij'
     /* ------------------------------------------------------------------ */
 
     var host = location.hostname;

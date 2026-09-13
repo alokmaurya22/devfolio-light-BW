@@ -132,9 +132,10 @@ build-icon-bundle which just need network access.
   `https://api.iconify.design/<prefix>.json?icons=<names>` for every collection used across
   `index.html` + `data/*.js` (fields `icon:`, `bottomIcon:`, `icon="`) and rebuild the array.
 - `js/analytics.js` — Google Analytics 4 + Microsoft Clarity, and **the only third-party traffic on
-  the site**. Two guards keep that honest: the two ids at the top of the file are empty by default, so
-  nothing loads and no request is made until someone fills them in; and the vendor tags load on idle
-  *after* the load event, so they can never compete with FCP/LCP. Local hostnames are skipped. It also
+  the site**. Two guards keep that honest: each vendor loads only when its id at the top of the file
+  is filled in, so an empty id means no request at all; and the vendor tags load on idle *after* the
+  load event, so they can never compete with FCP/LCP. Local hostnames are skipped, so development
+  traffic never reaches either vendor. Clarity is configured; the GA4 id is still empty. It also
   tracks resume opens, project and certificate opens, outbound clicks and contact submits - plus
   anything carrying `data-analytics="event_name"`.
 - `data/main.js` — all rendering and plugin init.
