@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        // Must stay inline and non-deferred, or the light theme flashes first.
+        (function () {
+            try {
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) { /* private mode: stay light */ }
+        })();
+    </script>
+    <title>Extrabite — a food redistribution platform | Alok Maurya</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="How Extrabite was built: a two-layer auth chain, revocable JWTs, an OTP handover that proves a pickup really happened, and the parts I would build differently today.">
+    <meta name="author" content="Alok Maurya">
+    <link rel="canonical" href="https://founder.sonint.in/case-studies/extrabite.html">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Extrabite — a food redistribution platform">
+    <meta property="og:description" content="A two-layer auth chain, revocable JWTs, an OTP handover that proves a pickup really happened, and the parts I would build differently today.">
+    <meta property="og:url" content="https://founder.sonint.in/case-studies/extrabite.html">
+    <meta property="og:image" content="https://founder.sonint.in/images/pro-extrabite.webp">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32.png">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/case-study.css">
+</head>
+
+<body>
+    <div class="cs-top">
+        <a class="cs-back" href="../index.html#portfolio">&#8592; Back to portfolio</a>
+        <button type="button" class="cs-theme" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
+            <span class="theme-glyph" aria-hidden="true">&#9789;</span>
+        </button>
+    </div>
+
+    <main class="cs-wrap">
+        <header class="cs-header">
+            <p class="cs-kicker">Case study &middot; 2025</p>
+            <h1 class="cs-title">Extrabite</h1>
+            <p class="cs-standfirst">
+                Surplus food and the people who need it are rarely separated by supply. They are
+                separated by coordination - who has what, for how long, and who can collect it before
+                it stops being food. Extrabite is my attempt to put that coordination in software.
+            </p>
+
+            <dl class="cs-meta">
+                <div>
+                    <dt>My role</dt>
+                    <dd>End to end &mdash; schema, API, frontend, deployment</dd>
+                </div>
+                <div>
+                    <dt>Backend</dt>
+                    <dd>Java 17, Spring Boot 3.5, PostgreSQL, Spring Security, Docker</dd>
+                </div>
+                <div>
+                    <dt>Frontend</dt>
+                    <dd>React, Tailwind CSS, Google Maps</dd>
+                </div>
+            </dl>
+
+            <div class="cs-links">
+                <a class="cs-btn" href="https://extrabite.vercel.app/" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.59 13.41a1 1 0 0 1 0-1.41l4.59-4.59a2 2 0 1 1 2.83 2.83l-1.3 1.29a1 1 0 0 0 1.42 1.42l1.29-1.3a4 4 0 0 0-5.66-5.66l-4.58 4.6a3 3 0 0 0 0 4.24 1 1 0 0 0 1.41-1.42zm2.82-2.82a1 1 0 0 0-1.41 1.41 2 2 0 0 1 0 2.83l-4.59 4.59a2 2 0 0 1-2.83-2.83l1.3-1.29a1 1 0 1 0-1.42-1.42l-1.29 1.3a4 4 0 0 0 5.66 5.66l4.58-4.6a3 3 0 0 0 0-4.24z"/></svg>
+                    Live site
+                </a>
+                <a class="cs-btn" href="https://github.com/alokmaurya22/extrabite-backend-2" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2A10 10 0 0 0 8.84 21.5c.5.08.66-.23.66-.5v-1.69C6.73 19.91 6.14 18 6.14 18A2.69 2.69 0 0 0 5 16.5c-.91-.62.07-.6.07-.6a2.1 2.1 0 0 1 1.53 1 2.15 2.15 0 0 0 2.91.83 2.16 2.16 0 0 1 .64-1.35c-2.22-.25-4.55-1.11-4.55-4.92a3.86 3.86 0 0 1 1-2.68 3.58 3.58 0 0 1 .1-2.64s.84-.27 2.75 1a9.63 9.63 0 0 1 5 0c1.91-1.29 2.75-1 2.75-1a3.58 3.58 0 0 1 .1 2.64 3.86 3.86 0 0 1 1 2.68c0 3.82-2.34 4.66-4.57 4.91a2.39 2.39 0 0 1 .69 1.85V21c0 .27.16.59.67.5A10 10 0 0 0 12 2z"/></svg>
+                    Backend source
+                </a>
+                <a class="cs-btn" href="https://github.com/alokmaurya22/extrabite-frontend" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2A10 10 0 0 0 8.84 21.5c.5.08.66-.23.66-.5v-1.69C6.73 19.91 6.14 18 6.14 18A2.69 2.69 0 0 0 5 16.5c-.91-.62.07-.6.07-.6a2.1 2.1 0 0 1 1.53 1 2.15 2.15 0 0 0 2.91.83 2.16 2.16 0 0 1 .64-1.35c-2.22-.25-4.55-1.11-4.55-4.92a3.86 3.86 0 0 1 1-2.68 3.58 3.58 0 0 1 .1-2.64s.84-.27 2.75 1a9.63 9.63 0 0 1 5 0c1.91-1.29 2.75-1 2.75-1a3.58 3.58 0 0 1 .1 2.64 3.86 3.86 0 0 1 1 2.68c0 3.82-2.34 4.66-4.57 4.91a2.39 2.39 0 0 1 .69 1.85V21c0 .27.16.59.67.5A10 10 0 0 0 12 2z"/></svg>
+                    Frontend source
+                </a>
+            </div>
+        </header>
+
+        <h2 class="cs-h2">The problem worth solving</h2>
+        <p>
+            A restaurant with thirty unsold meals at 10pm and a shelter two kilometres away is not a
+            logistics problem in the usual sense. Nobody needs a fleet. What is missing is a shared,
+            current picture: what exists right now, where, for how long, and whether someone has
+            already claimed it.
+        </p>
+        <p>
+            Before software, that picture lives in WhatsApp groups and phone calls. It goes stale
+            within minutes, and the cost of being wrong is not an inconvenience - it is food thrown
+            away, or somebody travelling to collect something that is already gone.
+        </p>
+        <p>
+            So the interesting engineering here is not CRUD. It is <strong>keeping the listing honest</strong>
+            and <strong>proving the handover actually happened</strong>. Most of what follows is about those two
+            things.
+        </p>
+
+        <h2 class="cs-h2">How it fits together</h2>
+        <p>
+            A React front end on Vercel, a Spring Boot service in a Docker container, and PostgreSQL
+            underneath. Every request crosses two authentication filters before it reaches a
+            controller, and a set of scheduled jobs runs against the same database on its own clock.
+        </p>
+
+        <figure class="cs-figure">
+            <svg viewBox="0 0 700 220" role="img" aria-label="Request path: browser, API key filter, JWT filter, controllers, services, PostgreSQL, with schedulers writing to the database on their own clock.">
+                <defs>
+                    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor" />
+                    </marker>
+                </defs>
+
+                <rect class="d-box" x="8" y="50" width="96" height="48" rx="8" />
+                <text class="d-label" x="56" y="71" text-anchor="middle">Browser</text>
+                <text class="d-sub" x="56" y="85" text-anchor="middle">React + Tailwind</text>
+
+                <rect class="d-box" x="124" y="50" width="96" height="48" rx="8" />
+                <text class="d-label" x="172" y="71" text-anchor="middle">API key</text>
+                <text class="d-sub" x="172" y="85" text-anchor="middle">filter</text>
+
+                <rect class="d-box" x="240" y="50" width="96" height="48" rx="8" />
+                <text class="d-label" x="288" y="71" text-anchor="middle">JWT</text>
+                <text class="d-sub" x="288" y="85" text-anchor="middle">filter + blacklist</text>
+
+                <rect class="d-box" x="356" y="50" width="96" height="48" rx="8" />
+                <text class="d-label" x="404" y="71" text-anchor="middle">Controllers</text>
+                <text class="d-sub" x="404" y="85" text-anchor="middle">REST</text>
+
+                <rect class="d-box" x="472" y="50" width="96" height="48" rx="8" />
+                <text class="d-label" x="520" y="71" text-anchor="middle">Services</text>
+                <text class="d-sub" x="520" y="85" text-anchor="middle">rules + state</text>
+
+                <rect class="d-box d-box-solid" x="588" y="50" width="96" height="48" rx="8" />
+                <text class="d-label d-label-invert" x="636" y="71" text-anchor="middle">PostgreSQL</text>
+                <text class="d-label d-label-invert" x="636" y="85" text-anchor="middle" style="font-size:9.5px;opacity:.75">JPA / Hibernate</text>
+
+                <g class="d-line" color="currentColor">
+                    <line x1="106" y1="74" x2="120" y2="74" marker-end="url(#ah)" />
+                    <line x1="222" y1="74" x2="236" y2="74" marker-end="url(#ah)" />
+                    <line x1="338" y1="74" x2="352" y2="74" marker-end="url(#ah)" />
+                    <line x1="454" y1="74" x2="468" y2="74" marker-end="url(#ah)" />
+                    <line x1="570" y1="74" x2="584" y2="74" marker-end="url(#ah)" />
+                </g>
+
+                <path class="d-line d-line-dash" d="M 124 32 H 336" />
+                <text class="d-sub" x="230" y="26" text-anchor="middle">every request crosses both</text>
+
+                <rect class="d-box" x="356" y="152" width="212" height="46" rx="8" />
+                <text class="d-label" x="462" y="173" text-anchor="middle">Scheduled jobs</text>
+                <text class="d-sub" x="462" y="187" text-anchor="middle">donation expiry &middot; token cleanup &middot; every 10 min</text>
+
+                <path class="d-line d-line-dash" d="M 568 175 H 636 V 104" marker-end="url(#ah)" color="currentColor" />
+            </svg>
+            <figcaption>Two filters guard every route; the schedulers reach the same tables without going through them.</figcaption>
+        </figure>
+
+        <h2 class="cs-h2">Three decisions worth explaining</h2>
+
+        <h3 class="cs-h3">1. Two layers of authentication, not one</h3>
+        <p>
+            A request has to answer two different questions before it does anything. The first filter
+            checks an <code>EXTRABITE-API-KEY</code> header: <em>is this call coming from the
+            platform at all?</em> The second reads the bearer token: <em>and who is making it?</em>
+        </p>
+        <p>
+            These are genuinely separate concerns, and conflating them is a common mistake. The API
+            key does not identify a person and grants no permissions - it only keeps the surface from
+            being a completely open API that anyone can enumerate. Authorisation is entirely the
+            JWT's job, carried in claims for id, name, email, role and whether the profile is active.
+        </p>
+        <div class="cs-note">
+            <p>
+                <strong>What it does not buy:</strong> an API key shipped to a browser is not a secret
+                - anyone can read it out of the network tab. It raises the cost of casual scraping;
+                it is not a security boundary, and I did not treat it as one. Every route that
+                matters still requires a real token.
+            </p>
+        </div>
+
+        <h3 class="cs-h3">2. Stateless tokens that can still be revoked</h3>
+        <p>
+            JWTs are attractive because the server does not have to remember anything. That is also
+            their problem: a token stays valid until it expires, so "log me out everywhere" is not
+            something the standard gives you.
+        </p>
+        <p>
+            I chose to give up part of that statelessness. Logging out writes the token into a
+            blacklist table, and the JWT filter checks that table before it trusts any token. A
+            scheduled job clears out entries whose tokens have expired anyway, so the table tracks
+            active sessions rather than growing forever.
+        </p>
+        <div class="cs-note">
+            <p>
+                <strong>The trade-off, stated plainly:</strong> this costs one database lookup on
+                every authenticated request, and it means the service is no longer purely stateless.
+                I took that deal because a logout that does not actually log you out is a security
+                bug, not a performance feature - and at this scale one indexed lookup is cheap.
+            </p>
+            <p>
+                At a larger scale the same design still works, but the lookup belongs in Redis or a
+                short-TTL in-memory cache rather than the primary database.
+            </p>
+        </div>
+
+        <h3 class="cs-h3">3. An OTP handover that proves the pickup happened</h3>
+        <p>
+            This is the part I would want to talk about in an interview. When a fulfiller accepts a
+            request, the obvious design is to let them mark it complete afterwards. That design is
+            wrong: it lets one side of a two-party event decide, on their own, that the event
+            occurred. On a platform with ratings attached to completions, that is an invitation.
+        </p>
+        <p>
+            So the completion is split so that <strong>neither party can produce it alone</strong>:
+        </p>
+        <ol class="cs-steps">
+            <li>A requester posts what they need. The request is <code>OPEN</code>.</li>
+            <li>Someone offers to fulfil it. The request becomes <code>OFFERED</code>.</li>
+            <li>The requester accepts. The status moves to <code>AWAITING_PICKUP</code> and a six-digit pickup code is generated.</li>
+            <li>The code is returned <strong>only to the requester</strong>, through an endpoint the fulfiller cannot call. The fulfiller never sees it in any response.</li>
+            <li>At the handover the requester reads the code out. The fulfiller submits it. Only then does the request become <code>COMPLETED</code>.</li>
+        </ol>
+        <p>
+            The code is worthless without physical presence, which is exactly the property wanted: a
+            completed request now means two people actually met. The same six digits also settle
+            disputes, because a completion cannot exist without one.
+        </p>
+
+        <h2 class="cs-h2">Keeping the listing honest</h2>
+        <p>
+            A donation board that shows food which is no longer edible is worse than no board at all,
+            because somebody travels for nothing. Freshness expires in two different ways here, so
+            there are two jobs rather than one general-purpose one.
+        </p>
+        <ul>
+            <li>
+                <strong>Cooked food runs on a countdown.</strong> The donor sets how long it stays
+                good for, and the job expires anything whose countdown has run out since it was
+                posted.
+            </li>
+            <li>
+                <strong>Packaged food runs on a date.</strong> A printed expiry is an absolute
+                timestamp, so that job simply compares it against now.
+            </li>
+        </ul>
+        <p>
+            Both run every ten minutes and both can be switched off at runtime, which mattered
+            during testing: seeding a realistic board is impossible if a scheduler keeps expiring
+            your fixtures underneath you.
+        </p>
+        <p>
+            Browsing that board is built on JPA Specifications rather than a repository method per
+            filter combination. Status, food name, location, free-or-paid and expiry are each a
+            predicate, and the browse endpoint composes whichever ones the caller supplied. Five
+            independent filters are thirty-one method names the other way; this way they are five
+            predicates.
+        </p>
+
+        <h2 class="cs-h2">What I would build differently</h2>
+        <p>
+            This shipped, it was tested by 50-odd people during the pilot, and the coordination it
+            replaced was manual. It also has decisions in it I can now argue against - which is the
+            more useful half of any project.
+        </p>
+        <ul class="cs-fix">
+            <li>
+                <b>The expiry job reads the whole table</b>
+                <span>
+                    The countdown job loads every donation and filters in memory, every ten minutes.
+                    At pilot size that is invisible; at a hundred thousand rows it is a self-inflicted
+                    outage. The condition belongs in the query - or better, in a single bulk
+                    <code>UPDATE</code> that never loads rows into the application at all.
+                </span>
+            </li>
+            <li>
+                <b>The scheduler switches live in static fields</b>
+                <span>
+                    Toggling a job at runtime was the right feature. Storing that flag in a static
+                    variable was not: it resets on restart, and with more than one instance running
+                    each would hold its own opinion. Configuration state should be in the database or
+                    a config service, not in process memory.
+                </span>
+            </li>
+            <li>
+                <b>The blacklist is checked against Postgres</b>
+                <span>
+                    Correct, and the right first version, but it puts a query on the hot path of every
+                    authenticated request. This is what a cache is for.
+                </span>
+            </li>
+            <li>
+                <b>Debug logging printed the bearer token</b>
+                <span>
+                    A development aid that should never have survived into a deployed build. Tokens
+                    are credentials; logging one writes a working key into the log file. If I need to
+                    trace auth now, I log a decision and a user id, never the token.
+                </span>
+            </li>
+            <li>
+                <b>Route rules accumulated exceptions</b>
+                <span>
+                    Endpoints opened up for internal callbacks during development were never tightened
+                    afterwards, and the security configuration grew a list of one-off exemptions.
+                    Internal calls should authenticate as internal callers rather than be exempted,
+                    and the default should stay closed.
+                </span>
+            </li>
+        </ul>
+
+        <h2 class="cs-h2">What I took from it</h2>
+        <p>
+            The parts I am still pleased with are the ones where I asked what the software has to
+            <em>prove</em>, not what it has to store. A pickup code is a schema detail until you
+            notice it is the only evidence that two strangers met. An expiry job is a cron entry until
+            you notice it is the reason someone does not waste a trip.
+        </p>
+        <p>
+            The parts I would redo are almost all the same mistake: something that was obviously fine
+            at the size I was testing, and obviously not fine one order of magnitude later. Writing
+            them down is cheaper than rediscovering them.
+        </p>
+
+        <div class="cs-end">
+            <p>Alok Maurya &middot; Software Engineer</p>
+            <a class="cs-btn" href="../index.html#portfolio">&#8592; Back to portfolio</a>
+        </div>
+    </main>
+
+    <script>
+        // Small enough to inline: this page loads none of the site's JavaScript.
+        (function () {
+            var root = document.documentElement;
+            var button = document.getElementById('theme-toggle');
+            var glyph = button && button.querySelector('.theme-glyph');
+            if (!button) return;
+
+            function sync() {
+                var dark = root.getAttribute('data-theme') === 'dark';
+                button.setAttribute('aria-pressed', dark ? 'true' : 'false');
+                button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+                // Show the theme you would switch TO, matching the main site.
+                if (glyph) glyph.innerHTML = dark ? '&#9788;' : '&#9789;';
+            }
+
+            button.addEventListener('click', function () {
+                var dark = root.getAttribute('data-theme') === 'dark';
+                if (dark) root.removeAttribute('data-theme');
+                else root.setAttribute('data-theme', 'dark');
+                try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch (e) { /* ignore */ }
+                sync();
+            });
+
+            sync();
+        })();
+    </script>
+</body>
+
+</html>

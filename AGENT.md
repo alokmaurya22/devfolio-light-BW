@@ -20,6 +20,7 @@ local in `js/`.
 index.html        the site (dynamic sections rendered by data/main.js)
 404.html          error page, self-contained
 resume/           self-hosted resumes; the About button links to the one in socialData.js
+case-studies/     long-form project write-ups; standalone pages, see below
 robots.txt        allows everything, points crawlers at the sitemap
 sitemap.xml       single URL
 css/              css-style.css is the real stylesheet; owl, aos + kursor CSS alongside
@@ -28,6 +29,23 @@ images/           content images (patterns/ holds the self-hosted CSS textures)
 favicons/         favicon-16/32.png + apple-touch-icon.png, generated from favicon.jpg
 js/               vendored libraries + 3 site scripts + iconify-bundle.js
 ```
+
+## Case study pages
+
+`case-studies/*.html` are **standalone pages that share nothing with index.html but the palette**.
+They load `css/fonts.css` and `css/case-study.css` only - no Bootstrap, no jQuery, no Owl, no AOS,
+no Iconify - so they carry no render-path or purge-css coupling, and their theme toggle is a dozen
+inline lines rather than `js/2967-js-main.js`. Diagrams are inline SVG whose parts take their colour
+from the same CSS variables, so they follow the theme with no second asset.
+
+`css/case-study.css` is **not** touched by `purge-css.py` (that script only ever rewrites
+`css/css-style.css`), so classes used solely on these pages are safe there - and a class used only
+on a case study page would be purged out of the main stylesheet.
+
+A project links to its write-up through a `caseStudy` path in `projectsData.js`. That field drives
+two things in `data/main.js`: a `.case-study-badge` on the card - absolutely positioned, because
+carousel slides must stay the same height as each other - and the `#projectModalCaseStudy` link,
+which is hidden again for any project without the field. Add a new page to `sitemap.xml`.
 
 ## The data layer (most content edits go here)
 
