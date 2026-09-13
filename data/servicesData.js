@@ -1,9 +1,9 @@
 const servicesData = {
-  intro: "I build complete web products, not one layer of them. The screens people use, the APIs behind those screens, the database under that, and the servers the whole thing runs on - all of it by one person, so nothing gets lost between three different contractors.",
+  intro: "I build complete products, not one layer of them. The screens people use, the APIs behind those screens, the database under that, and the servers the whole thing runs on - all of it by one person, so nothing gets lost between three different contractors.",
   offerings: [
     {
       icon: "carbon:application-web",
-      title: "Complete Web Products",
+      title: "Complete Products",
       detail: "An idea taken all the way to a live product: interface, APIs, database, deployment and the domain it sits on. One person, one handover."
     },
     {

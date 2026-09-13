@@ -177,7 +177,8 @@ function renderProjects() {
       <div class="text-center" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
         <div class="card border-0 project-card mx-auto" data-index="${idx}"
              role="button" tabindex="0" aria-label="View details for ${escapeHTML(project.title)}">
-          <img src="${escapeHTML(project.image)}" class="card-img-top" alt="${escapeHTML(project.title)} screenshot" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" data-aos="flip-up" data-aos-delay="300" data-aos-duration="1200">
+          <img src="${escapeHTML(project.image)}" class="card-img-top" alt="${escapeHTML(project.title)} screenshot" width="${project.width}" height="${project.height}" loading="lazy" decoding="async" data-aos="flip-up" data-aos-delay="300" data-aos-duration="1200">${project.caseStudy ? `
+          <span class="case-study-badge">Case study</span>` : ''}
           <div class="card-body mx-auto">
             <h5 class="card-title font-weight-bold" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">${escapeHTML(project.title)}</h5>
             <h6 class="card-description font-weight-bold" data-aos="fade-right" data-aos-delay="400" data-aos-duration="1000">${escapeHTML(project.subtitle)}</h6>
@@ -222,6 +223,16 @@ function openProjectModal(index) {
         .map(t => `<span class="tech-chip">${escapeHTML(t)}</span>`)
         .join('')
     : '');
+  // Only a project that has a written case study shows the link to it.
+  var caseStudyLink = document.getElementById('projectModalCaseStudy');
+  if (caseStudyLink) {
+    if (p.caseStudy) {
+      caseStudyLink.setAttribute('href', p.caseStudy);
+      caseStudyLink.hidden = false;
+    } else {
+      caseStudyLink.hidden = true;
+    }
+  }
   $('#projectModalLive').attr('href', p.liveLink || '#');
   $('#projectModalGithub').attr('href', p.githubLink || '#');
   // Show modal

@@ -19,7 +19,8 @@ const projectsData = [{
         height: 393,
         techStack: "React.js, Tailwind CSS, Spring Boot, PostgreSQL, JWT Auth, Docker, Cloudinary, Google Maps API, OpenAI API, many more..",
         liveLink: "https://extrabite.vercel.app/",
-        githubLink: "https://github.com/alokmaurya22/extrabite-frontend"
+        githubLink: "https://github.com/alokmaurya22/extrabite-frontend",
+        caseStudy: "case-studies/extrabite.html"
     },
     {
         title: "Social Sphere",

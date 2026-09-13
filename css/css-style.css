@@ -3321,7 +3321,43 @@ h5 .font-weight-medium{
         font-size: 11px !important;
     }#navbar-cta{
         display: none !important;
-    }}.theme-toggle{
+    }}.case-study-badge{
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    padding: 4px 11px;
+    background: #16181d;
+    color: #ffffff;
+    border-radius: 20px;
+    font-family: 'Panchang', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    
+    box-shadow: 0 1px 7px rgba(0, 0, 0, .38);
+    pointer-events: none;
+}.case-study-link{
+    display: block;
+    margin: 15px 0 0;
+    padding: 11px 14px;
+    background: #16181d;
+    border-radius: 9px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: opacity .25s ease;
+}.case-study-link:hover,
+.case-study-link:focus{
+    color: #ffffff;
+    opacity: .87;
+    text-decoration: none;
+}.case-study-link[hidden]{
+    display: none;
+}.theme-toggle{
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -3535,5 +3571,12 @@ h5 .font-weight-medium{
     color: #4a4d56;
 }:root[data-theme="dark"] .recommendation-initials{
     background: #eceef2;
+    color: #0d0f14;
+}:root[data-theme="dark"] .case-study-badge,
+:root[data-theme="dark"] .case-study-link{
+    background: #eceef2;
+    color: #0d0f14;
+}:root[data-theme="dark"] .case-study-link:hover,
+:root[data-theme="dark"] .case-study-link:focus{
     color: #0d0f14;
 }
